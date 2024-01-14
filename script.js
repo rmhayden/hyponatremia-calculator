@@ -39,7 +39,16 @@ const mostRecentUrineKEl = document.querySelector("#urine-potassium-value-input"
 const biologicalSexEl = document.querySelector("#sex-value-input")
 const weightEl = document.querySelector("#weight-value-input")
 
+const renderTBWEl = document.querySelector("#output-ideal-tbw")
+const renderICFEl = document.querySelector("#output-ideal-icf")
+const renderECFEl = document.querySelector("#output-ideal-ecf")
+const renderTBSoluteEl = document.querySelector("#output-ideal-tbosm")
+const renderICSoluteEl = document.querySelector("#output-ideal-icosm")
+const renderECSoluteEl = document.querySelector("#output-ideal-ecosm")
+
 const intervalButtonEl = document.querySelector(".run-interval-button")
+
+
 
 // EVENT LISTENERS
 
@@ -85,6 +94,7 @@ function setVars () {
   idealICOsm = 280 * idealICF
     console.log("ideal TBOsm/ICOsm/ECOsm: ", idealTBOsm, "/", idealICOsm, "/", idealECOsm)
 
+  renderIdealValues()
   calculatedVars()
 }
 
@@ -103,6 +113,16 @@ function calculatedVars () {
   intervalSoluteNet = (intervalElectrolytesIn - intervalElectrolytesOut)
 
   physiologicEquations()
+ }
+
+
+ function renderIdealValues () {
+  renderTBWEl.innerHTML = `${idealTBW.toFixed(1)} L`
+  renderICFEl.innerHTML = `${idealICF.toFixed(1)} L`
+  renderECFEl.innerHTML = `${idealECF.toFixed(1)} L`
+  renderTBSoluteEl.innerHTML = `${idealTBOsm.toFixed(1)} osm`
+  renderICSoluteEl.innerHTML = `${idealICOsm.toFixed(1)} osm`
+  renderECSoluteEl.innerHTML = `${idealECOsm.toFixed(1)} osm`
  }
 
  function physiologicEquations () {

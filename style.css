@@ -1,0 +1,110 @@
+
+
+.columns {
+   display: grid;
+   height: auto;
+   grid-template-columns: auto;
+   grid-template-rows: auto;
+   grid-template-areas: 
+       "column-1 column-2"
+}
+
+.column-1 {
+    grid-area: column-1;
+    background-color: rgb(244, 244, 226);
+}
+
+.column-2 {
+    grid-area: column-2;
+    background-color: rgb(233, 240, 251);
+    width: 40vw;
+    height: auto;
+    display: grid;
+    grid-template-areas: 
+        "column-2-upper"
+        "column-2-middle"
+        "column-2-lowest"
+}
+
+.column-2-upper {
+    grid-area: column-2-upper;
+    height: 0rem;
+}
+
+.column-2-upper p {
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.2rem;
+}
+
+.column-2-upper h4 {
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.column-2-middle {
+    grid-area: column-2-middle;
+    background-color: rgba(0, 128, 0, 0.1);
+}
+
+.column-2-middle h4 {
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.column-2-lowest {
+    grid-area: column-2-lowest;
+    background-color: rgba(0, 400, 0, 0.1);
+}
+
+.column-2-lowest h4 {
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.inline {
+    display: flex;
+
+}
+
+
+#potassium-caps-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+#salt-tabs-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+#urea-packets-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+#ddavp-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+#half-normal-saline-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+#LR-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+#potassium-manual-value-input {
+    pointer-events: none;
+    opacity: 30%
+}

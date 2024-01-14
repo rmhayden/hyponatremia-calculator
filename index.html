@@ -9,6 +9,10 @@
 </head>
 
 <body>
+
+<div class="columns">
+
+<div class="column-1">
   <table>
       Baseline Characteristics
      <tr>
@@ -46,7 +50,7 @@
       </tr>
       <tr>
         <td>
-          <label for="potassium-manual-value-input">KCl (mEq)</label>
+          <label id="potassium-manual-value-input" for="potassium-manual-value-input">KCl (mEq)</label>
         </td>
         <td>
         <input id="potassium-manual-value-input" name="potassium-manual-value-input" placeholder="">
@@ -72,7 +76,7 @@
     Interval Specific Therapies
      <tr>
         <td>
-          <label for="salt-tabs-value-input">Salt Tabs</label>
+          <label id="salt-tabs-value-input" for="salt-tabs-value-input">Salt Tabs</label>
         </td>
         <td>
         <input id="salt-tabs-value-input" name="salt-tabs-value-input" placeholder="">
@@ -80,7 +84,7 @@
      </tr>
      <tr>
         <td>
-          <label for="urea-packets-value-input">Urea Packets</label>
+          <label id="urea-packets-value-input" for="urea-packets-value-input">Urea Packets</label>
         </td>
         <td>
         <input id="urea-packets-value-input" name="urea-packets-value-input" placeholder="">
@@ -88,7 +92,7 @@
      </tr>
      <tr>
         <td>
-          <label for="potassium-caps-value-input">KCl (mEq)</label>
+          <label id="potassium-caps-value-input" for="potassium-caps-value-input">KCl (mEq)</label>
         </td>
         <td>
         <input id="potassium-caps-value-input" name="potassium-caps-value-input" placeholder="">
@@ -96,7 +100,7 @@
      </tr>
      <tr>
         <td>
-          <label for="ddavp-value-input">DDAVP</label>
+          <label id="ddavp-value-input" for="ddavp-value-input">DDAVP</label>
         </td>
         <td>
         <input id="ddavp-value-input" name="ddavp-value-input" placeholder="">
@@ -104,7 +108,7 @@
      </tr>
      <tr>
         <td>
-          <label for="d5w-value-input">D5W</label>
+          <label for="d5w-value-input">D5W (cc/hr)</label>
         </td>
         <td>
         <input id="d5w-value-input" name="d5w-value-input" placeholder="">
@@ -120,7 +124,7 @@
      </tr>
      <tr>
         <td>
-          <label for="half-normal-saline-value-input">1/2 Normal Saline (cc/hr)</label>
+          <label id="half-normal-saline-value-input" for="half-normal-saline-value-input">1/2 Normal Saline (cc/hr)</label>
         </td>
         <td>
         <input id="half-normal-saline-value-input" name="half-normal-saline-value-input" placeholder="">
@@ -128,7 +132,7 @@
      </tr>
      <tr>
         <td>
-          <label for="LR-value-input">LR (cc/hr)</label>
+          <label id="LR-value-input" for="LR-value-input">LR (cc/hr)</label>
         </td>
         <td>
         <input id="LR-value-input" name="LR-value-input" placeholder="">
@@ -196,6 +200,31 @@
       </td>
      </tr>
    </table>
+</div>  
+
+<div class="column-2">
+  <div class="column-2-upper">
+    <h4>Ideal Values</h4>
+    <div class="inline"><p>Ideal TBW:&nbsp;</p><p id="output-ideal-tbw"></p></div>
+    <div class="inline"><p>Ideal ICW:&nbsp;</p><p id="output-ideal-icf"></p></div>
+    <div class="inline"><p>Ideal ECW:&nbsp;</p><p id="output-ideal-ecf"></p></div>
+
+    <div class="inline"><p>Ideal TB Solute:&nbsp;</p><p id="output-ideal-tbosm"></p></div>
+    <div class="inline"><p>Ideal IC Solute:&nbsp;</p><p id="output-ideal-icosm"></p></div>
+    <div class="inline"><p>Ideal EC Solute:&nbsp;</p><p id="output-ideal-ecosm"></p></div>
+  </div>
+  <div class="column-2-middle">
+    <h4>Initial or Most Recent Values</h4>
+    <p>lower updated areas here:</p>
+  </div>
+  <div class="column-2-lowest">
+    <h4>Predicted Post-Interval Values</h4>
+    <p>lowest area:</p>
+  </div>
+
+</div>
+
+</div>
 
    <br>
    <br>
