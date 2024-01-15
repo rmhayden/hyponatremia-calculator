@@ -35,7 +35,78 @@
             </select>
         </td>
       </tr>
+    </table>
+    <button class="set-baseline-button" type="button"><h5>Set Baseline Characteristics</h5></button>
+   <br>
+   <br>
+   <table>
+    Most Recent or Average Pre-Interval Values
+    <tr>
+        <td>
+        <label for="serum-sodium-value-input">Serum Sodium</label>
+        </td>
+        <td>
+        <input id="serum-sodium-value-input" name="serum-sodium-value-input" placeholder="">
+      </td>
+     </tr>
+     <tr>
+        <td>
+          <label id="serum-potassium-value-input" for="serum-potassium-value-input">Serum Potassium</label>
+        </td>
+        <td>
+        <input id="serum-potassium-value-input" name="serum-potassium-value-input" placeholder="">
+      </td>
+     </tr>
+     <tr>
+        <td>
+          <label for="urine-output-value-input">Urine Output (cc/hr)</label>
+        </td>
+        <td>
+        <input id="urine-output-value-input" name="urine-output-value-input" placeholder="">
+      </td>
+     </tr>
+     <tr>
+        <td>
+          <label for="urine-osm-value-input">Urine Osm.</label>
+        </td>
+        <td>
+        <input id="urine-osm-value-input" name="urine-osm-value-input" placeholder="">
+      </td>
+     </tr>
+     <tr>
+        <td>
+          <label for="urine-sodium-value-input">Urine Na</label>
+        </td>
+        <td>
+        <input id="urine-sodium-value-input" name="urine-sodium-value-input" placeholder="">
+      </td>
+     </tr>
+     <tr>
+        <td>
+          <label for="urine-potassium-value-input">Urine K</label>
+        </td>
+        <td>
+        <input id="urine-potassium-value-input" name="urine-potassium-value-input" placeholder="">
+      </td>
+     </tr>
+     <tr>
+      <td>
+        <label for="pre-interval-weight-value-input">Weight (kg)</label>
+      </td>
+      <td>
+      <input id="pre-interval-weight-value-input" name="pre-interval-weight-value-input" placeholder="">
+    </td>
+   </tr>
+     <tr>
+      <td>
+        <label id="ecf-volume-value-input" for="ecf-volume-value-input">ECF Volume</label>
+      </td>
+      <td>
+      <input type="range" id="ecf-volume-value-input" name="ecf-volume-value-input" min="-60" max="150" value="0">
+      </td>
+   </tr>
    </table>
+   <button class="set-pre-interval-button" type="button"><h5>Set Pre-Interval Values</h5></button>
    <br>
    <br>
    <table>
@@ -147,59 +218,6 @@
       </td>
      </tr>
    </table>
-   <br>
-   <br>
-   <table>
-    Most Recent or Average Interval Values
-    <tr>
-        <td>
-        <label for="serum-sodium-value-input">Serum Sodium</label>
-        </td>
-        <td>
-        <input id="serum-sodium-value-input" name="serum-sodium-value-input" placeholder="">
-      </td>
-     </tr>
-     <tr>
-        <td>
-          <label for="serum-potassium-value-input">Serum Potassium</label>
-        </td>
-        <td>
-        <input id="serum-potassium-value-input" name="serum-potassium-value-input" placeholder="">
-      </td>
-     </tr>
-     <tr>
-        <td>
-          <label for="urine-output-value-input">Urine Output (cc/hr)</label>
-        </td>
-        <td>
-        <input id="urine-output-value-input" name="urine-output-value-input" placeholder="">
-      </td>
-     </tr>
-     <tr>
-        <td>
-          <label for="urine-osm-value-input">Urine Osm.</label>
-        </td>
-        <td>
-        <input id="urine-osm-value-input" name="urine-osm-value-input" placeholder="">
-      </td>
-     </tr>
-     <tr>
-        <td>
-          <label for="urine-sodium-value-input">Urine Na</label>
-        </td>
-        <td>
-        <input id="urine-sodium-value-input" name="urine-sodium-value-input" placeholder="">
-      </td>
-     </tr>
-     <tr>
-        <td>
-          <label for="urine-potassium-value-input">Urine K</label>
-        </td>
-        <td>
-        <input id="urine-potassium-value-input" name="urine-potassium-value-input" placeholder="">
-      </td>
-     </tr>
-   </table>
 </div>  
 
 <div class="column-2">
@@ -214,8 +232,20 @@
     <div class="inline"><p>Ideal EC Solute:&nbsp;</p><p id="output-ideal-ecosm"></p></div>
   </div>
   <div class="column-2-middle">
-    <h4>Initial or Most Recent Values</h4>
-    <p>lower updated areas here:</p>
+    <h4>Pre-Interval Values</h4>
+    <div class="inline"><p>TBW:&nbsp;</p><p id="output-pre-interval-tbw"></p></div>
+    <div class="inline"><p>ICW:&nbsp;</p><p id="output-pre-interval-icf"></p></div>
+    <div class="inline"><p>ECW:&nbsp;</p><p id="output-pre-interval-ecf"></p></div>
+
+    <div class="inline"><p>TB Solute:&nbsp;</p><p id="output-pre-interval-tbosm"></p></div>
+    <div class="inline"><p>IC Solute:&nbsp;</p><p id="output-pre-interval-icosm"></p></div>
+    <div class="inline"><p>EC Solute:&nbsp;</p><p id="output-pre-interval-ecosm"></p></div>
+    <br>
+    <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-pre-interval-sodium"></p></div>
+    <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-pre-interval-potassium"></p></div>
+    <div class="inline"><p>Urine Tonicity:&nbsp;</p><p id="output-pre-interval-urine-tonicity"></p></div>
+ 
+
   </div>
   <div class="column-2-lowest">
     <h4>Predicted Post-Interval Values</h4>
@@ -229,7 +259,6 @@
    <br>
    <br>
    <button class="run-interval-button" type="button"><h4>Update Interval</h4></button>
-
 
    <br>
    <br>

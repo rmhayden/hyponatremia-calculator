@@ -49,6 +49,12 @@
     background-color: rgba(0, 128, 0, 0.1);
 }
 
+.column-2-middle p {
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.2rem;
+}
+
 .column-2-middle h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
@@ -59,6 +65,12 @@
 .column-2-lowest {
     grid-area: column-2-lowest;
     background-color: rgba(0, 400, 0, 0.1);
+}
+
+.column-2-lowest p {
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.2rem;
 }
 
 .column-2-lowest h4 {
@@ -75,6 +87,16 @@
 
 
 #potassium-caps-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+#serum-potassium-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+.disable {
     pointer-events: none;
     opacity: 30%
 }
@@ -108,3 +130,30 @@
     pointer-events: none;
     opacity: 30%
 }
+
+#ecf-volume-value-input {
+    pointer-events: none;
+    opacity: 30%
+}
+
+.set-baseline-button {
+    margin-top: 0.5rem;
+    height: 2rem;
+}
+
+.set-baseline-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+
+.set-pre-interval-button {
+    margin-top: 0.5rem;
+    height: 2rem;
+}
+
+.set-pre-interval-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+

@@ -39,6 +39,8 @@ const mostRecentUrineKEl = document.querySelector("#urine-potassium-value-input"
 const biologicalSexEl = document.querySelector("#sex-value-input")
 const weightEl = document.querySelector("#weight-value-input")
 
+const preIntervalWeightEl = document.querySelector("#pre-interval-weight-value-input")
+
 const renderTBWEl = document.querySelector("#output-ideal-tbw")
 const renderICFEl = document.querySelector("#output-ideal-icf")
 const renderECFEl = document.querySelector("#output-ideal-ecf")
@@ -46,20 +48,41 @@ const renderTBSoluteEl = document.querySelector("#output-ideal-tbosm")
 const renderICSoluteEl = document.querySelector("#output-ideal-icosm")
 const renderECSoluteEl = document.querySelector("#output-ideal-ecosm")
 
+const renderPreIntervalTBWEl = document.querySelector("#output-pre-interval-tbw")
+const renderPreIntervalICFEl = document.querySelector("#output-pre-interval-icf")
+const renderPreIntervalECFEl = document.querySelector("#output-pre-interval-ecf")
+const renderPreIntervalTBSoluteEl = document.querySelector("#output-pre-interval-tbosm")
+const renderPreIntervalICSoluteEl = document.querySelector("#output-pre-interval-icosm")
+const renderPreIntervalECSoluteEl = document.querySelector("#output-pre-interval-ecosm")
+
+const renderPreIntervalSodiumEl = document.querySelector("#output-pre-interval-sodium")
+const renderPreIntervalPotassiumEl = document.querySelector("#output-pre-interval-potassium")
+const renderPreIntervalUrineTonicityEl = document.querySelector("#output-pre-interval-urine-tonicity")
+
+
+
+const setBaselinesButtonEl = document.querySelector(".set-baseline-button")
 const intervalButtonEl = document.querySelector(".run-interval-button")
 
 
 
 // EVENT LISTENERS
 
+setBaselinesButtonEl.addEventListener('click', setBaselineValues)
 intervalButtonEl.addEventListener('click', runInterval)
 
 // FUNCTIONS
 
+function setBaselineValues() {
+  setVars()
+  setBaselinesButtonEl.setAttribute('disabled', true);
+  biologicalSexEl.setAttribute('disabled', true);
+  weightEl.setAttribute('disabled', true);
+}
+
 function runInterval () {
   // active once button clicked
-  setVars()
-
+  calculatedVars()
   // TODO: remember to set the inputs to zero for the next interval!
 }
 
@@ -95,8 +118,8 @@ function setVars () {
     console.log("ideal TBOsm/ICOsm/ECOsm: ", idealTBOsm, "/", idealICOsm, "/", idealECOsm)
 
   renderIdealValues()
-  calculatedVars()
 }
+
 
 function calculatedVars () {
 
@@ -120,9 +143,9 @@ function calculatedVars () {
   renderTBWEl.innerHTML = `${idealTBW.toFixed(1)} L`
   renderICFEl.innerHTML = `${idealICF.toFixed(1)} L`
   renderECFEl.innerHTML = `${idealECF.toFixed(1)} L`
-  renderTBSoluteEl.innerHTML = `${idealTBOsm.toFixed(1)} osm`
-  renderICSoluteEl.innerHTML = `${idealICOsm.toFixed(1)} osm`
-  renderECSoluteEl.innerHTML = `${idealECOsm.toFixed(1)} osm`
+  renderTBSoluteEl.innerHTML = `${idealTBOsm.toFixed(0)} mOsm`
+  renderICSoluteEl.innerHTML = `${idealICOsm.toFixed(0)} mOsm`
+  renderECSoluteEl.innerHTML = `${idealECOsm.toFixed(0)} mOsm`
  }
 
  function physiologicEquations () {
