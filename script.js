@@ -15,6 +15,7 @@ let urineTonicity = 0
 let intervalElectrolytesOut = 0
   // >> for now, outs will combine Na and K (x2 with anions)
 let intervalSoluteNet = 0
+let intervalWaterNet = 0
 
 let idealTBW = 0
 let idealICF = 0
@@ -36,9 +37,22 @@ let preIntervalSodium = 0
 let preIntervalPotassium = 0
 let preIntervalUrineTonicity = 0
 
+let preIntervalTBOsmolality = 0
+
+let postIntervalTBW = 0
+let postIntervalICF = 0
+let postIntervalECF = 0
+let postIntervalTBOsm = 0
+let postIntervalICOsm = 0
+let postIntervalECOsm = 0
+let postIntervalSodium = 0
+let postIntervalPotassium = 0
+
+let postIntervalTBOsmolality = 0
+
+
 let biologicalSexVar = ""
 
-let preIntervalTBOsmolality = 0
 
 let SIADH = true
   // for now, default SIADH true
@@ -71,7 +85,6 @@ let remainingMinutes = 0
 const intervalWaterInEl = document.querySelector("#water-manual-value-input")
 const intervalNaClInEl = document.querySelector("#na-cl-manual-value-input")
 const intervalKClInEl = document.querySelector("#potassium-manual-value-input")
-const intervalWaterOutEl = document.querySelector("#urine-output-value-input")
 const mostRecentSodiumEl = document.querySelector("#serum-sodium-value-input")
 const mostRecentPotassiumEl = document.querySelector("#serum-potassium-value-input")
 const mostRecentUrineOsmEl = document.querySelector("#urine-osm-value-input")
@@ -241,12 +254,84 @@ function calculatedVars () {
   
   // recall, the "interval specific therapies" will be added by clicking a specific button, so these will easily add to the total field with a separate function triggered that way
 
-  // 
 
-  intervalElectrolytesOut = (intervalWaterOut * urineTonicity)
-  // for now, we are ignoring ineffective solutes
+
+// NORMAL SALINE:
+  let soluteAddedFromNormalSaline = 0
+  let waterAddedFromNormalSaline = 0
+   
+  let rateNormalSaline = Number(intakeNormalSalineEl.value)
+    // console.log("normal saline rate: ", rateNormalSaline, " in context of total hours as fraction: ", cummulativeHours)
+  let totalIntervalNormalSaline = (rateNormalSaline * Number(cummulativeHours))
+    // console.log("total normal saline: ", totalIntervalNormalSaline)
+  
+    soluteAddedFromNormalSaline = (totalIntervalNormalSaline * 0.308)
+      // console.log("solute added from normal saline: ", soluteAddedFromNormalSaline)
+    waterAddedFromNormalSaline = (totalIntervalNormalSaline * 0.001)
+
+    intervalElectrolytesIn = (intervalElectrolytesIn + soluteAddedFromNormalSaline)
+    intervalWaterIn = intervalWaterIn + waterAddedFromNormalSaline
+
+ // D5W:
+   let waterAddedFromD5W = 0
+   let rateD5W = Number(intakeD5WEl.value)
+   let totalIntervalD5W = (rateD5W * Number(cummulativeHours))
+    waterAddedFromD5W = (totalIntervalD5W * 0.001)
+
+    intervalWaterIn = intervalWaterIn + waterAddedFromD5W
+
+// HYPERTONIC SALINE:
+    let waterAddedFromHypertonicSaline = 0
+    let soluteAddedFromHypertonicSaline = 0
+
+    let rateHypertonicSaline = Number(intakeHypertonicSalineEl.value)
+    let totalIntervalHypertonicSaline = (rateHypertonicSaline * Number(cummulativeHours))
+
+      waterAddedFromHypertonicSaline = (totalIntervalHypertonicSaline * 0.001)
+      soluteAddedFromHypertonicSaline = (totalIntervalHypertonicSaline * 1.026)
+
+    intervalWaterIn = intervalWaterIn + waterAddedFromHypertonicSaline
+    intervalElectrolytesIn = intervalElectrolytesIn + soluteAddedFromHypertonicSaline
+
+// URINE:
+
+  let waterLostFromUrine = 0
+  let electrolytesLostFromUrine = 0
+
+  let rateUrineOutput = Number(outputUrineOutputEl.value)
+    console.log("urine output rate: ", rateUrineOutput)
+
+  let totalIntervalUrineOutput = (rateUrineOutput * Number(cummulativeHours))
+
+    waterLostFromUrine = (totalIntervalUrineOutput * 0.001)
+    
+    electrolytesLostFromUrine = ((Number(mostRecentUrineNaEl.value) + Number(mostRecentUrineKEl.value)) * 2 * waterLostFromUrine)
+    // TODO: double check this: alternative below:   
+          // intervalElectrolytesOut = (intervalWaterOut * urineTonicity)
+
+    intervalWaterOut = intervalWaterOut + waterLostFromUrine
+    intervalElectrolytesOut = intervalElectrolytesOut + electrolytesLostFromUrine
+
+  // NETS:
 
   intervalSoluteNet = (intervalElectrolytesIn - intervalElectrolytesOut)
+  intervalWaterNet = (intervalWaterIn - intervalWaterOut)
+
+  // now for the ACUTE setting between intervals, we WILL keep IC solute constant (for now - until later when we add potassium... )
+
+  postIntervalTBW = preIntervalTBW + intervalWaterNet
+  postIntervalTBOsm = preIntervalTBOsm + intervalSoluteNet
+  postIntervalTBOsmolality = postIntervalTBOsm / postIntervalTBW
+
+  postIntervalSodium = (postIntervalTBOsmolality / 2)
+
+    console.log("post interval osmolarity and sodium: ", postIntervalTBOsmolality, postIntervalSodium)
+  
+  postIntervalICOsm = preIntervalICOsm
+  postIntervalICF = postIntervalICOsm / postIntervalTBOsmolality
+
+  postIntervalECF = postIntervalTBW - postIntervalICF
+  postIntervalECOsm = postIntervalTBOsmolality * postIntervalECF
 
   //
 
@@ -360,16 +445,19 @@ function calculatedVars () {
 
  function renderPostIntervalValues () {
 
-  renderPostIntervalTBWEl.innerHTML = `FIX ${idealTBW.toFixed(1)} L`
-  renderPostIntervalICFEl.innerHTML = `fix ${idealICF.toFixed(1)} L`
-  renderPostIntervalECFEl.innerHTML = `fix ${idealECF.toFixed(1)} L`
-  renderPostIntervalTBSoluteEl.innerHTML = `fix ${idealTBOsm.toFixed(0)} mOsm`
-  renderPostIntervalICSoluteEl.innerHTML = `fix ${idealICOsm.toFixed(0)} mOsm`
-  renderPostIntervalECSoluteEl.innerHTML = `fix ${idealECOsm.toFixed(0)} mOsm`
+  renderPostIntervalTBWEl.innerHTML = `${postIntervalTBW.toFixed(1)} L`
+  renderPostIntervalICFEl.innerHTML = `${postIntervalICF.toFixed(1)} L`
+  renderPostIntervalECFEl.innerHTML = `${postIntervalECF.toFixed(1)} L`
+  renderPostIntervalTBSoluteEl.innerHTML = `${postIntervalTBOsm.toFixed(0)} mOsm`
+  renderPostIntervalICSoluteEl.innerHTML = `${postIntervalICOsm.toFixed(0)} mOsm`
+  renderPostIntervalECSoluteEl.innerHTML = `${postIntervalECOsm.toFixed(0)} mOsm`
 
   renderIntervalDuration.innerHTML = `${cummulativeHoursWithoutRemainder} hr ${remainingMinutes} min`
 
   renderPostIntervalEndTimeEl.innerHTML = `${postIntervalTimeEl.value} (Day ${currentDay}, Hr ${currentHour})`
+
+  renderPostIntervalSodiumEl.innerHTML = `${postIntervalSodium.toFixed(0)} mEq/L`
+  renderPostIntervalPotassiumEl.innerHTML = `${postIntervalPotassium.toFixed(0)} mEq/L`
 
  }
 
@@ -468,7 +556,6 @@ function calculatedVars () {
   currentHour = 0
   currentDay = 0
 
-
   renderInitialStateValues()
  }
 
@@ -519,6 +606,8 @@ function calculatedVars () {
     intakeHypertonicSalineEl.removeAttribute('disabled')
     intakeNormalSalineEl.removeAttribute('disabled')
     intakeD5WEl.removeAttribute('disabled')
+
+    outputUrineOutputEl.removeAttribute('disabled')
 
     intervalButtonEl.removeAttribute('disabled')
 
