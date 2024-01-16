@@ -54,9 +54,16 @@ let currentHour = -1 // starts negative 1 so it can become zero once initial sta
 
 let currentMinute = -1
 
+let cummulativeMins = 0
+
 let currentDay = -1 // also starts negative 1
 
 let hourZeroValue = -1 // will be set based on which hour the time is "within" for the table
+
+let cummulativeHours = 0
+let cummulativeHoursWithoutRemainder = 0
+let remainingMinutes = 0
+
 
 
 // CACHED ELEMENTS
@@ -105,6 +112,19 @@ const renderPreIntervalUrineTonicityEl = document.querySelector("#output-pre-int
 
 const preIntervalSodiumEl = document.querySelector('#serum-sodium-pre-interval-input')
 const preIntervalPotassiumEl = document.querySelector('#serum-potassium-pre-interval-input')
+
+//poster interval:
+const renderPostIntervalTBWEl = document.querySelector("#output-post-interval-tbw")
+const renderPostIntervalICFEl = document.querySelector("#output-post-interval-icf")
+const renderPostIntervalECFEl = document.querySelector("#output-post-interval-ecf")
+const renderPostIntervalTBSoluteEl = document.querySelector("#output-post-interval-tbosm")
+const renderPostIntervalICSoluteEl = document.querySelector("#output-post-interval-icosm")
+const renderPostIntervalECSoluteEl = document.querySelector("#output-post-interval-ecosm")
+
+const renderPostIntervalSodiumEl = document.querySelector("#output-post-interval-sodium")
+const renderPostIntervalPotassiumEl = document.querySelector("#output-post-interval-potassium")
+//
+
 
 const renderTimeZeroEl = document.querySelector("#time-zero-value-output")
 
@@ -212,6 +232,10 @@ function setVars () {
 
 function calculatedVars () {
 
+// first, update the clock to get time value components
+  updateClock()
+
+// manual values not yet here
   intervalElectrolytesIn = intervalNaClIn + intervalKClIn
   // for now, just sodium chloride but later will include K
   
@@ -224,7 +248,129 @@ function calculatedVars () {
 
   intervalSoluteNet = (intervalElectrolytesIn - intervalElectrolytesOut)
 
-  physiologicEquations()
+  //
+
+  renderPostIntervalValues()
+
+ }
+
+
+ function updateClock () {
+
+  // first, update currentDay, currentHour, currentMin from pre-interval time:
+
+  console.log("pre-interval aka current time: ", currentTime)
+  console.log("pre-interval slice hour: ", currentTime.slice(0, 2))
+  console.log("pre-interval slice min: ", currentTime.slice(3, 5))
+
+  let currentHourValue = Number(currentTime.slice(0, 2))
+  let currentMinuteValue = Number(currentTime.slice(3, 5))
+
+  console.log("end point time given? ", (intervalEndTimeEl.value))
+
+  let endPointHourValue = Number((intervalEndTimeEl.value).slice(0, 2))
+  let endPointMinuteValue = Number((intervalEndTimeEl.value).slice(3, 5))
+
+  console.log("end point hour and min? ", endPointHourValue, endPointMinuteValue)
+  console.log(typeof(endPointHourValue))
+
+  // cummulativeMins = 0
+
+  let intervalRemainingMins = 0
+
+    intervalRemainingMins = (60 - currentMinuteValue) // how many mins 'til next hour
+
+  let intervalPastHourMins = 0
+
+    intervalPastHourMins = endPointMinuteValue
+
+
+  let intervalMinsFromHours = (((endPointHourValue) - (currentHourValue + 1)) * 60)
+    console.log("interval mins from hours: ", intervalMinsFromHours)
+
+  let intervalCummulativeMins = 0
+
+    intervalCummulativeMins = (intervalMinsFromHours + intervalRemainingMins + endPointMinuteValue)
+
+    console.log("interval cummulative minutes: ", intervalCummulativeMins)
+
+
+  console.log("pre-interval aka current time: ", currentTime)
+  console.log("pre-interval aka current day/hour/minute: ", currentDay, currentHour, currentMinute)
+
+
+  // simpler case, if end point hour number is HIGHER (did not cross midmnight)
+
+  console.log("values? ", currentHourValue, endPointHourValue)
+
+  // case where we've crossed midnight (since end point hour is lower)
+  if (endPointHourValue < currentHourValue) {
+    console.log("crossed midnight")
+
+      // since midnight crossed, we will update the "day counter"
+
+      currentDay = (currentDay + 1)
+
+      let hoursUntilMidnight = 0
+        hoursUntilMidnight = (24 - currentHourValue)
+        console.log("hours 'til midnight: ", hoursUntilMidnight, " = ", "24 - ", currentHourValue)
+
+      intervalMinsFromHours = (((endPointHourValue) + (hoursUntilMidnight - 1)) * 60)
+        console.log(endPointHourValue, " + (", hoursUntilMidnight, " - 1) = ",  intervalMinsFromHours)
+        console.log("updated interval mins from hours: ", intervalMinsFromHours)
+
+      intervalCummulativeMins = (intervalMinsFromHours + intervalRemainingMins + endPointMinuteValue)
+
+        console.log("updated interval cummulative minutes: ", intervalCummulativeMins)
+
+  }
+
+
+  if (intervalCummulativeMins < 60) {
+    alert("Interval time duration must be at least one hour")
+  }
+  // 
+
+  // now, update current HOUR (first hour is hour zero, so once crosses into new hour that's hour 1... we ignore the remainder (extra mins after the hour!)
+
+  cummulativeHours = Number(intervalCummulativeMins / 60).toFixed(2)
+    console.log("cummulative hours to fixed 2? ", cummulativeHours)
+
+    // now separate if over 10 to slice appropriately
+
+    if (cummulativeHours < 10) {
+      cummulativeHoursWithoutRemainder = Number(cummulativeHours.slice(0, 1))
+      console.log("cummualative hours to fixed 1? ", cummulativeHoursWithoutRemainder)
+    currentHour = Number(currentHour + cummulativeHoursWithoutRemainder)
+      console.log(currentHour)
+    } else {
+    cummulativeHoursWithoutRemainder = Number(cummulativeHours.slice(0, 2))
+      console.log("cummualative hours to fixed 1? ", cummulativeHoursWithoutRemainder)
+    currentHour = Number(currentHour + cummulativeHoursWithoutRemainder)
+      console.log(currentHour)
+    }
+
+  remainingMinutes = (Number(cummulativeHours.slice(-3)) * 60)
+    console.log("remaining minutes: ", remainingMinutes)
+
+  remainingMinutes = remainingMinutes.toFixed(0)
+
+ }
+
+
+ function renderPostIntervalValues () {
+
+  renderPostIntervalTBWEl.innerHTML = `FIX ${idealTBW.toFixed(1)} L`
+  renderPostIntervalICFEl.innerHTML = `fix ${idealICF.toFixed(1)} L`
+  renderPostIntervalECFEl.innerHTML = `fix ${idealECF.toFixed(1)} L`
+  renderPostIntervalTBSoluteEl.innerHTML = `fix ${idealTBOsm.toFixed(0)} mOsm`
+  renderPostIntervalICSoluteEl.innerHTML = `fix ${idealICOsm.toFixed(0)} mOsm`
+  renderPostIntervalECSoluteEl.innerHTML = `fix ${idealECOsm.toFixed(0)} mOsm`
+
+  renderIntervalDuration.innerHTML = `${cummulativeHoursWithoutRemainder} hr ${remainingMinutes} min`
+
+  renderPostIntervalEndTimeEl.innerHTML = `${postIntervalTimeEl.value} (Day ${currentDay}, Hr ${currentHour})`
+
  }
 
 
@@ -388,17 +534,10 @@ function calculatedVars () {
 
    preIntervalUrineTonicity = urineTonicity
 
-   updateClock()
    renderPreIntervalValues()
 
  }
 
-
- function updateClock () {
-
-  // for next time interval, will need this updated
-
- }
 
 
  function renderPreIntervalValues () {
@@ -417,15 +556,6 @@ function calculatedVars () {
   renderPreIntervalUrineTonicityEl.innerHTML = `${preIntervalUrineTonicity.toFixed(0)} %`
 
   renderCurrentTimeEl.innerHTML = `${currentTime} (Day ${currentDay}, Hr ${currentHour})`
-
- }
-
-
- function physiologicEquations () {
-
-
-
-    // 
 
  }
 
