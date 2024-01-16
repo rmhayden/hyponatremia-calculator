@@ -123,7 +123,6 @@ const intervalButtonEl = document.querySelector(".run-interval-button")
 
 const timeZeroEl = document.querySelector("#time-zero-value-input")
 
-
 const intakeD5WEl = document.querySelector("#d5w-value-input")
 const intakeNormalSalineEl = document.querySelector("#normal-saline-value-input")
 const intakeHypertonicSalineEl = document.querySelector("#hypertonic-value-input")
@@ -133,6 +132,8 @@ const outputUrineOutputEl = document.querySelector("#urine-output-value-input")
 const intervalEndTimeEl = document.querySelector("#end-time-value-input")
 
 const renderPostIntervalEndTimeEl = document.querySelector("#render-post-interval-time")
+
+const renderIntervalDuration = document.querySelector("#interval-duration")
 
 // EVENT LISTENERS
 
@@ -373,6 +374,7 @@ function calculatedVars () {
     intakeNormalSalineEl.removeAttribute('disabled')
     intakeD5WEl.removeAttribute('disabled')
 
+    intervalButtonEl.removeAttribute('disabled')
 
   // holding off on potassium for now, but would be similar
      console.log("here is the preinterval sodium from that function: ", preIntervalSodium)
