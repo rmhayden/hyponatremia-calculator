@@ -16,7 +16,7 @@
 
 .column-2 {
     grid-area: column-2;
-    background-color: rgb(233, 240, 251);
+    background-color: rgb(235, 240, 243);
     width: 40vw;
     height: auto;
     display: grid;
@@ -94,10 +94,11 @@
 
 .column-2-middle {
     grid-area: column-2-middle;
-    background-color: rgba(0, 128, 0, 0.3);
-    height: 15rem;
+    /* background-color: rgba(0, 128, 0, 0.3); */
+    height: 16rem;
     width: 40vw;
     position: relative;
+    top: 2.5rem;
     display: grid;
     grid-template-areas: "column-2-middle-left column-2-middle-right";
 }
@@ -134,10 +135,11 @@
 
 .column-2-middle-2 {
     grid-area: column-2-middle-2;
-    background-color: rgba(122, 160, 122, 0.2);
+    /* background-color: rgba(122, 160, 122, 0.2); */
     position: relative;
     width: 40vw;
-    top: -8.3rem;
+    top: -3.5rem;
+    height: 12rem;
     display: grid;
     grid-template-areas: "column-2-middle-2-left column-2-middle-2-right";
 }
@@ -147,14 +149,14 @@
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
     position: relative;
-    top: 4rem;
+    top: 1rem;
 }
 
 .column-2-middle-2 h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
     position: relative;
-    top: -15rem;
+    top: -11.5rem;
     display: flex;
     justify-content: center;
 }
@@ -176,18 +178,41 @@
 
 .column-2-lowest {
     grid-area: column-2-lowest;
-    background-color: rgba(0, 400, 0, 0.1);
+    /* background-color: rgba(0, 400, 0, 0.1); */
+    display: grid;
+    grid-template-areas: "column-2-lowest-left column-2-lowest-right";
+    position: relative;
+    top: -6rem;
+    width: 40vw;
+}
+
+.column-2-lowest-left {
+    grid-area: column-2-lowest-left;
+    height: auto;
+    position: relative;
+}
+
+.column-2-lowest-right {
+    grid-area: column-2-lowest-right;
+    height: auto;
+    position: relative;
+    margin-left: -12rem;
+    margin-right: 0rem;
 }
 
 .column-2-lowest p {
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
+    position: relative;
+    top: -0.5rem;
 }
 
 .column-2-lowest h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
+    position: relative;
+    top: -15.2rem;
     display: flex;
     justify-content: center;
 }
@@ -245,6 +270,16 @@
 #ecf-volume-value-input {
     pointer-events: none;
     opacity: 30%
+}
+
+.run-interval-button {
+    margin-top: 0.5rem;
+    height: 2rem;
+}
+
+.run-interval-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
 }
 
 .set-baseline-button {

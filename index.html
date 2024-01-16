@@ -119,7 +119,7 @@
       <label for="urine-osm-value-input">Urine Osm.</label>
     </td>
     <td>
-    <input id="urine-osm-value-input" name="urine-osm-value-input" placeholder="">
+    <input disabled="true" id="urine-osm-value-input" name="urine-osm-value-input" placeholder="">
   </td>
  </tr>
  <tr>
@@ -127,7 +127,7 @@
       <label for="urine-sodium-value-input">Urine Na</label>
     </td>
     <td>
-    <input id="urine-sodium-value-input" name="urine-sodium-value-input" placeholder="">
+    <input disabled="true" id="urine-sodium-value-input" name="urine-sodium-value-input" placeholder="">
   </td>
  </tr>
  <tr>
@@ -135,7 +135,7 @@
       <label for="urine-potassium-value-input">Urine K</label>
     </td>
     <td>
-    <input id="urine-potassium-value-input" name="urine-potassium-value-input" placeholder="">
+    <input disabled="true" id="urine-potassium-value-input" name="urine-potassium-value-input" placeholder="">
   </td>
  </tr>
 </table>
@@ -176,9 +176,8 @@
       <br> 
       <table>
 
-  <strong class="center gap-below">Interval Ins/Outs</strong>
+  <strong class="center gap-below">Interval Ins / Outs and Time Duration</strong>
     
-    Specific Therapies
      <tr>
         <td>
           <label id="salt-tabs-value-input" for="salt-tabs-value-input">Salt Tabs</label>
@@ -216,7 +215,7 @@
           <label for="d5w-value-input">D5W (cc/hr)</label>
         </td>
         <td>
-        <input id="d5w-value-input" name="d5w-value-input" placeholder="">
+        <input disabled="true"  id="d5w-value-input" name="d5w-value-input" placeholder="">
       </td>
      </tr>
      <tr>
@@ -224,7 +223,7 @@
           <label for="normal-saline-value-input">Normal Saline (cc/hr)</label>
         </td>
         <td>
-        <input id="normal-saline-value-input" name="normal-saline-value-input" placeholder="">
+        <input disabled="true"  id="normal-saline-value-input" name="normal-saline-value-input" placeholder="">
       </td>
      </tr>
      <tr>
@@ -248,32 +247,38 @@
           <label for="hypertonic-value-input">Hypertonic (3%) Saline (cc/hr)</label>
         </td>
         <td>
-        <input id="hypertonic-value-input" name="hypertonic-value-input" placeholder="">
+        <input disabled="true"  id="hypertonic-value-input" name="hypertonic-value-input" placeholder="">
       </td>
      </tr>
      <tr>
 
       <td>
         <br>
-        <br>
         <label for="urine-output-value-input">Urine Output (cc/hr)</label>
       </td>
       <td>
         <br>
-        <br>
-      <input id="urine-output-value-input" name="urine-output-value-input" placeholder="">
+      <input disabled="true"  id="urine-output-value-input" name="urine-output-value-input" placeholder="">
     </td>
    </tr>
+
+
+   <tr>
+    <td>
+      <br>
+    <label for="end-time-value-input">Interval End Time</label>
+    </td>
+    <td>
+      <br>
+    <input disabled="true" type="time" id="end-time-value-input" name="end-time-value-input" placeholder="">
+  </td>
+ </tr>
+
    </table>
 
-
-   <table>
-    <br>
-    <strong class="center gap-below">Post-Interval Time</strong>
-
-
-   </table>
-
+<button disabled="true" class="run-interval-button" type="button"><h5>Update Interval</h5></button>
+<br>
+<br>
 </div>  
 
 
@@ -323,10 +328,11 @@
   </div>
   <div class="column-2-middle-2">
     <div class="center">
-      <div>
-        <h4>Pre-Interval Values</h4>
-        <h4 id="render-pre-interval-current-time">time here</h4>
-      </div>
+    
+        <h4>Pre-Interval:</h4>
+        <h4>&nbsp;</h4>
+        <h4 id="render-pre-interval-current-time"></h4>
+  
     </div>
     <div class="column-2-middle-2-left">
       <div class="inline"><p>TBW:&nbsp;</p><p id="output-pre-interval-tbw"></p></div>
@@ -349,18 +355,33 @@
   </div>
   <div class="column-2-lowest">
     <div class="center">
-      <h4>Predicted Post-Interval Values</h4>
+      <h4>Post-Interval Prediction:</h4>
+      <h4>&nbsp;</h4>
+      <h4 id="render-post-interval-time"></h4>
     </div>
-    <p>lowest area:</p>
+
+    <div class="column-2-lowest-left">
+      <div class="inline"><p>TBW:&nbsp;</p><p id="output-post-interval-tbw"></p></div>
+      <div class="inline"><p>ICW:&nbsp;</p><p id="output-post-interval-icf"></p></div>
+      <div class="inline"><p>ECW:&nbsp;</p><p id="output-post-interval-ecf"></p></div>
+      <br>
+      <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-post-interval-sodium"></p><p id="time-zero-value-output"></p></div>
+      <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-post-interval-potassium"></p></div>      <div>
+        <br>
+        <p class="comment" id="post-interval-comments"></p>
+       </div>
+    </div>
+     <div class="column-2-lowest-right">
+      <div class="inline"><p>TB Solute:&nbsp;</p><p id="output-post-interval-tbosm"></p></div>
+      <div class="inline"><p>IC Solute:&nbsp;</p><p id="output-post-interval-icosm"></p></div>
+      <div class="inline"><p>EC Solute:&nbsp;</p><p id="output-post-interval-ecosm"></p></div>
+      </div> 
+
+
   </div>
-
 </div>
 
 </div>
-
-   <br>
-   <br>
-   <button class="run-interval-button" type="button"><h4>Update Interval</h4></button>
 
    <br>
    <br>
