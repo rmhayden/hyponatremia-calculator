@@ -25,6 +25,24 @@ let idealTBOsm = 0
 let idealICOsm = 0
 let idealECOsm = 0
 
+
+let preIntervalTBW = 0
+let preIntervalICF = 0
+let preIntervalECF = 0
+let preIntervalTBOsm = 0
+let preIntervalICOsm = 0
+let preIntervalECOsm = 0
+let preIntervalSodium = 0
+let preIntervalPotassium = 0
+let preIntervalUrineTonicity = 0
+
+let biologicalSexVar = ""
+
+let preIntervalTBOsmolality = 0
+
+let SIADH = true
+  // for now, default SIADH true
+
 // CACHED ELEMENTS
 
 const intervalWaterInEl = document.querySelector("#water-manual-value-input")
@@ -62,6 +80,7 @@ const renderPreIntervalUrineTonicityEl = document.querySelector("#output-pre-int
 
 
 const setBaselinesButtonEl = document.querySelector(".set-baseline-button")
+const setPreIntervalButtonEl = document.querySelector(".set-pre-interval-button")
 const intervalButtonEl = document.querySelector(".run-interval-button")
 
 
@@ -69,6 +88,7 @@ const intervalButtonEl = document.querySelector(".run-interval-button")
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
+setPreIntervalButtonEl.addEventListener('click', setPreIntervalValues)
 intervalButtonEl.addEventListener('click', runInterval)
 
 // FUNCTIONS
@@ -86,15 +106,14 @@ function runInterval () {
   // TODO: remember to set the inputs to zero for the next interval!
 }
 
+
+
 function setVars () {
   // take input fields and turn into 
   intervalWaterIn = Number(intervalWaterInEl.value)
     console.log("JS var for interval water in: ", intervalWaterIn)
   intervalNaClIn = Number(intervalNaClInEl.value)
     console.log("JS var for interval NaCl in: ", intervalNaClIn)
-
-
-  let biologicalSexVar = ""
 
   if (biologicalSexEl.value === "male") {
     biologicalSexVar = "male"
@@ -147,6 +166,104 @@ function calculatedVars () {
   renderICSoluteEl.innerHTML = `${idealICOsm.toFixed(0)} mOsm`
   renderECSoluteEl.innerHTML = `${idealECOsm.toFixed(0)} mOsm`
  }
+
+
+ function setPreIntervalValues () {
+
+  if (preIntervalWeightEl.value <= 0) {
+      console.log("pre-interval weight not given; SIADH case assumed")
+    // if SIADH true and NO weight given; assuming "chronic":
+      // in this case, we have to anticipate extent of water excess and solute loss
+      // will assume ECW is unchanged from ideal, since "euvolemic"
+      // will follow assumption that new TBW is only 50% greater than would be expected if we had ONLY excess water in this case of SIADH:
+
+      // hypothetic situation first, where no TBOsm are lost:
+        preIntervalSodium = Number(mostRecentSodiumEl.value)
+        preIntervalTBOsmolality = preIntervalSodium * 2
+        preIntervalTBOsm = idealTBOsm
+    let hypotheticalPreIntervalTBW = preIntervalTBOsm / preIntervalTBOsmolality
+        // in reality, after 1-2 days, increase in TBW will only be half what would be expected if no change in solute:
+    let hypotheticalIncreaseTBW = hypotheticalPreIntervalTBW - idealTBW
+    let halfIncreaseTBW = hypotheticalIncreaseTBW * 0.5
+        preIntervalTBW = idealTBW + halfIncreaseTBW
+        // now, above, this is corrected
+        // below, we re-establish TBOsm for this new value, since solute is lost
+        preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
+
+        preIntervalECF = idealECF // with SIADH, ECF is unchanged
+        preIntervalICF = (preIntervalTBW - preIntervalECF)
+
+        preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
+        preIntervalICOsm = preIntervalTBOsmolality * preIntervalICF
+        
+
+  } else {
+
+    // for now, will just call the new TBW the current/most recent weight
+      console.log("pre-interval weight: ", preIntervalWeightEl.value)
+    if (biologicalSexVar === "male") {
+      preIntervalTBW = 0.6 * (preIntervalWeightEl.value)
+      // will use 60% for male
+    } else {
+      preIntervalTBW = 0.55 * (preIntervalWeightEl.value)
+      // will use 55% for female
+    }
+
+
+
+
+
+
+    // ignoring potassium for now; will also assume IC solute fixed for now
+    preIntervalICOsm = idealICOsm
+
+    preIntervalSodium = Number(mostRecentSodiumEl.value)
+
+    preIntervalTBOsmolality = preIntervalSodium * 2
+       console.log("pre-interval TBOsm: ", preIntervalTBOsmolality)
+
+    preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
+
+    preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
+
+    preIntervalECF = preIntervalTBW - preIntervalICF
+
+    preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
+
+    console.log("ensuring total osmolality adds up; pre-interval IC OSM + EC Osm = TB Osm: ", preIntervalICOsm, " + ", preIntervalECOsm, " = ", (preIntervalICOsm + preIntervalECOsm), " = ", preIntervalTBOsm)
+
+  }
+
+      // urine tonicity:
+
+      let urineElectrolytes = Number(mostRecentUrineNaEl.value) + Number(mostRecentUrineKEl.value)
+      console.log("urine electrolytes total: ", urineElectrolytes)
+
+   urineTonicity = (urineElectrolytes / preIntervalSodium) * 100
+
+   preIntervalUrineTonicity = urineTonicity
+
+  renderPreIntervalValues()
+ }
+
+
+ function renderPreIntervalValues () {
+
+  renderPreIntervalTBWEl.innerHTML = `${preIntervalTBW.toFixed(1)} L`
+  renderPreIntervalICFEl.innerHTML = `${preIntervalICF.toFixed(1)} L`
+  renderPreIntervalECFEl.innerHTML = `${preIntervalECF.toFixed(1)} L`
+  renderPreIntervalTBSoluteEl.innerHTML = `${preIntervalTBOsm.toFixed(0)} mOsm`
+  renderPreIntervalICSoluteEl.innerHTML = `${preIntervalICOsm.toFixed(0)} mOsm`
+  renderPreIntervalECSoluteEl.innerHTML = `${preIntervalECOsm.toFixed(0)} mOsm`
+// still have to have variables now for preintervalVars!
+
+  renderPreIntervalSodiumEl.innerHTML = `${preIntervalSodium.toFixed(0)} mEq/L`
+  renderPreIntervalPotassiumEl.innerHTML = `${preIntervalPotassium.toFixed(0)} mEq/L`
+  renderPreIntervalUrineTonicityEl.innerHTML = `${preIntervalUrineTonicity.toFixed(0)} %`
+
+ }
+
+
 
  function physiologicEquations () {
 
