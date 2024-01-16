@@ -23,12 +23,17 @@
     grid-template-areas: 
         "column-2-upper"
         "column-2-middle"
+        "column-2-middle-2"
         "column-2-lowest"
 }
 
 .column-2-upper {
     grid-area: column-2-upper;
-    height: 0rem;
+    /* height: 6rem; */
+    display: grid;
+    /* grid-template-columns: auto; */
+    /* grid-template-rows: auto; */
+    grid-template-areas: "column-2-upper-left columnn-2-upper-right"
 }
 
 .column-2-upper p {
@@ -42,11 +47,57 @@
     margin-bottom: 0.3rem;
     display: flex;
     justify-content: center;
+    width: 40vw;
 }
+
+.center {
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    /* background-color: rgb(123, 129, 129); */
+}
+
+
+
+.column-2-upper-left {
+    grid-area: column-2-upper-left;
+    /* background-color: red; */
+    height: auto;
+    position: absolute;
+    top: 2rem;
+}
+
+.column-2-upper-left p {
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.2rem;
+}
+
+.column-2-upper-right p {
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.2rem;
+}
+
+
+.column-2-upper-right {
+    grid-area: column-2-upper-right;
+    /* background-color: blue; */
+    height: auto;
+    position: absolute;
+    top: 2rem;
+    margin-left: 9rem;
+}
+
 
 .column-2-middle {
     grid-area: column-2-middle;
-    background-color: rgba(0, 128, 0, 0.1);
+    background-color: rgba(0, 128, 0, 0.3);
+    height: 15rem;
+    width: 40vw;
+    display: grid;
+    grid-template-areas: "column-2-middle-left column-2-middle-right";
 }
 
 .column-2-middle p {
@@ -56,6 +107,42 @@
 }
 
 .column-2-middle h4 {
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
+    width: 40vw;
+    display: flex;
+    justify-content: center;
+}
+
+.column-2-middle-left {
+    grid-area: column-2-upper-left;
+    height: auto;
+    position: absolute;
+    top: 10.5rem;
+}
+
+
+.column-2-middle-right {
+    grid-area: column-2-upper-right;
+    height: auto;
+    position: absolute;
+    top: 10.5rem;
+    margin-left: 9rem;
+}
+
+.column-2-middle-2 {
+    grid-area: column-2-middle-2;
+    background-color: rgba(0, 128, 0, 0.2);
+    height: 15rem;
+}
+
+.column-2-middle-2 p {
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.2rem;
+}
+
+.column-2-middle-2 h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
     display: flex;
@@ -82,7 +169,6 @@
 
 .inline {
     display: flex;
-
 }
 
 
@@ -157,3 +243,22 @@
     margin-bottom: 0rem;
 }
 
+.set-initial-state-button {
+    margin-top: 0.5rem;
+    height: 2rem;
+}
+
+.set-initial-state-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.gap-below {
+    margin-bottom: 1rem;
+}

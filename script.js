@@ -43,6 +43,9 @@ let preIntervalTBOsmolality = 0
 let SIADH = true
   // for now, default SIADH true
 
+let idealCommentsVar = ""
+let initialCommentsVar = ""
+
 // CACHED ELEMENTS
 
 const intervalWaterInEl = document.querySelector("#water-manual-value-input")
@@ -77,18 +80,20 @@ const renderPreIntervalSodiumEl = document.querySelector("#output-pre-interval-s
 const renderPreIntervalPotassiumEl = document.querySelector("#output-pre-interval-potassium")
 const renderPreIntervalUrineTonicityEl = document.querySelector("#output-pre-interval-urine-tonicity")
 
+const idealCommentsEl = document.querySelector("#ideal-comments")
+const initialCommentsEl = document.querySelector("#initial-comments")
 
 
 const setBaselinesButtonEl = document.querySelector(".set-baseline-button")
+const setInitialStateButtonEl = document.querySelector(".set-initial-state-button")
 const setPreIntervalButtonEl = document.querySelector(".set-pre-interval-button")
 const intervalButtonEl = document.querySelector(".run-interval-button")
-
 
 
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
-setPreIntervalButtonEl.addEventListener('click', setPreIntervalValues)
+setInitialStateButtonEl.addEventListener('click', setInitialStateValues)
 intervalButtonEl.addEventListener('click', runInterval)
 
 // FUNCTIONS
@@ -119,11 +124,13 @@ function setVars () {
     biologicalSexVar = "male"
     idealTBW = 0.6 * (weightEl.value)
     // will use 60% for male
+    idealCommentsVar = "Comment: assuming ideal TBW is 60% of dry weight"
     console.log("male; ideal TBW: ", idealTBW)
   } else {
     biologicalSexVar = "female"
     idealTBW = 0.55 * (weightEl.value)
     // will use 55% for female
+    idealCommentsVar = "Comment: assuming ideal TBW is 55% of dry weight"
     console.log("female; ideal TBW: ", idealTBW)
   }
 
@@ -135,6 +142,7 @@ function setVars () {
   idealECOsm = 280 * idealECF
   idealICOsm = 280 * idealICF
     console.log("ideal TBOsm/ICOsm/ECOsm: ", idealTBOsm, "/", idealICOsm, "/", idealECOsm)
+
 
   renderIdealValues()
 }
@@ -165,10 +173,16 @@ function calculatedVars () {
   renderTBSoluteEl.innerHTML = `${idealTBOsm.toFixed(0)} mOsm`
   renderICSoluteEl.innerHTML = `${idealICOsm.toFixed(0)} mOsm`
   renderECSoluteEl.innerHTML = `${idealECOsm.toFixed(0)} mOsm`
+
+  idealCommentsEl.innerHTML = idealCommentsVar
+
  }
 
 
- function setPreIntervalValues () {
+ function setInitialStateValues () {
+
+  setInitialStateButtonEl.setAttribute('disabled', true);
+  mostRecentSodiumEl.setAttribute('disabled', true);
 
   if (preIntervalWeightEl.value <= 0) {
       console.log("pre-interval weight not given; SIADH case assumed")
@@ -196,6 +210,7 @@ function calculatedVars () {
         preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
         preIntervalICOsm = preIntervalTBOsmolality * preIntervalICF
         
+        initialCommentsVar = "Comment: assumes solute loss has occured along with increased TBW, the increase of which is half of what it would be if gain in free water alone were the sole contributor"
 
   } else {
 
@@ -208,9 +223,6 @@ function calculatedVars () {
       preIntervalTBW = 0.55 * (preIntervalWeightEl.value)
       // will use 55% for female
     }
-
-
-
 
 
 
@@ -234,20 +246,12 @@ function calculatedVars () {
 
   }
 
-      // urine tonicity:
 
-      let urineElectrolytes = Number(mostRecentUrineNaEl.value) + Number(mostRecentUrineKEl.value)
-      console.log("urine electrolytes total: ", urineElectrolytes)
-
-   urineTonicity = (urineElectrolytes / preIntervalSodium) * 100
-
-   preIntervalUrineTonicity = urineTonicity
-
-  renderPreIntervalValues()
+  renderInitialStateValues()
  }
 
 
- function renderPreIntervalValues () {
+ function renderInitialStateValues () {
 
   renderPreIntervalTBWEl.innerHTML = `${preIntervalTBW.toFixed(1)} L`
   renderPreIntervalICFEl.innerHTML = `${preIntervalICF.toFixed(1)} L`
@@ -259,10 +263,33 @@ function calculatedVars () {
 
   renderPreIntervalSodiumEl.innerHTML = `${preIntervalSodium.toFixed(0)} mEq/L`
   renderPreIntervalPotassiumEl.innerHTML = `${preIntervalPotassium.toFixed(0)} mEq/L`
-  renderPreIntervalUrineTonicityEl.innerHTML = `${preIntervalUrineTonicity.toFixed(0)} %`
+
+  initialCommentsEl.innerHTML = initialCommentsVar
 
  }
 
+
+ function setPreIntervalValues () {
+
+      // urine tonicity:
+
+      let urineElectrolytes = Number(mostRecentUrineNaEl.value) + Number(mostRecentUrineKEl.value)
+      console.log("urine electrolytes total: ", urineElectrolytes)
+
+   urineTonicity = (urineElectrolytes / preIntervalSodium) * 100
+
+   preIntervalUrineTonicity = urineTonicity
+
+   renderPreIntervalValues()
+
+ }
+
+
+ function renderPreIntervalValues () {
+
+  renderPreIntervalUrineTonicityEl.innerHTML = `${preIntervalUrineTonicity.toFixed(0)} %`
+
+ }
 
 
  function physiologicEquations () {
