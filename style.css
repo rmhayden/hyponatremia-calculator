@@ -29,7 +29,7 @@
 
 .column-2-upper {
     grid-area: column-2-upper;
-    /* height: 6rem; */
+    height: 0rem;
     display: grid;
     /* grid-template-columns: auto; */
     /* grid-template-rows: auto; */
@@ -63,7 +63,7 @@
 .column-2-upper-left {
     grid-area: column-2-upper-left;
     /* background-color: red; */
-    height: auto;
+    /* height: auto; */
     position: absolute;
     top: 2rem;
 }
@@ -84,10 +84,11 @@
 .column-2-upper-right {
     grid-area: column-2-upper-right;
     /* background-color: blue; */
-    height: auto;
+    /* height: auto; */
     position: absolute;
     top: 2rem;
-    margin-left: 9rem;
+    margin-left: 10rem;
+    margin-right: -5rem;
 }
 
 
@@ -96,6 +97,7 @@
     background-color: rgba(0, 128, 0, 0.3);
     height: 15rem;
     width: 40vw;
+    position: relative;
     display: grid;
     grid-template-areas: "column-2-middle-left column-2-middle-right";
 }
@@ -115,38 +117,61 @@
 }
 
 .column-2-middle-left {
-    grid-area: column-2-upper-left;
+    grid-area: column-2-middle-left;
     height: auto;
     position: absolute;
-    top: 11rem;
+    top: 1.5rem;
 }
 
 
 .column-2-middle-right {
-    grid-area: column-2-upper-right;
+    grid-area: column-2-middle-right;
     height: auto;
     position: absolute;
-    top: 11rem;
-    margin-left: 9rem;
+    top: 1.5rem;
+    margin-left: -13rem;
 }
 
 .column-2-middle-2 {
     grid-area: column-2-middle-2;
-    background-color: rgba(0, 128, 0, 0.2);
-    height: 15rem;
+    background-color: rgba(122, 160, 122, 0.2);
+    position: relative;
+    width: 40vw;
+    top: -8.3rem;
+    display: grid;
+    grid-template-areas: "column-2-middle-2-left column-2-middle-2-right";
 }
 
 .column-2-middle-2 p {
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
+    position: relative;
+    top: 4rem;
 }
 
 .column-2-middle-2 h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
+    position: relative;
+    top: -15rem;
     display: flex;
     justify-content: center;
+}
+
+.column-2-middle-2-left {
+    grid-area: column-2-middle-2-left;
+    height: auto;
+    position: relative;
+}
+
+
+.column-2-middle-2-right {
+    grid-area: column-2-middle-2-right;
+    height: auto;
+    position: relative;
+    margin-left: -12rem;
+    margin-right: 0rem;
 }
 
 .column-2-lowest {
@@ -267,4 +292,8 @@
     width: 35vw;
     margin-right: 2rem;
     font-size: smaller;
+}
+
+.hide {
+    display: none;
 }

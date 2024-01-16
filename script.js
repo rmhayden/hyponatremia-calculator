@@ -48,6 +48,17 @@ let initialCommentsVar = ""
 
 let timeZero = ""
 
+let currentTime = ""
+
+let currentHour = -1 // starts negative 1 so it can become zero once initial state set
+
+let currentMinute = -1
+
+let currentDay = -1 // also starts negative 1
+
+let hourZeroValue = -1 // will be set based on which hour the time is "within" for the table
+
+
 // CACHED ELEMENTS
 
 const intervalWaterInEl = document.querySelector("#water-manual-value-input")
@@ -71,6 +82,16 @@ const renderTBSoluteEl = document.querySelector("#output-ideal-tbosm")
 const renderICSoluteEl = document.querySelector("#output-ideal-icosm")
 const renderECSoluteEl = document.querySelector("#output-ideal-ecosm")
 
+const renderInitialTBWEl = document.querySelector("#output-initial-tbw")
+const renderInitialICFEl = document.querySelector("#output-initial-icf")
+const renderInitialECFEl = document.querySelector("#output-initial-ecf")
+const renderInitialTBSoluteEl = document.querySelector("#output-initial-tbosm")
+const renderInitialICSoluteEl = document.querySelector("#output-initial-icosm")
+const renderInitialECSoluteEl = document.querySelector("#output-initial-ecosm")
+
+const renderInitialSodiumEl = document.querySelector("#output-initial-sodium")
+const renderInitialPotassiumEl = document.querySelector("#output-initial-potassium")
+
 const renderPreIntervalTBWEl = document.querySelector("#output-pre-interval-tbw")
 const renderPreIntervalICFEl = document.querySelector("#output-pre-interval-icf")
 const renderPreIntervalECFEl = document.querySelector("#output-pre-interval-ecf")
@@ -82,7 +103,12 @@ const renderPreIntervalSodiumEl = document.querySelector("#output-pre-interval-s
 const renderPreIntervalPotassiumEl = document.querySelector("#output-pre-interval-potassium")
 const renderPreIntervalUrineTonicityEl = document.querySelector("#output-pre-interval-urine-tonicity")
 
+const preIntervalSodiumEl = document.querySelector('#serum-sodium-pre-interval-input')
+const preIntervalPotassiumEl = document.querySelector('#serum-potassium-pre-interval-input')
+
 const renderTimeZeroEl = document.querySelector("#time-zero-value-output")
+
+const renderCurrentTimeEl = document.querySelector("#render-pre-interval-current-time")
 
 const idealCommentsEl = document.querySelector("#ideal-comments")
 const initialCommentsEl = document.querySelector("#initial-comments")
@@ -99,6 +125,7 @@ const timeZeroEl = document.querySelector("#time-zero-value-input")
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
 setInitialStateButtonEl.addEventListener('click', setInitialStateValues)
+setPreIntervalButtonEl.addEventListener('click', setPreIntervalValues)
 intervalButtonEl.addEventListener('click', runInterval)
 
 // FUNCTIONS
@@ -112,13 +139,17 @@ function init () {
 }
 
 function setBaselineValues() {
+
+  setBaselinesButtonEl.setAttribute('disabled', true);
+  setInitialStateButtonEl.removeAttribute('disabled', true)
+
   mostRecentSodiumEl.removeAttribute('disabled')
   timeZeroEl.removeAttribute('disabled')
   setVars()
-  setBaselinesButtonEl.setAttribute('disabled', true);
+
   biologicalSexEl.setAttribute('disabled', true);
   weightEl.setAttribute('disabled', true);
-  setInitialStateButtonEl.removeAttribute('disabled')
+
 }
 
 function runInterval () {
@@ -131,6 +162,7 @@ function runInterval () {
 
 function setVars () {
   // take input fields and turn into 
+
   intervalWaterIn = Number(intervalWaterInEl.value)
     console.log("JS var for interval water in: ", intervalWaterIn)
   intervalNaClIn = Number(intervalNaClInEl.value)
@@ -200,6 +232,7 @@ function calculatedVars () {
   setInitialStateButtonEl.setAttribute('disabled', true);
   mostRecentSodiumEl.setAttribute('disabled', true);
   timeZeroEl.setAttribute('disabled', true);
+  setPreIntervalButtonEl.removeAttribute('disabled')
 
   if (preIntervalWeightEl.value <= 0) {
       console.log("pre-interval weight not given; SIADH case assumed")
@@ -267,6 +300,10 @@ function calculatedVars () {
 
   timeZero = timeZeroEl.value
 
+  currentTime = timeZeroEl.value
+  currentHour = 0
+  currentDay = 0
+
 
   renderInitialStateValues()
  }
@@ -274,6 +311,17 @@ function calculatedVars () {
 
  function renderInitialStateValues () {
 
+  renderInitialTBWEl.innerHTML = `${preIntervalTBW.toFixed(1)} L`
+  renderInitialICFEl.innerHTML = `${preIntervalICF.toFixed(1)} L`
+  renderInitialECFEl.innerHTML = `${preIntervalECF.toFixed(1)} L`
+  renderInitialTBSoluteEl.innerHTML = `${preIntervalTBOsm.toFixed(0)} mOsm`
+  renderInitialICSoluteEl.innerHTML = `${preIntervalICOsm.toFixed(0)} mOsm`
+  renderInitialECSoluteEl.innerHTML = `${preIntervalECOsm.toFixed(0)} mOsm`
+
+  renderInitialSodiumEl.innerHTML = `${preIntervalSodium.toFixed(0)} mEq/L`
+  renderInitialPotassiumEl.innerHTML = `${preIntervalPotassium.toFixed(0)} mEq/L`
+
+  // also renders pre-interval for this first time!
   renderPreIntervalTBWEl.innerHTML = `${preIntervalTBW.toFixed(1)} L`
   renderPreIntervalICFEl.innerHTML = `${preIntervalICF.toFixed(1)} L`
   renderPreIntervalECFEl.innerHTML = `${preIntervalECF.toFixed(1)} L`
@@ -287,12 +335,16 @@ function calculatedVars () {
 
   initialCommentsEl.innerHTML = initialCommentsVar
 
-  renderTimeZeroEl.innerHTML = ` at ${timeZero} on Day 0`
+  renderTimeZeroEl.innerHTML = ` ${timeZero} (Day 0, Hr 0)`
 
  }
 
 
  function setPreIntervalValues () {
+
+
+  // holding off on potassium for now, but would be similar
+     console.log("here is the preinterval sodium from that function: ", preIntervalSodium)
 
       // urine tonicity:
 
@@ -303,14 +355,35 @@ function calculatedVars () {
 
    preIntervalUrineTonicity = urineTonicity
 
+   updateClock()
    renderPreIntervalValues()
+
+ }
+
+
+ function updateClock () {
+
+  // for next time interval, will need this updated
 
  }
 
 
  function renderPreIntervalValues () {
 
+  renderPreIntervalTBWEl.innerHTML = `${preIntervalTBW.toFixed(1)} L`
+  renderPreIntervalICFEl.innerHTML = `${preIntervalICF.toFixed(1)} L`
+  renderPreIntervalECFEl.innerHTML = `${preIntervalECF.toFixed(1)} L`
+  renderPreIntervalTBSoluteEl.innerHTML = `${preIntervalTBOsm.toFixed(0)} mOsm`
+  renderPreIntervalICSoluteEl.innerHTML = `${preIntervalICOsm.toFixed(0)} mOsm`
+  renderPreIntervalECSoluteEl.innerHTML = `${preIntervalECOsm.toFixed(0)} mOsm`
+// still have to have variables now for preintervalVars!
+
+  renderPreIntervalSodiumEl.innerHTML = `${preIntervalSodium.toFixed(0)} mEq/L`
+  renderPreIntervalPotassiumEl.innerHTML = `${preIntervalPotassium.toFixed(0)} mEq/L`
+
   renderPreIntervalUrineTonicityEl.innerHTML = `${preIntervalUrineTonicity.toFixed(0)} %`
+
+  renderCurrentTimeEl.innerHTML = `${currentTime} (Day ${currentDay}, Hr ${currentHour})`
 
  }
 

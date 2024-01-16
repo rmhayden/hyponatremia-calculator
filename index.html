@@ -42,14 +42,6 @@
    <table>
     <strong class="center gap-below">Initial State</strong>
     <tr>
-        <td>
-        <label for="serum-sodium-value-input">Serum Sodium</label>
-        </td>
-        <td>
-        <input disabled="true" id="serum-sodium-value-input" name="serum-sodium-value-input" placeholder="">
-      </td>
-     </tr>
-     <tr>
       <td>
       <label for="time-zero-value-input">Time</label>
       </td>
@@ -57,6 +49,14 @@
       <input disabled="true" type="time" id="time-zero-value-input" name="time-zero-value-input" placeholder="">
     </td>
    </tr>
+    <tr>
+        <td>
+        <label for="serum-sodium-value-input">Serum Sodium</label>
+        </td>
+        <td>
+        <input disabled="true" id="serum-sodium-value-input" name="serum-sodium-value-input" placeholder="">
+      </td>
+     </tr>
      <tr>
         <td>
           <label id="serum-potassium-value-input" for="serum-potassium-value-input">Serum Potassium</label>
@@ -92,20 +92,28 @@
       </td>
    </tr>
    </table>
-   <button disabled="false" class="set-initial-state-button" type="button"><h5>Set Initial State</h5></button>
+   <button disabled="disabled" class="set-initial-state-button" type="button"><h5>Set Initial State</h5></button>
    <br>
    <br>
 
-   <strong class="center gap-below">Pre-Interval Values</strong>
+   <strong class="center gap-below">Pre-Interval Lab. Values</strong>
    <table>
-   <tr>
-    <td>
-      <label for="urine-output-value-input">Urine Output (cc/hr)</label>
+    <tr>
+      <td>
+      <label for="serum-sodium-pre-interval-input">Serum Sodium</label>
+      </td>
+      <td>
+      <input disabled="true" id="serum-sodium-pre-interval-input" name="serum-sodium-pre-interval-input" placeholder="">
     </td>
-    <td>
-    <input id="urine-output-value-input" name="urine-output-value-input" placeholder="">
-  </td>
- </tr>
+   </tr>
+   <tr>
+      <td>
+        <label class="disable" id="serum-potassium-pre-interval-input" for="serum-potassium-pre-interval-input">Serum Potassium</label>
+      </td>
+      <td>
+      <input class="disable" id="serum-potassium-pre-interval-input" name="serum-potassium-pre-interval-input" placeholder="">
+    </td>
+   </tr>
  <tr>
     <td>
       <label for="urine-osm-value-input">Urine Osm.</label>
@@ -131,45 +139,46 @@
   </td>
  </tr>
 </table>
-<br>
-<br>
+<button disabled="false" class="set-pre-interval-button" type="button"><h5>Set Pre-Interval Values</h5></button>
 
-   <table>
-    Total Interval Solute Ins (Manual)
-      <tr>
-          <td>
-            <label for="na-cl-manual-value-input">NaCl (mEq)</label>
+  
+      <table class="hide">
+        <div class="hide">Total Interval Solute Ins (Manual)</div>
+          <tr>
+              <td>
+                <label for="na-cl-manual-value-input">NaCl (mEq)</label>
+              </td>
+              <td>
+              <input id="na-cl-manual-value-input" name="na-cl-manual-value-input" placeholder="">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label id="potassium-manual-value-input" for="potassium-manual-value-input">KCl (mEq)</label>
+            </td>
+            <td>
+            <input id="potassium-manual-value-input" name="potassium-manual-value-input" placeholder="">
           </td>
-          <td>
-          <input id="na-cl-manual-value-input" name="na-cl-manual-value-input" placeholder="">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label id="potassium-manual-value-input" for="potassium-manual-value-input">KCl (mEq)</label>
-        </td>
-        <td>
-        <input id="potassium-manual-value-input" name="potassium-manual-value-input" placeholder="">
-      </td>
-    </tr>
-   </table>
-   <br>
-   <br>
-   <table>
-    Total Interval Water In (Manual)
-     <tr>
-        <td>
-          <label for="water-manual-value-input">Water (L)</label>
-        </td>
-        <td>
-        <input id="water-manual-value-input" name="water-manual-value-input" placeholder="">
-      </td>
-     </tr>
-   </table>
-   <br>
-   <br>
-   <table>
-    Interval Specific Therapies
+        </tr>
+      </table>
+      <table class="hide">
+        <div class="hide">Total Interval Water In (Manual)</div>
+        <tr>
+            <td>
+              <label for="water-manual-value-input">Water (L)</label>
+            </td>
+            <td>
+            <input id="water-manual-value-input" name="water-manual-value-input" placeholder="">
+          </td>
+        </tr>
+      </table>
+      <br>
+      <br> 
+      <table>
+
+  <strong class="center gap-below">Interval Ins/Outs</strong>
+    
+    Specific Therapies
      <tr>
         <td>
           <label id="salt-tabs-value-input" for="salt-tabs-value-input">Salt Tabs</label>
@@ -242,8 +251,33 @@
         <input id="hypertonic-value-input" name="hypertonic-value-input" placeholder="">
       </td>
      </tr>
+     <tr>
+
+      <td>
+        <br>
+        <br>
+        <label for="urine-output-value-input">Urine Output (cc/hr)</label>
+      </td>
+      <td>
+        <br>
+        <br>
+      <input id="urine-output-value-input" name="urine-output-value-input" placeholder="">
+    </td>
+   </tr>
    </table>
+
+
+   <table>
+    <br>
+    <strong class="center gap-below">Post-Interval Time</strong>
+
+
+   </table>
+
 </div>  
+
+
+
 
 <div class="column-2">
   <div class="column-2-upper">
@@ -270,29 +304,48 @@
       <h4>Initial State and Values</h4>
     </div>
    <div class="column-2-middle-left">
-    <div class="inline"><p>TBW:&nbsp;</p><p id="output-pre-interval-tbw"></p></div>
-    <div class="inline"><p>ICW:&nbsp;</p><p id="output-pre-interval-icf"></p></div>
-    <div class="inline"><p>ECW:&nbsp;</p><p id="output-pre-interval-ecf"></p></div>
+    <div class="inline"><p>TBW:&nbsp;</p><p id="output-initial-tbw"></p></div>
+    <div class="inline"><p>ICW:&nbsp;</p><p id="output-initial-icf"></p></div>
+    <div class="inline"><p>ECW:&nbsp;</p><p id="output-initial-ecf"></p></div>
     <br>
-    <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-pre-interval-sodium"></p><p id="time-zero-value-output"></p></div>
-    <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-pre-interval-potassium"></p></div>
+    <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-initial-sodium"></p><p id="time-zero-value-output"></p></div>
+    <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-initial-potassium"></p></div>
     <div>
       <br>
       <p class="comment" id="initial-comments"></p>
      </div>
   </div>
    <div class="column-2-middle-right">
-    <div class="inline"><p>TB Solute:&nbsp;</p><p id="output-pre-interval-tbosm"></p></div>
-    <div class="inline"><p>IC Solute:&nbsp;</p><p id="output-pre-interval-icosm"></p></div>
-    <div class="inline"><p>EC Solute:&nbsp;</p><p id="output-pre-interval-ecosm"></p></div>
+    <div class="inline"><p>TB Solute:&nbsp;</p><p id="output-initial-tbosm"></p></div>
+    <div class="inline"><p>IC Solute:&nbsp;</p><p id="output-initial-icosm"></p></div>
+    <div class="inline"><p>EC Solute:&nbsp;</p><p id="output-initial-ecosm"></p></div>
     </div>
-    </div>
+  </div>
   <div class="column-2-middle-2">
     <div class="center">
-      <h4>Pre-Interval Values</h4>
+      <div>
+        <h4>Pre-Interval Values</h4>
+        <h4 id="render-pre-interval-current-time">time here</h4>
+      </div>
     </div>
-    <div class="inline"><p>Urine Tonicity:&nbsp;</p><p id="output-pre-interval-urine-tonicity"></p></div>
- 
+    <div class="column-2-middle-2-left">
+      <div class="inline"><p>TBW:&nbsp;</p><p id="output-pre-interval-tbw"></p></div>
+      <div class="inline"><p>ICW:&nbsp;</p><p id="output-pre-interval-icf"></p></div>
+      <div class="inline"><p>ECW:&nbsp;</p><p id="output-pre-interval-ecf"></p></div>
+      <br>
+      <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-pre-interval-sodium"></p><p id="time-zero-value-output"></p></div>
+      <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-pre-interval-potassium"></p></div>
+      <div class="inline"><p>Urine Tonicity:&nbsp;</p><p id="output-pre-interval-urine-tonicity"></p></div>
+      <div>
+        <br>
+        <p class="comment" id="pre-interval-comments"></p>
+       </div>
+    </div>
+     <div class="column-2-middle-2-right">
+      <div class="inline"><p>TB Solute:&nbsp;</p><p id="output-pre-interval-tbosm"></p></div>
+      <div class="inline"><p>IC Solute:&nbsp;</p><p id="output-pre-interval-icosm"></p></div>
+      <div class="inline"><p>EC Solute:&nbsp;</p><p id="output-pre-interval-ecosm"></p></div>
+      </div> 
   </div>
   <div class="column-2-lowest">
     <div class="center">
