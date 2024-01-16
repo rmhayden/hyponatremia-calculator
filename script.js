@@ -46,6 +46,8 @@ let SIADH = true
 let idealCommentsVar = ""
 let initialCommentsVar = ""
 
+let timeZero = ""
+
 // CACHED ELEMENTS
 
 const intervalWaterInEl = document.querySelector("#water-manual-value-input")
@@ -80,6 +82,8 @@ const renderPreIntervalSodiumEl = document.querySelector("#output-pre-interval-s
 const renderPreIntervalPotassiumEl = document.querySelector("#output-pre-interval-potassium")
 const renderPreIntervalUrineTonicityEl = document.querySelector("#output-pre-interval-urine-tonicity")
 
+const renderTimeZeroEl = document.querySelector("#time-zero-value-output")
+
 const idealCommentsEl = document.querySelector("#ideal-comments")
 const initialCommentsEl = document.querySelector("#initial-comments")
 
@@ -89,6 +93,7 @@ const setInitialStateButtonEl = document.querySelector(".set-initial-state-butto
 const setPreIntervalButtonEl = document.querySelector(".set-pre-interval-button")
 const intervalButtonEl = document.querySelector(".run-interval-button")
 
+const timeZeroEl = document.querySelector("#time-zero-value-input")
 
 // EVENT LISTENERS
 
@@ -98,11 +103,22 @@ intervalButtonEl.addEventListener('click', runInterval)
 
 // FUNCTIONS
 
+//
+
+init ()
+
+function init () {
+  // if needed
+}
+
 function setBaselineValues() {
+  mostRecentSodiumEl.removeAttribute('disabled')
+  timeZeroEl.removeAttribute('disabled')
   setVars()
   setBaselinesButtonEl.setAttribute('disabled', true);
   biologicalSexEl.setAttribute('disabled', true);
   weightEl.setAttribute('disabled', true);
+  setInitialStateButtonEl.removeAttribute('disabled')
 }
 
 function runInterval () {
@@ -183,6 +199,7 @@ function calculatedVars () {
 
   setInitialStateButtonEl.setAttribute('disabled', true);
   mostRecentSodiumEl.setAttribute('disabled', true);
+  timeZeroEl.setAttribute('disabled', true);
 
   if (preIntervalWeightEl.value <= 0) {
       console.log("pre-interval weight not given; SIADH case assumed")
@@ -246,6 +263,10 @@ function calculatedVars () {
 
   }
 
+  // set initial time:
+
+  timeZero = timeZeroEl.value
+
 
   renderInitialStateValues()
  }
@@ -265,6 +286,8 @@ function calculatedVars () {
   renderPreIntervalPotassiumEl.innerHTML = `${preIntervalPotassium.toFixed(0)} mEq/L`
 
   initialCommentsEl.innerHTML = initialCommentsVar
+
+  renderTimeZeroEl.innerHTML = ` at ${timeZero} on Day 0`
 
  }
 

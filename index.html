@@ -46,9 +46,17 @@
         <label for="serum-sodium-value-input">Serum Sodium</label>
         </td>
         <td>
-        <input id="serum-sodium-value-input" name="serum-sodium-value-input" placeholder="">
+        <input disabled="true" id="serum-sodium-value-input" name="serum-sodium-value-input" placeholder="">
       </td>
      </tr>
+     <tr>
+      <td>
+      <label for="time-zero-value-input">Time</label>
+      </td>
+      <td>
+      <input disabled="true" type="time" id="time-zero-value-input" name="time-zero-value-input" placeholder="">
+    </td>
+   </tr>
      <tr>
         <td>
           <label id="serum-potassium-value-input" for="serum-potassium-value-input">Serum Potassium</label>
@@ -84,7 +92,7 @@
       </td>
    </tr>
    </table>
-   <button class="set-initial-state-button" type="button"><h5>Set Initial State</h5></button>
+   <button disabled="false" class="set-initial-state-button" type="button"><h5>Set Initial State</h5></button>
    <br>
    <br>
 
@@ -248,7 +256,7 @@
     <div class="inline"><p>Ideal ECW:&nbsp;</p><p id="output-ideal-ecf"></p></div>
     <div>
       <br>
-      <p id="ideal-comments"></p>
+      <p class="comment" id="ideal-comments"></p>
      </div>
   </div>
    <div class="column-2-upper-right">
@@ -266,11 +274,11 @@
     <div class="inline"><p>ICW:&nbsp;</p><p id="output-pre-interval-icf"></p></div>
     <div class="inline"><p>ECW:&nbsp;</p><p id="output-pre-interval-ecf"></p></div>
     <br>
-    <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-pre-interval-sodium"></p></div>
+    <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-pre-interval-sodium"></p><p id="time-zero-value-output"></p></div>
     <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-pre-interval-potassium"></p></div>
     <div>
       <br>
-      <p id="initial-comments"></p>
+      <p class="comment" id="initial-comments"></p>
      </div>
   </div>
    <div class="column-2-middle-right">

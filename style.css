@@ -118,7 +118,7 @@
     grid-area: column-2-upper-left;
     height: auto;
     position: absolute;
-    top: 10.5rem;
+    top: 11rem;
 }
 
 
@@ -126,7 +126,7 @@
     grid-area: column-2-upper-right;
     height: auto;
     position: absolute;
-    top: 10.5rem;
+    top: 11rem;
     margin-left: 9rem;
 }
 
@@ -261,4 +261,10 @@
 
 .gap-below {
     margin-bottom: 1rem;
+}
+
+.comment {
+    width: 35vw;
+    margin-right: 2rem;
+    font-size: smaller;
 }
