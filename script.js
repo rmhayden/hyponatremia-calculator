@@ -78,6 +78,7 @@ let currentDay = -1 // also starts negative 1
 
 let hourZeroValue = -1 // will be set based on which hour the time is "within" for the table
 
+// these values are within intervals, NOT total cummulative
 let cummulativeHours = 0
 let cummulativeHoursWithoutRemainder = 0
 let remainingMinutes = 0
@@ -173,6 +174,9 @@ const renderPostIntervalEndTimeEl = document.querySelector("#render-post-interva
 
 const renderIntervalDuration = document.querySelector("#interval-duration")
 
+const renderCurrentIntervalNumberEl = document.querySelector("#render-interval-number")
+
+const renderPreIntervalCummulativetimeEl = document.querySelector("#render-cumulative-time")
 
 // EVENT LISTENERS
 
@@ -190,11 +194,17 @@ init ()
 
 function init () {
   // if needed
+  renderCurrentIntervalNumberEl.innerHTML = `1`
+
 }
 
 function newInterval () {
 
   intervalNumber = intervalNumber + 1
+
+  // update on footer: 
+
+  renderCurrentIntervalNumberEl.innerHTML = ` ${intervalNumber}`
 
   setPreIntervalButtonEl.removeAttribute("disabled")
   newIntervalButtonEl.setAttribute("disabled", true)
@@ -285,9 +295,8 @@ function runInterval () {
 
   newIntervalButtonEl.removeAttribute("disabled")
 
-
   calculatedVars()
-  // TODO: remember to set the inputs to zero for the next interval!
+
   }
 }
 
@@ -450,6 +459,8 @@ function calculatedVars () {
     currentTime = postIntervalTimeEl.value
     console.log("re-logging currentTime: ", currentTime, typeof(currentTime))
 
+    // and update footer!
+    renderPreIntervalCummulativetimeEl.innerHTML = `Cummulative Hour(s): &nbsp;&nbsp; ${Number(currentHour).toFixed(0)}`
 
  }
 
@@ -782,6 +793,8 @@ if (returnVar === false) {
     mostRecentUrineOsmEl.setAttribute('disabled', true)
     mostRecentUrineNaEl.setAttribute('disabled', true)
     mostRecentUrineKEl.setAttribute('disabled', true)
+
+    preIntervalSodiumEl.setAttribute('disabled', true)
 
     // activate next fields:
 

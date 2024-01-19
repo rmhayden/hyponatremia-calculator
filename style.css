@@ -393,6 +393,47 @@
     margin-right: -2rem;
 }
 
+.footer-render-interval-number {
+    position: fixed;
+    overflow: visible;
+    margin-top: -2rem;
+    left: 70vw;
+    height: 2rem;
+    width: 6rem;
+    background-color: rgba(134, 67, 67, 0.2);
+}
+
+.footer-render-interval-number h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    font-size: 14px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.footer-render-cummulative-time {
+    position: fixed;
+    overflow: visible;
+    margin-top: -2rem;
+    left: 50vw;
+    height: 2rem;
+    width: 12rem;
+    background-color: rgba(134, 67, 67, 0.2);
+}
+
+.footer-render-cummulative-time h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    font-size: 14px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+
 .modal-1 {
     position: absolute;
     top: 0;
