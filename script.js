@@ -214,10 +214,20 @@ function newInterval () {
   mostRecentUrineNaEl.removeAttribute("disabled")
   mostRecentUrineKEl.removeAttribute("disabled")
 
+  // this clears the RENDERING values only so far
   clearAllPreIntervalValues()
   clearAllPostIntervalValues()
 
-  // set actual post values to pre-values?
+  // below, also clear the input field values:
+
+  mostRecentUrineOsmEl.value = null
+  mostRecentUrineNaEl.value = null
+  mostRecentUrineKEl.value = null
+  preIntervalSodiumEl.value = postIntervalSodium.toFixed(0)
+
+
+
+  // set actual post values to pre-values;
 
      // ignoring potassium for now; will also assume IC solute fixed for now
      preIntervalICOsm = postIntervalICOsm
