@@ -1,6 +1,8 @@
 
 // VARIABLES
 
+let returnVar = false
+
 let intervalWaterIn = 0
 let intervalNaClIn = 0
 let intervalKClIn = 0
@@ -187,6 +189,14 @@ function init () {
 
 function setBaselineValues() {
 
+  if (!weightEl.value) {
+    returnVar = true
+    alert("Must specify baseline estimated dry weight")
+    return
+  } else {
+    returnVar = false
+  }
+
   setBaselinesButtonEl.setAttribute('disabled', true);
   setInitialStateButtonEl.removeAttribute('disabled', true)
 
@@ -200,9 +210,24 @@ function setBaselineValues() {
 }
 
 function runInterval () {
+
+  // first, update the clock to get time value components
+  updateClock()
+
+  if (returnVar === false) {
+    
+  //
+  postIntervalTimeEl.setAttribute('disabled', true)
+  intakeD5WEl.setAttribute('disabled', true)
+  intakeHypertonicSalineEl.setAttribute('disabled', true)
+  intakeNormalSalineEl.setAttribute('disabled', true)
+  intakeD5WEl.setAttribute('disabled', true)
+  outputUrineOutputEl.setAttribute('disabled', true)
+  intervalButtonEl.setAttribute('disabled', true)
   // active once button clicked
   calculatedVars()
   // TODO: remember to set the inputs to zero for the next interval!
+  }
 }
 
 
@@ -244,9 +269,6 @@ function setVars () {
 
 
 function calculatedVars () {
-
-// first, update the clock to get time value components
-  updateClock()
 
 // manual values not yet here
   intervalElectrolytesIn = intervalNaClIn + intervalKClIn
@@ -342,6 +364,23 @@ function calculatedVars () {
 
  function updateClock () {
 
+  if (!postIntervalTimeEl.value) {
+    returnVar = true
+    alert("Must specify post-interval time")
+    return
+  } {
+    returnVar = false // must always reset if not made true
+  }
+
+
+  // before--cache current Time in case we have to re-run this function:
+
+    let cacheCurrentTime = currentTime
+    let cacheCurrentHourValue = Number(currentTime.slice(0, 2))
+    let cacheCurrentMinuteValue = Number(currentTime.slice(3, 5))
+    let cacheEndPointHourValue = Number((intervalEndTimeEl.value).slice(0, 2))
+    let cacheEndPointMinuteValue = Number((intervalEndTimeEl.value).slice(3, 5))
+
   // first, update currentDay, currentHour, currentMin from pre-interval time:
 
   console.log("pre-interval aka current time: ", currentTime)
@@ -388,6 +427,7 @@ function calculatedVars () {
 
   console.log("values? ", currentHourValue, endPointHourValue)
 
+
   // case where we've crossed midnight (since end point hour is lower)
   if (endPointHourValue < currentHourValue) {
     console.log("crossed midnight")
@@ -412,8 +452,25 @@ function calculatedVars () {
 
 
   if (intervalCummulativeMins < 60) {
-    alert("Interval time duration must be at least one hour")
+    returnVar = true
+      // now reset those values to cached states:
+
+      currentTime = cacheCurrentTime
+      currentHourValue = cacheCurrentHourValue
+      currentMinuteValue = cacheCurrentMinuteValue
+      endPointHourValue = cacheEndPointHourValue
+      endPointMinuteValue = cacheEndPointMinuteValue
+
+      alert("Interval time duration must be at least one hour")
+      return
+  } else if (!postIntervalTimeEl.value) {
+    returnVar = true
+    alert("Must specify post-interval time")
+    return
+  } {
+    returnVar = false // must always reset if not made true
   }
+
   // 
 
   // now, update current HOUR (first hour is hour zero, so once crosses into new hour that's hour 1... we ignore the remainder (extra mins after the hour!)
@@ -476,6 +533,22 @@ function calculatedVars () {
 
 
  function setInitialStateValues () {
+
+
+  if (!timeZeroEl.value) {
+    returnVar = true
+    alert("Must specify initial time")
+    return
+  } else if (!mostRecentSodiumEl.value) {
+    returnVar = true
+    alert("Must specify initial serum sodium")
+    return
+  } else {
+    returnVar = false // must always reset if not made true
+    console.log("no issues with values; run initial stat values fxn")
+  }
+
+if (returnVar === false) {
 
   setInitialStateButtonEl.setAttribute('disabled', true);
   mostRecentSodiumEl.setAttribute('disabled', true);
@@ -558,6 +631,7 @@ function calculatedVars () {
 
   renderInitialStateValues()
  }
+}
 
 
  function renderInitialStateValues () {
