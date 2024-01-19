@@ -2,16 +2,26 @@
 
 .columns {
    display: grid;
+   justify-content: center;
    height: auto;
    grid-template-columns: auto;
    grid-template-rows: auto;
    grid-template-areas: 
-       "column-1 column-2"
+       "column-1 column-2 column-3"
 }
 
 .column-1 {
     grid-area: column-1;
+    width: 29vw;
+    margin-left: 1rem;
     background-color: rgb(244, 244, 226);
+}
+
+.column-3 {
+    grid-area: column-3;
+    width: 29vw;
+    margin-right: 1rem;
+    background-color: rgb(247, 250, 242);
 }
 
 .column-2 {
@@ -292,11 +302,48 @@
     margin-bottom: 0rem;
 }
 
+.new-interval-button {
+    margin-top: 1rem;
+    height: 2rem;
+    position: relative;
+    right: -80vw;
+}
+
+.new-interval-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+.see-models-button {
+    margin-top: 1rem;
+    height: 2rem;
+    position: relative;
+    right: -10vw;
+}
+
+.see-models-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+.see-references-button {
+    margin-top: 1rem;
+    height: 2rem;
+    position: relative;
+    right: -10vw;
+}
+
+.see-references-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
 
 .set-pre-interval-button {
     margin-top: 0.5rem;
     height: 2rem;
 }
+
 
 .set-pre-interval-button h5 {
     margin-top: 0rem;
@@ -331,4 +378,31 @@
 
 .hide {
     display: none;
+}
+
+.footer-nav-bar {
+    background-color: rgb(232, 209, 209);
+    border-top: solid black 2px;
+    position: fixed;
+    overflow: visible;
+    bottom: 0;
+    height: 4rem;
+    width: 98.5vw;
+    z-index: 10;
+    margin-left: 0rem;
+    margin-right: -2rem;
+}
+
+.modal-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: red;
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100vw;
+    z-index: 9;
+
 }

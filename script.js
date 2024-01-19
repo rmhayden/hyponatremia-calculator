@@ -1,6 +1,8 @@
 
 // VARIABLES
 
+let intervalNumber = 1
+
 let returnVar = false
 
 let intervalWaterIn = 0
@@ -155,6 +157,7 @@ const setBaselinesButtonEl = document.querySelector(".set-baseline-button")
 const setInitialStateButtonEl = document.querySelector(".set-initial-state-button")
 const setPreIntervalButtonEl = document.querySelector(".set-pre-interval-button")
 const intervalButtonEl = document.querySelector(".run-interval-button")
+const newIntervalButtonEl = document.querySelector(".new-interval-button")
 
 const timeZeroEl = document.querySelector("#time-zero-value-input")
 
@@ -170,12 +173,14 @@ const renderPostIntervalEndTimeEl = document.querySelector("#render-post-interva
 
 const renderIntervalDuration = document.querySelector("#interval-duration")
 
+
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
 setInitialStateButtonEl.addEventListener('click', setInitialStateValues)
 setPreIntervalButtonEl.addEventListener('click', setPreIntervalValues)
 intervalButtonEl.addEventListener('click', runInterval)
+newIntervalButtonEl.addEventListener('click', newInterval)
 
 // FUNCTIONS
 
@@ -185,6 +190,59 @@ init ()
 
 function init () {
   // if needed
+}
+
+function newInterval () {
+
+  intervalNumber = intervalNumber + 1
+
+  setPreIntervalButtonEl.removeAttribute("disabled")
+  newIntervalButtonEl.setAttribute("disabled", true)
+  preIntervalSodiumEl.removeAttribute("disabled")
+    // user can enter either predicted or actual if different
+  mostRecentUrineOsmEl.removeAttribute("disabled")
+  mostRecentUrineNaEl.removeAttribute("disabled")
+  mostRecentUrineKEl.removeAttribute("disabled")
+
+  clearAllPreIntervalValues()
+  clearAllPostIntervalValues()
+
+  // set actual post values to pre-values?
+
+     // ignoring potassium for now; will also assume IC solute fixed for now
+     preIntervalICOsm = postIntervalICOsm
+
+  
+     // updating pre-interval sodium depending on if a value was placed or not:
+
+    if (!mostRecentSodiumEl.value) {
+      console.log("no value for pre-interval sodium, so using prior postint Na", preIntervalSodium, " = ", postIntervalSodium)
+      preIntervalSodium = postIntervalSodium
+
+      preIntervalTBOsmolality = postIntervalSodium * 2
+      preIntervalTBW = postIntervalTBW
+              // will be difficult to know what the true preIntervalTBW actually is, so with this limited approach will just assume it is unchanged from predicted prior postTBW
+      preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
+      preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
+      preIntervalECF = preIntervalTBW - preIntervalICF
+      preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
+
+    } else {
+      preIntervalSodium = Number(mostRecentSodiumEl.value)
+
+      preIntervalTBW = postIntervalTBW
+      preIntervalTBOsmolality = postIntervalSodium * 2
+        console.log("checking that new preinterval TBOsmolality is post-total Osmolality and double new perintevalsodium: ", (preIntervalSodium * 2), postIntervalTBOsmolality, preIntervalTBOsmolality)
+
+      preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
+      preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
+      preIntervalECF = preIntervalTBW - preIntervalICF
+      preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
+
+    }
+ 
+
+ 
 }
 
 function setBaselineValues() {
@@ -224,7 +282,10 @@ function runInterval () {
   intakeD5WEl.setAttribute('disabled', true)
   outputUrineOutputEl.setAttribute('disabled', true)
   intervalButtonEl.setAttribute('disabled', true)
-  // active once button clicked
+
+  newIntervalButtonEl.removeAttribute("disabled")
+
+
   calculatedVars()
   // TODO: remember to set the inputs to zero for the next interval!
   }
@@ -270,21 +331,40 @@ function setVars () {
 
 function calculatedVars () {
 
-// manual values not yet here
+  // reset values from global let variables
+    intervalWaterIn = 0
+    intervalWaterOut = 0
+    intervalWaterNet = 0
+
+    intervalElectrolytesIn = 0
+    intervalElectrolytesOut = 0
+    intervalSoluteNet = 0
+
+    intervalNaClIn = 0
+    intervalKClIn = 0
+
+    urineOsm = 0
+    urineSodium = 0
+    urinePotassium = 0
+    urineTonicity = 0
+
+
+// manual values not yet here - not yet functional (TODO)
   intervalElectrolytesIn = intervalNaClIn + intervalKClIn
   // for now, just sodium chloride but later will include K
   
   // recall, the "interval specific therapies" will be added by clicking a specific button, so these will easily add to the total field with a separate function triggered that way
 
-
-
 // NORMAL SALINE:
   let soluteAddedFromNormalSaline = 0
   let waterAddedFromNormalSaline = 0
+
+  let rateNormalSaline = 0
+  let totalIntervalNormalSaline = 0
    
-  let rateNormalSaline = Number(intakeNormalSalineEl.value)
+  rateNormalSaline = Number(intakeNormalSalineEl.value)
     // console.log("normal saline rate: ", rateNormalSaline, " in context of total hours as fraction: ", cummulativeHours)
-  let totalIntervalNormalSaline = (rateNormalSaline * Number(cummulativeHours))
+  totalIntervalNormalSaline = (rateNormalSaline * Number(cummulativeHours))
     // console.log("total normal saline: ", totalIntervalNormalSaline)
   
     soluteAddedFromNormalSaline = (totalIntervalNormalSaline * 0.308)
@@ -296,8 +376,11 @@ function calculatedVars () {
 
  // D5W:
    let waterAddedFromD5W = 0
-   let rateD5W = Number(intakeD5WEl.value)
-   let totalIntervalD5W = (rateD5W * Number(cummulativeHours))
+   let rateD5W = 0
+   let totalIntervalD5W = 0
+
+   rateD5W = Number(intakeD5WEl.value)
+   totalIntervalD5W = (rateD5W * Number(cummulativeHours))
     waterAddedFromD5W = (totalIntervalD5W * 0.001)
 
     intervalWaterIn = intervalWaterIn + waterAddedFromD5W
@@ -305,9 +388,11 @@ function calculatedVars () {
 // HYPERTONIC SALINE:
     let waterAddedFromHypertonicSaline = 0
     let soluteAddedFromHypertonicSaline = 0
+    let rateHypertonicSaline = 0
+    let totalIntervalHypertonicSaline = 0
 
-    let rateHypertonicSaline = Number(intakeHypertonicSalineEl.value)
-    let totalIntervalHypertonicSaline = (rateHypertonicSaline * Number(cummulativeHours))
+    rateHypertonicSaline = Number(intakeHypertonicSalineEl.value)
+    totalIntervalHypertonicSaline = (rateHypertonicSaline * Number(cummulativeHours))
 
       waterAddedFromHypertonicSaline = (totalIntervalHypertonicSaline * 0.001)
       soluteAddedFromHypertonicSaline = (totalIntervalHypertonicSaline * 1.026)
@@ -319,11 +404,13 @@ function calculatedVars () {
 
   let waterLostFromUrine = 0
   let electrolytesLostFromUrine = 0
+  let rateUrineOutput = 0
+  let totalIntervalUrineOutput = 0
 
-  let rateUrineOutput = Number(outputUrineOutputEl.value)
+  rateUrineOutput = Number(outputUrineOutputEl.value)
     console.log("urine output rate: ", rateUrineOutput)
 
-  let totalIntervalUrineOutput = (rateUrineOutput * Number(cummulativeHours))
+  totalIntervalUrineOutput = (rateUrineOutput * Number(cummulativeHours))
 
     waterLostFromUrine = (totalIntervalUrineOutput * 0.001)
     
@@ -358,6 +445,11 @@ function calculatedVars () {
   //
 
   renderPostIntervalValues()
+
+    // final step, set the 'current time' to this post interval time for next interval:
+    currentTime = postIntervalTimeEl.value
+    console.log("re-logging currentTime: ", currentTime, typeof(currentTime))
+
 
  }
 
@@ -471,8 +563,6 @@ function calculatedVars () {
     returnVar = false // must always reset if not made true
   }
 
-  // 
-
   // now, update current HOUR (first hour is hour zero, so once crosses into new hour that's hour 1... we ignore the remainder (extra mins after the hour!)
 
   cummulativeHours = Number(intervalCummulativeMins / 60).toFixed(2)
@@ -518,6 +608,19 @@ function calculatedVars () {
 
  }
 
+ function clearAllPostIntervalValues() {
+  renderPostIntervalTBWEl.innerHTML = ``
+  renderPostIntervalICFEl.innerHTML = ``
+  renderPostIntervalECFEl.innerHTML = ``
+  renderPostIntervalTBSoluteEl.innerHTML = ``
+  renderPostIntervalICSoluteEl.innerHTML = ``
+  renderPostIntervalECSoluteEl.innerHTML = ``
+  renderIntervalDuration.innerHTML = ``
+  renderPostIntervalEndTimeEl.innerHTML = ``
+  renderPostIntervalSodiumEl.innerHTML = ``
+  renderPostIntervalPotassiumEl.innerHTML = ``
+ }
+
 
  function renderIdealValues () {
   renderTBWEl.innerHTML = `${idealTBW.toFixed(1)} L`
@@ -533,7 +636,6 @@ function calculatedVars () {
 
 
  function setInitialStateValues () {
-
 
   if (!timeZeroEl.value) {
     returnVar = true
@@ -567,7 +669,16 @@ if (returnVar === false) {
       // will follow assumption that new TBW is only 50% greater than would be expected if we had ONLY excess water in this case of SIADH:
 
       // hypothetic situation first, where no TBOsm are lost:
+
+        // if first interval, this uses the initial sodium; else, uses inputted value:
+        // TODO: once beyond SIADH, will have to carry forward this if/else stmt
+
+        if (intervalNumber === 1) {
         preIntervalSodium = Number(mostRecentSodiumEl.value)
+          } else {
+            preIntervalSodium = Number(preIntervalSodiumEl.value)
+          }
+
         preIntervalTBOsmolality = preIntervalSodium * 2
         preIntervalTBOsm = idealTBOsm
     let hypotheticalPreIntervalTBW = preIntervalTBOsm / preIntervalTBOsmolality
@@ -621,7 +732,6 @@ if (returnVar === false) {
 
   }
 
-  // set initial time:
 
   timeZero = timeZeroEl.value
 
@@ -685,6 +795,17 @@ if (returnVar === false) {
 
     intervalButtonEl.removeAttribute('disabled')
 
+
+    if (!preIntervalSodiumEl.value) {
+      // in this case, assumes you will just use predicted value
+      preIntervalSodium = postIntervalSodium
+      console.log("assume post-interval sodium is pre-interval sodium: ", preIntervalSodium, " = ", postIntervalSodium)
+    } else {
+      preIntervalSodium = Number(preIntervalSodiumEl.value)
+      console.log("manual preinterval sodium: ", preIntervalSodium)
+    }
+
+
   // holding off on potassium for now, but would be similar
      console.log("here is the preinterval sodium from that function: ", preIntervalSodium)
 
@@ -721,5 +842,26 @@ if (returnVar === false) {
   renderCurrentTimeEl.innerHTML = `${currentTime} (Day ${currentDay}, Hr ${currentHour})`
 
  }
+
+ 
+
+ function clearAllPreIntervalValues () {
+
+  renderPreIntervalTBWEl.innerHTML = ``
+  renderPreIntervalICFEl.innerHTML = ``
+  renderPreIntervalECFEl.innerHTML = ``
+  renderPreIntervalTBSoluteEl.innerHTML = ``
+  renderPreIntervalICSoluteEl.innerHTML = ``
+  renderPreIntervalECSoluteEl.innerHTML = ``
+  renderPreIntervalSodiumEl.innerHTML = ``
+  renderPreIntervalPotassiumEl.innerHTML = ``
+  renderPreIntervalUrineTonicityEl.innerHTML = ``
+
+  renderCurrentTimeEl.innerHTML = `${currentTime} (Day ${currentDay}, Hr ${currentHour})`
+
+ }
+
+ 
+
 
 
