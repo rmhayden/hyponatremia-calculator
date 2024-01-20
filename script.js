@@ -1,3 +1,90 @@
+// CLASSES / OBJECTS
+
+class IntervalData {
+  constructor(
+    intervalNumber,
+    currentDay,
+    currentHour,
+    currentTime,
+    preIntervalTBW,
+    preIntervalTBOsmolality,
+    preIntervalTBOsm,
+    preIntervalSodium,
+    preIntervalPotassium,
+    preIntervalECF,
+    preIntervalECOsm,
+    preIntervalICF,
+    preIntervalICOsm,
+    postIntervalTBW,
+    postIntervalTBOsmolality,
+    postIntervalTBOsm,
+    postIntervalSodium,
+    postIntervalECF,
+    postIntervalECOsm,
+    postIntervalICF,
+    postIntervalICOsm,
+    intervalElectrolytesIn,
+    intervalElectrolytesOut,
+    intervalSoluteNet,
+    intervalWaterIn,
+    intervalWaterOut,
+    intervalWaterNet,
+    totalIntervalHypertonicSaline,
+    totalIntervalD5W,
+    totalIntervalNormalSaline,
+    totalIntervalUrineOutput,
+    urineOsm,
+    urineSodium,
+    urinePotassium,
+    urineTonicity,
+    urineElectrolytes
+  ) {
+    this.intervalNumber = intervalNumber;
+    this.currentDay = currentDay;
+    this.currentHour = currentHour;
+    this.currentTime = currentTime;
+    this.preIntervalTBW = preIntervalTBW;
+    this.preIntervalTBOsmolality = preIntervalTBOsmolality;
+    this.preIntervalTBOsm = preIntervalTBOsm;
+    this.preIntervalSodium = preIntervalSodium;
+    this.preIntervalPotassium = preIntervalPotassium;
+    this.preIntervalECF = preIntervalECF;
+    this.preIntervalECOsm = preIntervalECOsm;
+    this.preIntervalICF = preIntervalICF;
+    this.preIntervalICOsm = preIntervalICOsm;
+    this.postIntervalTBW = postIntervalTBW;
+    this.postIntervalTBOsmolality = postIntervalTBOsmolality;
+    this.postIntervalTBOsm = postIntervalTBOsm;
+    this.postIntervalSodium = postIntervalSodium;
+    this.postIntervalECF = postIntervalECF;
+    this.postIntervalECOsm = postIntervalECOsm;
+    this.postIntervalICF = postIntervalICF;
+    this.postIntervalICOsm = postIntervalICOsm;
+    this.intervalElectrolytesIn = intervalElectrolytesIn;
+    this.intervalElectrolytesOut = intervalElectrolytesOut;
+    this.intervalSoluteNet = intervalSoluteNet;
+    this.intervalWaterIn = intervalWaterIn;
+    this.intervalWaterOut = intervalWaterOut;
+    this.intervalWaterNet = intervalWaterNet;
+    this.totalIntervalHypertonicSaline = totalIntervalHypertonicSaline;
+    this.totalIntervalD5W = totalIntervalD5W;
+    this.totalIntervalNormalSaline = totalIntervalNormalSaline;
+    this.totalIntervalUrineOutput = totalIntervalUrineOutput;
+    this.urineOsm = urineOsm;
+    this.urineSodium = urineSodium;
+    this.urinePotassium = urinePotassium;
+    this.urineTonicity = urineTonicity;
+    this.urineElectrolytes = urineElectrolytes;
+  }
+}
+
+const allCaseData = {
+  allIntervalData: []
+  // other aspects added as well
+}
+// array of objects
+
+
 
 // VARIABLES
 
@@ -54,9 +141,9 @@ let postIntervalPotassium = 0
 
 let postIntervalTBOsmolality = 0
 
-
 let biologicalSexVar = ""
 
+let idealEDW = 0
 
 let SIADH = true
   // for now, default SIADH true
@@ -83,6 +170,12 @@ let cummulativeHours = 0
 let cummulativeHoursWithoutRemainder = 0
 let remainingMinutes = 0
 
+let totalIntervalHypertonicSaline = 0
+let totalIntervalD5W = 0
+let totalIntervalNormalSaline = 0
+let totalIntervalUrineOutput = 0
+
+let urineElectrolytes = urineSodium + urinePotassium
 
 
 // CACHED ELEMENTS
@@ -199,6 +292,30 @@ function init () {
 }
 
 function newInterval () {
+
+  // add most recent data to object:
+
+
+  let intervalDataToAdd = new IntervalData(intervalNumber, currentDay, currentHour, currentTime, preIntervalTBW, preIntervalTBOsmolality, preIntervalTBOsm, preIntervalSodium, preIntervalPotassium, preIntervalECF, preIntervalECOsm, preIntervalICF, preIntervalICOsm, postIntervalTBW, postIntervalTBOsmolality, postIntervalTBOsm, postIntervalSodium, postIntervalECF, postIntervalECOsm, postIntervalICF, postIntervalICOsm, intervalElectrolytesIn, intervalElectrolytesOut, intervalSoluteNet, intervalWaterIn, intervalWaterOut, intervalWaterNet, totalIntervalHypertonicSaline, totalIntervalD5W, totalIntervalNormalSaline, totalIntervalUrineOutput, urineOsm, urineSodium, urinePotassium, urineTonicity, urineElectrolytes)
+
+  console.log("new data object: ", intervalDataToAdd)
+
+  if (intervalNumber === 1) {
+      allCaseData.biologicalSex = biologicalSexVar
+      allCaseData.idealEDW = Number(weightEl.value)
+      allCaseData.idealTBW = idealTBW
+      allCaseData.idealTBOsm = idealTBOsm
+      allCaseData.idealICF = idealICF
+      allCaseData.idealICOsm = idealICOsm
+      allCaseData.idealECF = idealECF
+      allCaseData.idealECOsm = idealECF
+  }
+
+  allCaseData.allIntervalData.push(intervalDataToAdd)
+  console.log("object of all data in total: ", allCaseData)
+
+
+// now we add to the interval:
 
   intervalNumber = intervalNumber + 1
 
