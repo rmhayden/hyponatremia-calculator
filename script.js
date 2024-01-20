@@ -224,44 +224,6 @@ function newInterval () {
   mostRecentUrineNaEl.value = null
   mostRecentUrineKEl.value = null
   preIntervalSodiumEl.value = postIntervalSodium.toFixed(0)
-
-
-
-  // set actual post values to pre-values;
-
-     // ignoring potassium for now; will also assume IC solute fixed for now
-     preIntervalICOsm = postIntervalICOsm
-
-  
-     // updating pre-interval sodium depending on if a value was placed or not:
-
-    if (!mostRecentSodiumEl.value) {
-      console.log("no value for pre-interval sodium, so using prior postint Na", preIntervalSodium, " = ", postIntervalSodium)
-      preIntervalSodium = postIntervalSodium
-
-      preIntervalTBOsmolality = postIntervalSodium * 2
-      preIntervalTBW = postIntervalTBW
-              // will be difficult to know what the true preIntervalTBW actually is, so with this limited approach will just assume it is unchanged from predicted prior postTBW
-      preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
-      preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
-      preIntervalECF = preIntervalTBW - preIntervalICF
-      preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
-
-    } else {
-      preIntervalSodium = Number(mostRecentSodiumEl.value)
-
-      preIntervalTBW = postIntervalTBW
-      preIntervalTBOsmolality = postIntervalSodium * 2
-        console.log("checking that new preinterval TBOsmolality is post-total Osmolality and double new perintevalsodium: ", (preIntervalSodium * 2), postIntervalTBOsmolality, preIntervalTBOsmolality)
-
-      preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
-      preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
-      preIntervalECF = preIntervalTBW - preIntervalICF
-      preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
-
-    }
- 
-
  
 }
 
@@ -671,6 +633,8 @@ function calculatedVars () {
     console.log("no issues with values; run initial stat values fxn")
   }
 
+
+
 if (returnVar === false) {
 
   setInitialStateButtonEl.setAttribute('disabled', true);
@@ -695,7 +659,8 @@ if (returnVar === false) {
         // TODO: once beyond SIADH, will have to carry forward this if/else stmt
 
         if (intervalNumber === 1) {
-        preIntervalSodium = Number(mostRecentSodiumEl.value)
+            preIntervalSodiumEl.value = mostRecentSodiumEl.value
+            preIntervalSodium = Number(mostRecentSodiumEl.value)
           } else {
             preIntervalSodium = Number(preIntervalSodiumEl.value)
           }
@@ -777,17 +742,18 @@ if (returnVar === false) {
   renderInitialSodiumEl.innerHTML = `${preIntervalSodium.toFixed(0)} mEq/L`
   renderInitialPotassiumEl.innerHTML = `${preIntervalPotassium.toFixed(0)} mEq/L`
 
-  // also renders pre-interval for this first time!
-  renderPreIntervalTBWEl.innerHTML = `${preIntervalTBW.toFixed(1)} L`
-  renderPreIntervalICFEl.innerHTML = `${preIntervalICF.toFixed(1)} L`
-  renderPreIntervalECFEl.innerHTML = `${preIntervalECF.toFixed(1)} L`
-  renderPreIntervalTBSoluteEl.innerHTML = `${preIntervalTBOsm.toFixed(0)} mOsm`
-  renderPreIntervalICSoluteEl.innerHTML = `${preIntervalICOsm.toFixed(0)} mOsm`
-  renderPreIntervalECSoluteEl.innerHTML = `${preIntervalECOsm.toFixed(0)} mOsm`
+// commenting out rendering pre-interval values in this function
+    // renderPreIntervalTBWEl.innerHTML = `${preIntervalTBW.toFixed(1)} L`
+    // renderPreIntervalICFEl.innerHTML = `${preIntervalICF.toFixed(1)} L`
+    // renderPreIntervalECFEl.innerHTML = `${preIntervalECF.toFixed(1)} L`
+    // renderPreIntervalTBSoluteEl.innerHTML = `${preIntervalTBOsm.toFixed(0)} mOsm`
+    // renderPreIntervalICSoluteEl.innerHTML = `${preIntervalICOsm.toFixed(0)} mOsm`
+    // renderPreIntervalECSoluteEl.innerHTML = `${preIntervalECOsm.toFixed(0)} mOsm`
+
 // still have to have variables now for preintervalVars!
 
-  renderPreIntervalSodiumEl.innerHTML = `${preIntervalSodium.toFixed(0)} mEq/L`
-  renderPreIntervalPotassiumEl.innerHTML = `${preIntervalPotassium.toFixed(0)} mEq/L`
+  // renderPreIntervalSodiumEl.innerHTML = `${preIntervalSodium.toFixed(0)} mEq/L`
+  // renderPreIntervalPotassiumEl.innerHTML = `${preIntervalPotassium.toFixed(0)} mEq/L`
 
   initialCommentsEl.innerHTML = initialCommentsVar
 
@@ -818,19 +784,62 @@ if (returnVar === false) {
 
     intervalButtonEl.removeAttribute('disabled')
 
+  if (intervalNumber > 1) {
+    // new calculations here for subsequent intervals:
 
-    if (!preIntervalSodiumEl.value) {
-      // in this case, assumes you will just use predicted value
+    // set actual post values to pre-values;
+
+     // ignoring potassium for now; will also assume IC solute fixed for now
+     preIntervalICOsm = postIntervalICOsm
+
+     // updating pre-interval sodium depending on if a value was placed or not:
+     // to see if preinterval sodium same as was given: 
+
+    //  preIntervalSodiumEl is the preinterval input sodium html
+
+
+    if (preIntervalSodiumEl.value === postIntervalSodium) {
+      console.log("no change in value for pre-interval sodium, so using prior postint Na", preIntervalSodium, " = ", postIntervalSodium)
       preIntervalSodium = postIntervalSodium
-      console.log("assume post-interval sodium is pre-interval sodium: ", preIntervalSodium, " = ", postIntervalSodium)
+
+      preIntervalTBOsmolality = postIntervalSodium * 2
+      preIntervalTBW = postIntervalTBW
+              // will be difficult to know what the true preIntervalTBW actually is, so with this limited approach will just assume it is unchanged from predicted prior postTBW
+      preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
+      preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
+      preIntervalECF = preIntervalTBW - preIntervalICF
+      preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
+
     } else {
+
+      // cache new sodium value (will then re-calculate things)
       preIntervalSodium = Number(preIntervalSodiumEl.value)
-      console.log("manual preinterval sodium: ", preIntervalSodium)
+
+        console.log("is the new sodium caching? ", preIntervalSodium, Number(preIntervalSodiumEl.value))
+
+        // step 1: we will assume TBW is conserved from the post-interval value
+        preIntervalTBW = postIntervalTBW
+
+          console.log("what was the preinterval TBOsmolality before? ", preIntervalTBOsmolality)
+
+        preIntervalTBOsmolality = (preIntervalSodium * 2)
+          // osmolality is not updating...
+          console.log("checking that new preinterval TBOsmolality is no longer post-total Osmolality and double new perintevalsodium: ", (preIntervalSodium * 2), postIntervalTBOsmolality, preIntervalTBOsmolality)
+
+
+        preIntervalTBOsm = (preIntervalTBOsmolality * preIntervalTBW)
+        // ...
+        console.log("preinterval new TBOsmolality and TBOSm(solute) from higher sodium: ", preIntervalTBOsmolality, preIntervalTBOsm)
+
+        console.log("is new preinterval TBOSm higher than prior with manually increasing sodium?", preIntervalTBOsm, postIntervalTBOsm)
+
+        preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
+        preIntervalECF = preIntervalTBW - preIntervalICF
+        preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
     }
+  }
 
 
-  // holding off on potassium for now, but would be similar
-     console.log("here is the preinterval sodium from that function: ", preIntervalSodium)
 
       // urine tonicity:
 
