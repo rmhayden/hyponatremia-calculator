@@ -229,6 +229,7 @@ function newInterval () {
 
 function setBaselineValues() {
 
+
   if (!weightEl.value) {
     returnVar = true
     alert("Must specify baseline estimated dry weight")
@@ -726,6 +727,7 @@ if (returnVar === false) {
   currentDay = 0
 
   renderInitialStateValues()
+  renderInitialCompartmentModel()
  }
 }
 
@@ -850,6 +852,8 @@ if (returnVar === false) {
 
    preIntervalUrineTonicity = urineTonicity
 
+
+   renderPreIntervalCompartmentModel()
    renderPreIntervalValues()
 
  }
@@ -894,6 +898,245 @@ if (returnVar === false) {
  }
 
  
+function renderInitialCompartmentModel () {
 
+    let difInECF = (preIntervalECF - idealECF)
+      // negative number means it will be smaller
+    let difInICF = (preIntervalICF - idealICF)
+      // negative number means it will be smaller
+    let difInTBW = (preIntervalTBW - idealTBW)
+      // negative number means it will be smaller
+
+
+      // SHRINKING of ECF 
+          if (difInECF < -3.5) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "3rem"
+        } else if (difInECF < -2.5) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "3.3rem"
+        } else if (difInECF < -1.5) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "3.6rem"
+        } else if (difInECF < -0.5) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "4rem"
+        }
+
+      // EXPANDING of ECF 
+        else if (difInECF < 0.1) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "4rem"
+        } else if (difInECF < 0.5) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "4.15rem"
+        } else if (difInECF < 1.5) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "4.3rem"
+        }  else if (difInECF < 2.5) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "4.5rem"
+        }  else if (difInECF < 3.5) {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "4.8rem"
+        } else {
+              document.getElementById("compartment-model-1-ecf-box").style.width = "5rem"
+        }
+
+
+        // SHRINKING of ICF
+         if (difInICF < -3.5) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "4.5rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "1.5rem"
+      } else if (difInICF < -2.5) {
+        document.getElementById("compartment-model-1-icf-box").style.width = "5rem"
+        document.getElementById("compartment-model-1-icf-box").style.left = "1rem"
+      } else if (difInICF < -1.5) {
+        document.getElementById("compartment-model-1-icf-box").style.width = "5.5rem"
+        document.getElementById("compartment-model-1-icf-box").style.left = "0.5rem"
+      } else if (difInICF < -0.5) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "6rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "0rem"
+      }
+      // EXPANDING of ICF 
+      else if (difInICF < 0.1) {
+        document.getElementById("compartment-model-1-icf-box").style.width = "6rem"
+        document.getElementById("compartment-model-1-icf-box").style.left = "0rem"
+      } else if (difInICF < 0.5) {
+        document.getElementById("compartment-model-1-icf-box").style.width = "6.5rem"
+        document.getElementById("compartment-model-1-icf-box").style.left = "-0.5rem"
+      } else if (difInICF < 1.5) {
+        document.getElementById("compartment-model-1-icf-box").style.width = "7rem"
+        document.getElementById("compartment-model-1-icf-box").style.left = "-1rem"
+      }  else if (difInICF < 2.5) {
+        document.getElementById("compartment-model-1-icf-box").style.width = "7.5rem"
+        document.getElementById("compartment-model-1-icf-box").style.left = "-1.5rem"
+      }  else if (difInICF < 3.5) {
+        document.getElementById("compartment-model-1-icf-box").style.width = "8rem"
+        document.getElementById("compartment-model-1-icf-box").style.left = "-2rem"
+      } else {
+        document.getElementById("compartment-model-1-icf-box").style.width = "8.5rem"
+        document.getElementById("compartment-model-1-icf-box").style.left = "-2.5rem"
+      }
+
+
+      // shifting of baseline:
+
+        // if BOTH compartments are bigger than baseline, no shift
+        // if BOTH compartments are smaller than baseline, no need to shift
+
+        // if ECF is bigger than baseline but ICF is smaller than baseline, shift left
+        // if ICF is bigger than baseline but ECF is smaller than baseline, shift right
+
+        if (difInTBW < 0) { 
+
+          if ((difInECF > 0) && (difInICF < 0)) {
+                if (difInECF > 3.5) {
+                  // entireContainerStyle.marginLeft = "-40px"
+                  document.getElementById("compartment-model-1-grouping-container").style.left = "-1rem"
+              } else if (difInECF > 2.5) {
+                  // entireContainerStyle.marginLeft = "-30px"
+                  document.getElementById("compartment-model-1-grouping-container").style.left = "-1.66rem"
+              } else if (difInECF > 1.5) {
+                  // entireContainerStyle.marginLeft = "-20px"
+                  document.getElementById("compartment-model-1-grouping-container").style.left = "-1.33rem"
+              } else if (difInECF > 0.5) {
+                  // entireContainerStyle.marginLeft = "-10px"
+                  document.getElementById("compartment-model-1-grouping-container").style.left = "0rem"
+              }
+          }
+  
+          if ((difInICF > 0) && (difInECF < 0)) {
+  
+              if (difInICF > 3.5) {
+                // entireContainerStyle.marginLeft = "40px"
+                document.getElementById("compartment-model-1-grouping-container").style.left = "1rem"
+            } else if (difInICF > 2.5) {
+                // entireContainerStyle.marginLeft = "30px"
+                document.getElementById("compartment-model-1-grouping-container").style.left = "1.66rem"
+            } else if (difInICF > 1.5) {
+                // entireContainerStyle.marginLeft = "20px"
+                document.getElementById("compartment-model-1-grouping-container").style.left = "1.33rem"
+            } else if (difInICF > 0.5) {
+                // entireContainerStyle.marginLeft = "10px"
+                document.getElementById("compartment-model-1-grouping-container").style.left = "0rem"
+            }
+        }
+      }
+
+}
+
+
+
+
+function renderPreIntervalCompartmentModel () {
+
+  let difInECF = (preIntervalECF - idealECF)
+    // negative number means it will be smaller
+  let difInICF = (preIntervalICF - idealICF)
+    // negative number means it will be smaller
+  let difInTBW = (preIntervalTBW - idealTBW)
+    // negative number means it will be smaller
+
+
+    // SHRINKING of ECF 
+        if (difInECF < -3.5) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "3rem"
+      } else if (difInECF < -2.5) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "3.3rem"
+      } else if (difInECF < -1.5) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "3.6rem"
+      } else if (difInECF < -0.5) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "4rem"
+      }
+
+    // EXPANDING of ECF 
+      else if (difInECF < 0.1) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "4rem"
+      } else if (difInECF < 0.5) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "4.15rem"
+      } else if (difInECF < 1.5) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "4.3rem"
+      }  else if (difInECF < 2.5) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "4.5rem"
+      }  else if (difInECF < 3.5) {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "4.8rem"
+      } else {
+            document.getElementById("compartment-model-2-ecf-box").style.width = "5rem"
+      }
+
+
+      // SHRINKING of ICF
+       if (difInICF < -3.5) {
+        document.getElementById("compartment-model-2-icf-box").style.width = "4.5rem"
+        document.getElementById("compartment-model-2-icf-box").style.left = "1.5rem"
+    } else if (difInICF < -2.5) {
+      document.getElementById("compartment-model-2-icf-box").style.width = "5rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "1rem"
+    } else if (difInICF < -1.5) {
+      document.getElementById("compartment-model-2-icf-box").style.width = "5.5rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "0.5rem"
+    } else if (difInICF < -0.5) {
+        document.getElementById("compartment-model-2-icf-box").style.width = "6rem"
+        document.getElementById("compartment-model-2-icf-box").style.left = "0rem"
+    }
+    // EXPANDING of ICF 
+    else if (difInICF < 0.1) {
+      document.getElementById("compartment-model-2-icf-box").style.width = "6rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "0rem"
+    } else if (difInICF < 0.5) {
+      document.getElementById("compartment-model-2-icf-box").style.width = "6.5rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "-0.5rem"
+    } else if (difInICF < 1.5) {
+      document.getElementById("compartment-model-2-icf-box").style.width = "7rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "-1rem"
+    }  else if (difInICF < 2.5) {
+      document.getElementById("compartment-model-2-icf-box").style.width = "7.5rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "-1.5rem"
+    }  else if (difInICF < 3.5) {
+      document.getElementById("compartment-model-2-icf-box").style.width = "8rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "-2rem"
+    } else {
+      document.getElementById("compartment-model-2-icf-box").style.width = "8.5rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "-2.5rem"
+    }
+
+
+    // shifting of baseline:
+
+      // if BOTH compartments are bigger than baseline, no shift
+      // if BOTH compartments are smaller than baseline, no need to shift
+
+      // if ECF is bigger than baseline but ICF is smaller than baseline, shift left
+      // if ICF is bigger than baseline but ECF is smaller than baseline, shift right
+
+      if (difInTBW < 0) { 
+
+        if ((difInECF > 0) && (difInICF < 0)) {
+              if (difInECF > 3.5) {
+                // entireContainerStyle.marginLeft = "-40px"
+                document.getElementById("compartment-model-2-grouping-container").style.marginLeft = "-1rem"
+            } else if (difInECF > 2.5) {
+                // entireContainerStyle.marginLeft = "-30px"
+                document.getElementById("compartment-model-2-grouping-container").style.marginLeft = "-1.66rem"
+            } else if (difInECF > 1.5) {
+                // entireContainerStyle.marginLeft = "-20px"
+                document.getElementById("compartment-model-2-grouping-container").style.marginLeft = "-1.33rem"
+            } else if (difInECF > 0.5) {
+                // entireContainerStyle.marginLeft = "-10px"
+                document.getElementById("compartment-model-2-grouping-container").style.marginLeft = "0rem"
+            }
+        }
+
+        if ((difInICF > 0) && (difInECF < 0)) {
+
+            if (difInICF > 3.5) {
+              // entireContainerStyle.marginLeft = "40px"
+              document.getElementById("compartment-model-2-grouping-container").style.marginLeft = "1rem"
+          } else if (difInICF > 2.5) {
+              // entireContainerStyle.marginLeft = "30px"
+              document.getElementById("compartment-model-2-grouping-container").style.marginLeft = "1.66rem"
+          } else if (difInICF > 1.5) {
+              // entireContainerStyle.marginLeft = "20px"
+              document.getElementById("compartment-model-2-grouping-container").style.marginLeft = "1.33rem"
+          } else if (difInICF > 0.5) {
+              // entireContainerStyle.marginLeft = "10px"
+              document.getElementById("compartment-model-2-grouping-container").style.marginLeft = "0rem"
+          }
+      }
+    }
+
+}
 
 

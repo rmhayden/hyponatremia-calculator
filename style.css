@@ -445,5 +445,213 @@
     margin-bottom: auto;
     width: 100vw;
     z-index: 9;
+}
 
+
+/* COMPARTMENT MODELS: */
+
+#compartment-model-1-div {
+    width: 15rem;
+    height: 15rem;
+    background-color: rgba(188, 154, 109, 0.5);
+    margin-left: 1rem;
+    margin-top: 3rem;
+}
+
+#compartment-model-1-outside-box {
+    width: 10rem;
+    height: 6rem;
+    background-color: rgba(13, 0, 255, 0.5);
+    position: relative;
+    left: 3rem;
+    top: 2rem;
+    border: dotted black 0.18rem;
+}
+
+
+#compartment-model-1-ecf-box {
+    width: 4rem; 
+        /* 40% is 4rem, by default */
+    height: 6rem;
+    background-color: rgba(0, 255, 157, 0.5);
+    position: relative;
+    left: 6rem;
+        /* shift left 6rem by default */
+    top: -6rem;
+}
+
+#compartment-model-1-icf-box {
+    width: 6rem;
+        /* 60% is 6rem, by default */
+    height: 6rem;
+    background-color: rgba(255, 0, 234, 0.5);
+    position: relative;
+    left: 0rem;
+    top: 0rem;
+}
+
+#compartment-model-1-grouping-container {
+    position: relative;
+    left: 0rem;
+    right: 0rem;
+}
+
+#compartment-model-1-midline-dotted {
+    display: visible;
+    border: dotted black 0.18rem;
+    height: 5.75rem;
+    width: 0rem;
+    position: relative;
+    top: -18rem;
+    left: 5.9rem;
+}
+
+
+#compartment-model-1-midline-solid {
+    display: visible;
+    border: solid black 0.18rem;
+    height: 5.75rem;
+    width: 0rem;
+    position: relative;
+    top: -12rem;
+    left: 5.9rem;
+}
+
+
+
+
+#compartment-model-2-div {
+    width: 15rem;
+    height: 15rem;
+    background-color: rgba(188, 154, 109, 0.5);
+    margin-left: 1rem;
+    margin-top: 5rem;
+}
+
+#compartment-model-2-outside-box {
+    width: 10rem;
+    height: 6rem;
+    background-color: rgba(13, 0, 255, 0.5);
+    position: relative;
+    left: 3rem;
+    top: 2rem;
+    border: dotted black 0.18rem;
+}
+
+
+#compartment-model-2-ecf-box {
+    width: 4rem; 
+        /* 40% is 4rem, by default */
+    height: 6rem;
+    background-color: rgba(0, 255, 157, 0.5);
+    position: relative;
+    left: 6rem;
+        /* shift left 6rem by default */
+    top: -6rem;
+}
+
+#compartment-model-2-icf-box {
+    width: 6rem;
+        /* 60% is 6rem, by default */
+    height: 6rem;
+    background-color: rgba(255, 0, 234, 0.5);
+    position: relative;
+    left: 0rem;
+    top: 0rem;
+}
+
+#compartment-model-2-grouping-container {
+    position: relative;
+    left: 0rem;
+    right: 0rem;
+}
+
+#compartment-model-2-midline-dotted {
+    display: visible;
+    border: dotted black 0.18rem;
+    height: 5.75rem;
+    width: 0rem;
+    position: relative;
+    top: -18rem;
+    left: 5.9rem;
+}
+
+
+#compartment-model-2-midline-solid {
+    display: visible;
+    border: solid black 0.18rem;
+    height: 5.75rem;
+    width: 0rem;
+    position: relative;
+    top: -12rem;
+    left: 5.9rem;
+}
+
+
+
+#compartment-model-3-div {
+    width: 15rem;
+    height: 15rem;
+    background-color: rgba(188, 154, 109, 0.5);
+    margin-left: 1rem;
+    margin-top: 5rem;
+}
+
+#compartment-model-3-outside-box {
+    width: 10rem;
+    height: 6rem;
+    background-color: rgba(13, 0, 255, 0.5);
+    position: relative;
+    left: 3rem;
+    top: 2rem;
+    border: dotted black 0.18rem;
+}
+
+
+#compartment-model-3-ecf-box {
+    width: 4rem; 
+        /* 40% is 4rem, by default */
+    height: 6rem;
+    background-color: rgba(0, 255, 157, 0.5);
+    position: relative;
+    left: 6rem;
+        /* shift left 6rem by default */
+    top: -6rem;
+}
+
+#compartment-model-3-icf-box {
+    width: 6rem;
+        /* 60% is 6rem, by default */
+    height: 6rem;
+    background-color: rgba(255, 0, 234, 0.5);
+    position: relative;
+    left: 0rem;
+    top: 0rem;
+}
+
+#compartment-model-3-grouping-container {
+    position: relative;
+    left: 0rem;
+    right: 0rem;
+}
+
+#compartment-model-3-midline-dotted {
+    display: visible;
+    border: dotted black 0.18rem;
+    height: 5.75rem;
+    width: 0rem;
+    position: relative;
+    top: -18rem;
+    left: 5.9rem;
+}
+
+
+#compartment-model-3-midline-solid {
+    display: visible;
+    border: solid black 0.18rem;
+    height: 5.75rem;
+    width: 0rem;
+    position: relative;
+    top: -12rem;
+    left: 5.9rem;
 }
