@@ -1,5 +1,19 @@
 
 
+input {
+    width: 3rem;
+}
+
+.time-input {
+    width: 6rem;
+}
+
+.longer-input {
+    width: 7rem;
+}
+
+
+
 .columns {
    display: grid;
    justify-content: center;
@@ -709,3 +723,37 @@
     top: -12rem;
     left: 5.9rem;
 }
+
+.increase-width-text {
+    display: none;
+}
+
+@media only screen and (max-width: 900px) {
+    .column-3 {
+        display: none;
+    }
+    .column-2 {
+        width: 60vw;
+    }
+    .column-1 {
+        width: 35vw;
+        margin-left: 0rem;
+    }
+  }
+
+
+  @media only screen and (max-width: 750px) {
+    .column-3 {
+        display: none;
+    }
+    .column-2 {
+        display: none;
+    }
+    .column-1 {
+        display: none;
+    }
+    .increase-width-text {
+        display: block;
+        margin-left: 2rem;
+    }
+  }
