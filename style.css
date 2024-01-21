@@ -318,7 +318,7 @@
     margin-top: 1rem;
     height: 2rem;
     position: relative;
-    right: -10vw;
+    right: -5vw;
 }
 
 .see-models-button h5 {
@@ -326,14 +326,14 @@
     margin-bottom: 0rem;
 }
 
-.see-references-button {
+.csv-data-button {
     margin-top: 1rem;
     height: 2rem;
     position: relative;
-    right: -10vw;
+    right: -5vw;
 }
 
-.see-references-button h5 {
+.csv-data-button h5 {
     margin-top: 0rem;
     margin-bottom: 0rem;
 }
@@ -445,6 +445,52 @@
     margin-bottom: auto;
     width: 100vw;
     z-index: 9;
+}
+
+#modal-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: rgb(201, 209, 245);
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 98.5vw;
+    z-index: 7;
+    margin-left: 0.5rem;
+    margin-right: 0rem;
+}
+
+#modal-2 p {
+    font-size: larger;
+    overflow-wrap: break-word;
+    margin-left: 1rem;
+    margin-bottom: 7rem;
+    background-color: rgb(201, 209, 245);
+}
+
+.close-modal-2-button {
+    height: 3rem;
+    width: 4rem;
+    position: fixed;
+    overflow: none;
+    top: 1rem;
+    right: 3rem;
+    z-index: 8;
+}
+
+.csv-data-class {
+    /* width: 90vw; */
+    /* margin-right: 9rem; */
+    overflow-y: auto;
+    padding-bottom: 5rem;
+    background-color: rgb(201, 209, 245);
+}
+
+.csv-data-class p {
+    margin-top: 5rem; 
+    margin-right: 3rem;
 }
 
 

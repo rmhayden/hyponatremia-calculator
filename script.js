@@ -252,6 +252,7 @@ const setInitialStateButtonEl = document.querySelector(".set-initial-state-butto
 const setPreIntervalButtonEl = document.querySelector(".set-pre-interval-button")
 const intervalButtonEl = document.querySelector(".run-interval-button")
 const newIntervalButtonEl = document.querySelector(".new-interval-button")
+const csvModalButtonEl = document.querySelector(".csv-data-button")
 
 const timeZeroEl = document.querySelector("#time-zero-value-input")
 
@@ -271,6 +272,12 @@ const renderCurrentIntervalNumberEl = document.querySelector("#render-interval-n
 
 const renderPreIntervalCummulativetimeEl = document.querySelector("#render-cumulative-time")
 
+const csvDataEl = document.querySelector("#csv-data")
+
+const modal2El = document.querySelector("#modal-2")
+
+const closeModal2ButtonEl = document.querySelector(".close-modal-2-button")
+
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
@@ -278,6 +285,9 @@ setInitialStateButtonEl.addEventListener('click', setInitialStateValues)
 setPreIntervalButtonEl.addEventListener('click', setPreIntervalValues)
 intervalButtonEl.addEventListener('click', runInterval)
 newIntervalButtonEl.addEventListener('click', newInterval)
+csvModalButtonEl.addEventListener('click', toggleModal2)
+closeModal2ButtonEl.addEventListener('click', closeModal2)
+
 
 // FUNCTIONS
 
@@ -314,6 +324,10 @@ function newInterval () {
   allCaseData.allIntervalData.push(intervalDataToAdd)
   console.log("object of all data in total: ", allCaseData)
 
+  // csv output:
+  const csvData = convertJSONToCSV(allCaseData.allIntervalData);
+    console.log(csvData)
+  csvDataEl.innerHTML = `${csvData}`
 
 // now we add to the interval:
 
@@ -1399,3 +1413,37 @@ function renderPostIntervalCompartmentModel () {
 }
 
 
+
+
+// Convert JSON to CSV
+function convertJSONToCSV(data) {
+  const header = Object.keys(data[0]);
+  const csvContent = [
+    header.join(','),
+    ...data.map(row => header.map(field => row[field]).join(','))
+  ].join('\n');
+
+  return csvContent;
+}
+
+
+
+// 
+
+function toggleModal2 () {
+  document.getElementById("modal-2").style.display = "block"
+  hideBody()
+}
+
+function closeModal2 () {
+  document.getElementById("modal-2").style.display = "none"
+  showBody()
+}
+
+function showBody () {
+  document.getElementById("main-body").style.display = "grid"
+}
+
+function hideBody () {
+  document.getElementById("main-body").style.display = "none"
+}
