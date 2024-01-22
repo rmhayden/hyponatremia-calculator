@@ -295,6 +295,7 @@ const LRBolusButtonEl = document.querySelector("#LR-bolus-button")
 const hypertonicRateButtonEl = document.querySelector("#hypertonic-rate-button")
 const hypertonicBolusButtonEl = document.querySelector("#hypertonic-bolus-button")
 
+const dataTableContainerEl = document.getElementById("data-table-container")
 
 // EVENT LISTENERS
 
@@ -357,6 +358,12 @@ function newInterval () {
   const csvData = convertJSONToCSV(allCaseData.allIntervalData);
     console.log(csvData)
   csvDataEl.innerHTML = `${csvData}`
+
+  // also update the table:
+  var tableElement = csvToTable(`${csvData}`)
+    console.log(tableElement)
+  dataTableContainerEl.appendChild(tableElement);
+
 
 // now we add to the interval:
 
@@ -1456,19 +1463,48 @@ function renderPostIntervalCompartmentModel () {
 
 }
 
-
-
-
 // Convert JSON to CSV
 function convertJSONToCSV(data) {
   const header = Object.keys(data[0]);
   const csvContent = [
     header.join(','),
     ...data.map(row => header.map(field => row[field]).join(','))
-  ].join('\n');
+  // ].join('\n');
+].join(' '); // couldn't do "/n" to separate rows with the table creation
 
+  // csvToTable(csvContent)
+  console.log("Csv content", csvContent)
   return csvContent;
 }
+
+function csvToTable(csvString) {
+    // Split the CSV string into rows; a space separates them (alternatively was prev /n)
+    var rows = csvString.split(' '); 
+    // Create a table element
+    var table = document.createElement('table');
+    // Loop through each row
+    rows.forEach(function(row) {
+      // Split the row into columns
+      var columns = row.split(',');
+      // Create a table row element
+      var tr = document.createElement('tr');
+      // Loop through each column
+      columns.forEach(function(column) {
+        // Create a table data cell element
+        var td = document.createElement('td');
+        // Set the content of the cell to the column value
+        td.textContent = column;
+        // Append the cell to the row
+        tr.appendChild(td);
+      });
+      // Append the row to the table
+      table.appendChild(tr);
+    });
+    // Return the table element
+    console.log(table)
+    return table;
+  }
+
 
 
 
