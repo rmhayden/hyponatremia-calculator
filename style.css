@@ -245,6 +245,31 @@ input {
     display: flex;
 }
 
+.left-justify {
+    position: relative;
+    /* right: -1rem; */
+    margin-left: auto;
+}
+
+.toggle-button {
+    height: 0.8rem;
+    margin-bottom: 0rem;
+    margin-top: -0.1rem;
+    padding: 0rem;
+    margin-right: 0rem;
+}
+
+.toggle-button button {
+    width: 3.0rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+}
+
+.toggle-button small {
+    font-size: 0.55rem;
+}
 
 #potassium-caps-value-input {
     pointer-events: none;

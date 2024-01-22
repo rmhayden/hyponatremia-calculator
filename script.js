@@ -278,6 +278,10 @@ const modal2El = document.querySelector("#modal-2")
 
 const closeModal2ButtonEl = document.querySelector(".close-modal-2-button")
 
+const d5wRateButtonEl = document.querySelector(".d5w-rate-button")
+const d5wBolusButtonEl = document.querySelector(".d5w-bolus-button")
+
+
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)

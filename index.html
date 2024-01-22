@@ -212,15 +212,27 @@
      </tr>
      <tr>
         <td>
-          <label for="d5w-value-input">D5W (cc/hr)</label>
+          <div class="inline">
+          <label for="d5w-value-input">D5W</label>
+           <div class="left-justify toggle-button">
+            &nbsp;<button id="d5w-rate-button"><small>rate (cc/hr)</small></button>
+            <button id="d5w-bolus-button"><small>bolus (cc)</small></button>
+          </div>
+         </div>
         </td>
         <td>
         <input disabled="true"  id="d5w-value-input" name="d5w-value-input" placeholder="">
-      </td>
+       </td>
      </tr>
      <tr>
         <td>
-          <label for="normal-saline-value-input">NS (cc/hr)</label>
+        <div class="inline">
+          <label for="normal-saline-value-input">NS</label>
+          <div class="left-justify toggle-button">
+            &nbsp;<button id="normal-saline-rate-button"><small>rate (cc/hr)</small></button>
+            <button id="normal-saline-bolus-button"><small>bolus (cc)</small></button>
+          </div>
+         </div>
         </td>
         <td>
         <input disabled="true"  id="normal-saline-value-input" name="normal-saline-value-input" placeholder="">
@@ -228,7 +240,13 @@
      </tr>
      <tr>
         <td>
-          <label id="half-normal-saline-value-input" for="half-normal-saline-value-input">1/2-NS (cc/hr)</label>
+          <div class="inline">
+          <label id="half-normal-saline-value-input" for="half-normal-saline-value-input"><small>1/2-</small>NS</label>
+          <div class="left-justify toggle-button">
+            &nbsp;<button id="half-normal-saline-rate-button"><small>rate (cc/hr)</small></button>
+            <button id="half-normal-saline-bolus-button"><small>bolus (cc)</small></button>
+          </div>
+         </div>
         </td>
         <td>
         <input id="half-normal-saline-value-input" name="half-normal-saline-value-input" placeholder="">
@@ -236,7 +254,13 @@
      </tr>
      <tr>
         <td>
-          <label id="LR-value-input" for="LR-value-input">LR (cc/hr)</label>
+          <div class="inline">
+          <label id="LR-value-input" for="LR-value-input">LR</label>
+          <div class="left-justify toggle-button">
+            &nbsp;<button id="LR-rate-button"><small>rate (cc/hr)</small></button>
+            <button id="LR-bolus-button"><small>bolus (cc)</small></button>
+          </div>
+         </div>
         </td>
         <td>
         <input id="LR-value-input" name="LR-value-input" placeholder="">
@@ -244,7 +268,13 @@
      </tr>
      <tr>
         <td>
-          <label for="hypertonic-value-input">3% Saline (cc/hr)</label>
+          <div class="inline">
+          <label for="hypertonic-value-input"><small>3% sal.</small></label>
+          <div class="left-justify toggle-button">
+            &nbsp;<button id="hypertonic-rate-button"><small>rate (cc/hr)</small></button>
+            <button id="LR-bolus-button"><small>bolus (cc)</small></button>
+          </div>
+         </div>
         </td>
         <td>
         <input disabled="true"  id="hypertonic-value-input" name="hypertonic-value-input" placeholder="">
