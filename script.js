@@ -177,6 +177,12 @@ let totalIntervalUrineOutput = 0
 
 let urineElectrolytes = urineSodium + urinePotassium
 
+// rate vs bolus
+let d5WrateBoolean = true // starts as true
+let normalSalineRateBoolean = true
+let halfNormalSalineRateBoolean = true
+let LRRAteBoolean = true
+let hypertonicRateBoolean = true
 
 // CACHED ELEMENTS
 
@@ -278,8 +284,16 @@ const modal2El = document.querySelector("#modal-2")
 
 const closeModal2ButtonEl = document.querySelector(".close-modal-2-button")
 
-const d5wRateButtonEl = document.querySelector(".d5w-rate-button")
-const d5wBolusButtonEl = document.querySelector(".d5w-bolus-button")
+const d5wRateButtonEl = document.querySelector("#d5w-rate-button")
+const d5wBolusButtonEl = document.querySelector("#d5w-bolus-button")
+const normalSalineRateButtonEl = document.querySelector("#normal-saline-rate-button")
+const normalSalineBolusButtonEl = document.querySelector("#normal-saline-bolus-button")
+const halfNormalSalineRateButtonEl = document.querySelector("#half-normal-saline-rate-button")
+const halfNormalSalineBolusButtonEl = document.querySelector("#half-normal-saline-bolus-button")
+const LRRateButtonEl = document.querySelector("#LR-rate-button")
+const LRBolusButtonEl = document.querySelector("#LR-bolus-button")
+const hypertonicRateButtonEl = document.querySelector("#hypertonic-rate-button")
+const hypertonicBolusButtonEl = document.querySelector("#hypertonic-bolus-button")
 
 
 // EVENT LISTENERS
@@ -291,16 +305,27 @@ intervalButtonEl.addEventListener('click', runInterval)
 newIntervalButtonEl.addEventListener('click', newInterval)
 csvModalButtonEl.addEventListener('click', toggleModal2)
 closeModal2ButtonEl.addEventListener('click', closeModal2)
+d5wRateButtonEl.addEventListener('click', setD5WRate)
+d5wBolusButtonEl.addEventListener('click', setD5WBolus)
+normalSalineRateButtonEl.addEventListener('click', setNormalSalineRate)
+normalSalineBolusButtonEl.addEventListener('click', setNormalSalineBolus)
+halfNormalSalineRateButtonEl.addEventListener('click', setHalfNormalSalineRate)
+halfNormalSalineBolusButtonEl.addEventListener('click', setHalfNormalSalineBolus)
+LRRateButtonEl.addEventListener('click', setLRRate)
+LRBolusButtonEl.addEventListener('click', setLRBolus)
+hypertonicRateButtonEl.addEventListener('click', setHypertonicRate)
+hypertonicBolusButtonEl.addEventListener('click', setHypertonicBolus)
 
 
 // FUNCTIONS
+
 
 //
 
 init ()
 
 function init () {
-  // if needed
+
   renderCurrentIntervalNumberEl.innerHTML = `1`
 
 }
@@ -483,6 +508,12 @@ function calculatedVars () {
     // console.log("normal saline rate: ", rateNormalSaline, " in context of total hours as fraction: ", cummulativeHours)
   totalIntervalNormalSaline = (rateNormalSaline * Number(cummulativeHours))
     // console.log("total normal saline: ", totalIntervalNormalSaline)
+
+  if (normalSalineRateBoolean === false) {
+    totalIntervalNormalSaline = rateNormalSaline
+    // in case of bolus, the input field actually is the total
+    console.log("total interval is now the rate: ", totalIntervalNormalSaline, " = ", rateNormalSaline)
+  }
   
     soluteAddedFromNormalSaline = (totalIntervalNormalSaline * 0.308)
       // console.log("solute added from normal saline: ", soluteAddedFromNormalSaline)
@@ -498,8 +529,12 @@ function calculatedVars () {
 
    rateD5W = Number(intakeD5WEl.value)
    totalIntervalD5W = (rateD5W * Number(cummulativeHours))
-    waterAddedFromD5W = (totalIntervalD5W * 0.001)
 
+   if (d5WrateBoolean === false) {
+    totalIntervalD5W = rateD5W
+  }
+
+    waterAddedFromD5W = (totalIntervalD5W * 0.001)
     intervalWaterIn = intervalWaterIn + waterAddedFromD5W
 
 // HYPERTONIC SALINE:
@@ -511,11 +546,17 @@ function calculatedVars () {
     rateHypertonicSaline = Number(intakeHypertonicSalineEl.value)
     totalIntervalHypertonicSaline = (rateHypertonicSaline * Number(cummulativeHours))
 
+    if (hypertonicRateBoolean === false) {
+      totalIntervalHypertonicSaline = rateHypertonicSaline
+    }
+
       waterAddedFromHypertonicSaline = (totalIntervalHypertonicSaline * 0.001)
       soluteAddedFromHypertonicSaline = (totalIntervalHypertonicSaline * 1.026)
 
     intervalWaterIn = intervalWaterIn + waterAddedFromHypertonicSaline
     intervalElectrolytesIn = intervalElectrolytesIn + soluteAddedFromHypertonicSaline
+
+  // TODO: add functions for half-NS and LR
 
 // URINE:
 
@@ -1286,7 +1327,6 @@ function renderPreIntervalCompartmentModel () {
           }
       }
     }
-
 }
 
 
@@ -1451,3 +1491,66 @@ function showBody () {
 function hideBody () {
   document.getElementById("main-body").style.display = "none"
 }
+
+// toggle functions 
+
+function setD5WRate () {
+  d5WrateBoolean = true
+  d5wRateButtonEl.setAttribute('disabled', true)
+  d5wBolusButtonEl.removeAttribute('disabled')
+}
+
+function setD5WBolus () {
+  d5WrateBoolean = false
+  d5wBolusButtonEl.setAttribute('disabled', true)
+  d5wRateButtonEl.removeAttribute('disabled')
+}
+
+function setNormalSalineRate () {
+  normalSalineRateBoolean = true
+  normalSalineRateButtonEl.setAttribute('disabled', true)
+  normalSalineBolusButtonEl.removeAttribute('disabled')
+}
+
+function setNormalSalineBolus () {
+  normalSalineRateBoolean = false
+  normalSalineBolusButtonEl.setAttribute('disabled', true)
+  normalSalineRateButtonEl.removeAttribute('disabled')
+}
+
+function setLRRate () {
+  LRRAteBoolean = true
+  LRRateButtonEl.setAttribute('disabled', true)
+  LRBolusButtonEl.removeAttribute('disabled')
+}
+
+function setLRBolus () {
+  LRRAteBoolean = false
+  LRBolusButtonEl.setAttribute('disabled', true)
+  LRRateButtonEl.removeAttribute('disabled')
+}
+
+function setHalfNormalSalineRate () {
+  halfNormalSalineRateBoolean = true
+  halfNormalSalineRateButtonEl.setAttribute('disabled', true)
+  halfNormalSalineBolusButtonEl.removeAttribute('disabled')
+}
+
+function setHalfNormalSalineBolus () {
+  halfNormalSalineRateBoolean = false
+  halfNormalSalineBolusButtonEl.setAttribute('disabled', true)
+  halfNormalSalineRateButtonEl.removeAttribute('disabled')
+}
+
+function setHypertonicRate () {
+  hypertonicRateBoolean = true
+  hypertonicRateButtonEl.setAttribute('disabled', true)
+  hypertonicBolusButtonEl.removeAttribute('disabled')
+}
+
+function setHypertonicBolus() {
+  hypertonicRateBoolean = false
+  hypertonicBolusButtonEl.setAttribute('disabled', true)
+  hypertonicRateButtonEl.removeAttribute('disabled')
+}
+
