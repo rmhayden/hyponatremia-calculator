@@ -768,10 +768,41 @@ input {
     margin-right: 5vw;
     width: 90vw;
     background-color: rgb(238, 225, 225);
-    font-size: 0.8rem;
     overflow: scroll;
-    table-layout: auto;
 }
+
+.data-table-container table {
+    border: 0.2rem solid rgb(67, 66, 66);
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* width: 100%; */
+}
+
+.data-table-container td {
+    border: 0.05rem solid rgb(115, 114, 114);
+    padding: .1rem;
+    font-size: 0.8rem;
+}
+
+.data-table-container td:first-child {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+.data-table-container tr {
+    color: rgb(82, 77, 77);
+    font-weight: lighter;
+    text-align: center;
+}
+
+.data-table-container tr:first-child {
+    color: black;
+    font-weight: bold;
+}
+
 
 
 @media only screen and (max-width: 900px) {

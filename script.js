@@ -296,6 +296,7 @@ const hypertonicRateButtonEl = document.querySelector("#hypertonic-rate-button")
 const hypertonicBolusButtonEl = document.querySelector("#hypertonic-bolus-button")
 
 const dataTableContainerEl = document.getElementById("data-table-container")
+const baselineCaseDataEl = document.getElementById("baseline-case-data")
 
 // EVENT LISTENERS
 
@@ -349,6 +350,10 @@ function newInterval () {
       allCaseData.idealICOsm = idealICOsm
       allCaseData.idealECF = idealECF
       allCaseData.idealECOsm = idealECF
+
+
+    baselineCaseDataEl.innerHTML = `Dry Weight: ${allCaseData.idealEDW} kg` + `<br>` + `Biological Sex: ${allCaseData.biologicalSex}` + `<br>` + `Ideal TBW: ${allCaseData.idealTBW} kg` + `<br>` + `Ideal TBOsm: ${idealTBOsm} mOsm` + `<br>` + `Ideal ICF: ${ allCaseData.idealICF} L` + `<br>` + `Ideal ICOsm: allCaseData.idealICOsm` + `<br>` + `Ideal ECF: ${allCaseData.idealECF} L` + `<br>` + `Ideal ECOsm: ${allCaseData.idealECOsm} mOsm`
+
   }
 
   allCaseData.allIntervalData.push(intervalDataToAdd)
