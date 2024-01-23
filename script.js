@@ -351,8 +351,11 @@ function newInterval () {
       allCaseData.idealECF = idealECF
       allCaseData.idealECOsm = idealECF
 
-
-    baselineCaseDataEl.innerHTML = `Dry Weight: ${allCaseData.idealEDW} kg` + `<br>` + `Biological Sex: ${allCaseData.biologicalSex}` + `<br>` + `Ideal TBW: ${allCaseData.idealTBW} kg` + `<br>` + `Ideal TBOsm: ${idealTBOsm} mOsm` + `<br>` + `Ideal ICF: ${ allCaseData.idealICF} L` + `<br>` + `Ideal ICOsm: allCaseData.idealICOsm` + `<br>` + `Ideal ECF: ${allCaseData.idealECF} L` + `<br>` + `Ideal ECOsm: ${allCaseData.idealECOsm} mOsm`
+    // unlock case data button
+    csvModalButtonEl.removeAttribute("disabled")
+  
+    // render baseline data before table
+    baselineCaseDataEl.innerHTML = `Dry Weight: ${allCaseData.idealEDW.toFixed(0)} kg` + `<br>` + `Biological Sex: ${allCaseData.biologicalSex}` + `<br>` + `Ideal TBW: ${allCaseData.idealTBW.toFixed(1)} kg` + `<br>` + `Ideal TBOsm: ${idealTBOsm.toFixed(1)} mOsm` + `<br>` + `Ideal ICF: ${ allCaseData.idealICF.toFixed(1)} L` + `<br>` + `Ideal ICOsm: ${allCaseData.idealICOsm.toFixed(1)}` + `<br>` + `Ideal ECF: ${allCaseData.idealECF.toFixed(1)} L` + `<br>` + `Ideal ECOsm: ${allCaseData.idealECOsm.toFixed(1)} mOsm`
 
   }
 

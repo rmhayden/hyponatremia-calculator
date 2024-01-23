@@ -473,7 +473,7 @@
     </div>
   </div>
   <button class="see-models-button" type="button"><h5>Physiologic Models</h5></button>
-  <button class="csv-data-button" type="button"><h5>Case Data (csv)</h5></button>
+  <button disabled="true" class="csv-data-button" type="button"><h5>View Case Data</h5></button>
 
   </div>
 
@@ -493,16 +493,14 @@
       <p hidden="true" id="csv-data"></p>
     </div>
 
-    <div>
-      Baseline Characteristics
-      <p id="baseline-case-data" class="baseline-case-data"></p>
-    </div>
+      <p><strong>Baseline Characteristics</strong></p>
+
+      <p id="baseline-case-data"></p>
 
     <!-- TODO: add random case number using Date.now() which will show up for each case and carry forward as an identifier -->
 
-    <div id="data-table-container" class="data-table-container">
-
-    </div>
+    <p><strong>Interval Data Table</strong></p>
+    <div id="data-table-container" class="data-table-container"></div>
 
     <button class="close-modal-2-button">Close</button>
   </div>

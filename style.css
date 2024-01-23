@@ -764,7 +764,8 @@ input {
 }
 
 .data-table-container {
-    margin-left: 2vw;
+    margin-top: 0rem;
+    margin-left: 3vw;
     margin-right: 5vw;
     width: 90vw;
     background-color: rgb(238, 225, 225);
@@ -773,6 +774,7 @@ input {
 
 .data-table-container table {
     border: 0.2rem solid rgb(67, 66, 66);
+    background-color: rgb(252, 251, 251);
     padding-top: 1.5rem;
     padding-bottom: 1rem;
     padding-left: 1rem;
@@ -803,6 +805,19 @@ input {
     font-weight: bold;
 }
 
+.baseline-case-data p {
+    color: rgb(10, 10, 10);
+    padding-left: 2rem;
+    font-size: 0.8rem;
+    height:fit-content;
+}
+
+#modal-2 p {
+    font-size: 1rem;
+    margin-left: 2rem;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+}
 
 
 @media only screen and (max-width: 900px) {
