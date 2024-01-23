@@ -360,8 +360,13 @@ function newInterval () {
   csvDataEl.innerHTML = `${csvData}`
 
   // also update the table:
+
+  if (intervalNumber > 1) {
+   dataTableContainerEl.innerHTML = ""; // reset to empty string so avoid multiple tables
+  }
+
   var tableElement = csvToTable(`${csvData}`)
-    console.log(tableElement)
+    // console.log(tableElement)
   dataTableContainerEl.appendChild(tableElement);
 
 
