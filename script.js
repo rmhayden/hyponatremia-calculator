@@ -1,4 +1,4 @@
-  // GRAPH:
+// GRAPH:
 
   const serumData = [
       {}
@@ -26,13 +26,13 @@
       // Parse the time
       // const parseTime = d3.timeParse("%H:%M");
 
-      // Format the data
-      data.forEach(d => {
-        // d.time = parseTime(d.time);
-          // skipping parse time to use currentHour?
-          d.time = +d.time
+      // Format the data 
+      data.forEach((d) => {
+         d.time = +d.time
          d.value = +d.value;
          d.value2 = +d.value2; // adding dotted line
+         // adding value 3:
+         d.value3 = +d.value3
       });
   
       // Set up the X and Y scales
@@ -51,25 +51,72 @@
       // Define the line
       const line = d3.line()
         .x(d => xScale(d.time))
-        .y(d => yScale(d.value));
+        .y(d => yScale(d.value2))
+        .defined(d => !isNaN(d.value2)); // last line added
 
-      // Define the second dotted line
-      const dottedLine = d3.line()
-      .x(d => xScale(d.time))
-      .y(d => yScale(d.value2))
-      .defined(d => !isNaN(d.value2)) // Ignore undefined values for the second line
+      // Extract line segments for FIRST line
+      const lineSegments = data.map((d, i) => {
+        return [
+        { time: data[i - 1] ? data[i - 1].time : d.time, value2: d.value3 },
+        { time: d.time, value2: d.value2 }
+        ];
+       }).slice(1); // Skip the first segment since it doesn't have a prior data point
+
+      // Define the second dotted line with separate line segments
+         const dottedLine = d3.line()
+         .x(d => xScale(d.time))
+         .y(d => yScale(d.value))
+         .defined(d => !isNaN(d.value)); 
+
+      // Extract line segments for dotted line
+      const dottedLineSegments = data.map((d, i) => {
+        return [
+        { time: data[i - 1] ? data[i - 1].time : d.time, value: d.value3 },
+        { time: d.time, value: d.value }
+        ];
+       }).slice(1); // Skip the first segment since it doesn't have a prior data point
   
-      // Add the first line to the chart
-      svg.append("path")
-        .data([data])
-        .attr("class", "line")
-        .attr("d", line);
+        // Add the first line to the chart
+          // svg.append("path")
+          // .data([data])
+          // .attr("class", "line")
+          // .attr("d", line);
 
-      svg.append("path") // adding the second line!
-        .data([data])
-        .attr("class", "dotted-line")
-        .attr("d", dottedLine)
-        .style("stroke-dasharray", "3,3"); // Make the line dotted
+          // trying again here:
+
+          svg.selectAll(".line")
+          .data(lineSegments)
+          .enter().append("path")
+          .attr("class", "line")
+          .attr("d", line)
+
+        // Add points for value
+            svg.selectAll(".value-point")
+            .data(data)
+            .enter().append("circle")
+            .attr("class", "value-point")
+            .attr("cx", d => xScale(d.time))
+            .attr("cy", d => yScale(d.value2))
+            .attr("r", 5)
+            .style("fill", "rgb(57, 85, 108)");
+
+       // Add the second dotted line to the chart as separate line segments
+       svg.selectAll(".dotted-line")
+       .data(dottedLineSegments)
+       .enter().append("path")
+       .attr("class", "dotted-line")
+       .attr("d", dottedLine)
+       .style("stroke-dasharray", "3,3"); // Make the line dotted
+
+        // Add points for value2
+          svg.selectAll(".value2-point")
+          .data(data)
+          .enter().append("circle")
+          .attr("class", "value2-point")
+          .attr("cx", d => xScale(d.time))
+          .attr("cy", d => yScale(d.value))
+          .attr("r", 3)
+          .style("fill", "grey");
   
       // Add the X Axis
       svg.append("g")
@@ -513,7 +560,8 @@ function newInterval () {
       // time: `"${currentHour.toString()}"`,
       time: `0`,
       value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
-      value2:  Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
+      value2: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
+      value3: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)), // value 3 is inputted preInterval Na
     })
 
     serumData.push( {
@@ -521,6 +569,7 @@ function newInterval () {
       time: `${Number(currentHour)}`,
       value: Number(postIntervalSodium),
       value2: Number(measuredPostIntervalSodium),
+      value3: Number(preIntervalSodium)
     })
 
     serumData.shift()   
@@ -531,6 +580,7 @@ function newInterval () {
     time: `${Number(currentHour)}`,
     value: Number(postIntervalSodium),
     value2: Number(measuredPostIntervalSodium),
+    value3: Number(preIntervalSodium)
   })
 
   }
@@ -1187,8 +1237,8 @@ if (returnVar === false) {
     //  preIntervalSodiumEl is the preinterval input sodium html
 
 
-    if (preIntervalSodiumEl.value === postIntervalSodium) {
-      console.log("no change in value for pre-interval sodium, so using prior postint Na", preIntervalSodium, " = ", postIntervalSodium)
+    if (preIntervalSodiumEl.value === measuredPostIntervalSodium) {
+      console.log("no change in value for pre-interval sodium from most recent measuredPostIntervalSodium, so using prior postint Na", preIntervalSodium, " = ", postIntervalSodium)
       preIntervalSodium = postIntervalSodium
 
       preIntervalTBOsmolality = postIntervalSodium * 2
