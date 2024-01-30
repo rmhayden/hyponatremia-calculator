@@ -44,9 +44,9 @@
   
       const yScale = d3.scaleLinear()
         .range([height, 0])
-        .domain([(d3.min(data, d => d.value) - 5), (d3.max(data, d => d.value) + 5)]);
+        // .domain([(d3.min(data, d => d.value) - 5), (d3.max(data, d => d.value) + 5)]);
         // may need to adjust this as below:
-        // .domain([d3.min(data, d => Math.min(d.value, d.value2)), d3.max(data, d => Math.max(d.value, d.value2))]);
+        .domain([(d3.min(data, d => Math.min(d.value, d.value2)) - 5), (d3.max(data, d => Math.max(d.value, d.value2)) + 5)]);
 
       // Define the line
       const line = d3.line()
@@ -75,15 +75,8 @@
         { time: d.time, value: d.value }
         ];
        }).slice(1); // Skip the first segment since it doesn't have a prior data point
-  
+
         // Add the first line to the chart
-          // svg.append("path")
-          // .data([data])
-          // .attr("class", "line")
-          // .attr("d", line);
-
-          // trying again here:
-
           svg.selectAll(".line")
           .data(lineSegments)
           .enter().append("path")
@@ -108,7 +101,7 @@
        .attr("d", dottedLine)
        .style("stroke-dasharray", "3,3"); // Make the line dotted
 
-        // Add points for value2
+        // Add points
           svg.selectAll(".value2-point")
           .data(data)
           .enter().append("circle")
@@ -117,6 +110,16 @@
           .attr("cy", d => yScale(d.value))
           .attr("r", 3)
           .style("fill", "grey");
+
+          // Add points for value3
+          svg.selectAll(".value3-point")
+          .data(data)
+          .enter().append("circle")
+          .attr("class", "value3-point")
+          .attr("cx", d => xScale(data[data.indexOf(d) - 1] ? data[data.indexOf(d) - 1].time : d.time))
+          .attr("cy", d => yScale(d.value3))
+          .attr("r", 5)
+          .style("fill", "rgb(57, 85, 108)");
   
       // Add the X Axis
       svg.append("g")
@@ -127,10 +130,6 @@
       svg.append("g")
         .call(d3.axisLeft(yScale));
     }
-  
-    // Call the function with the serum data
-    // createSerumChart(serumData);
-
 
 
 // CLASSES / OBJECTS
