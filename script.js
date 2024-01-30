@@ -51,12 +51,18 @@
       // const xScale = d3.scaleTime()
       const xScale = d3.scaleLinear()
         .range([0, width])
-        .domain(d3.extent(data, d => d.time));
+        // .domain(d3.extent(data, d => d.time));
+        .domain([0, d3.max(data, d => d.time)]);
   
       const yScale = d3.scaleLinear()
         .range([height, 0])
         .domain([d3.min(data, d => d.value), d3.max(data, d => d.value)]);
   
+        // clear old charts each time
+        if (intervalNumber > 1) {
+          d3.select("#chart-container svg").remove();         
+        }
+       
       // Define the line
       const line = d3.line()
         .x(d => xScale(d.time))
@@ -486,14 +492,24 @@ function newInterval () {
   //   value: Number(postIntervalSodium)
   // })
 
+
+  if (intervalNumber === 1) {
+
+    serumData.push( {
+      // time: `"${currentHour.toString()}"`,
+      time: `0`,
+      value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
+    })
+
+    serumData.shift()   
+  } else {
+
   serumData.push( {
     // time: `"${currentHour.toString()}"`,
     time: `${Number(currentHour)}`,
     value: Number(postIntervalSodium)
   })
 
-  if (intervalNumber === 1) {
-    serumData.shift()   
   }
 
   console.log(serumData)
