@@ -60,10 +60,8 @@ input {
 
 .column-2-upper {
     grid-area: column-2-upper;
-    height: 0rem;
+    height: 5.6rem;
     display: grid;
-    /* grid-template-columns: auto; */
-    /* grid-template-rows: auto; */
     grid-template-areas: "column-2-upper-left columnn-2-upper-right"
 }
 
@@ -86,17 +84,14 @@ input {
     margin-right: auto;
     margin-left: auto;
     width: 100%;
-    /* background-color: rgb(123, 129, 129); */
 }
 
 
 
 .column-2-upper-left {
     grid-area: column-2-upper-left;
-    /* background-color: red; */
-    /* height: auto; */
     position: absolute;
-    top: 2rem;
+    top: 2.5rem;
 }
 
 .column-2-upper-left p {
@@ -114,10 +109,8 @@ input {
 
 .column-2-upper-right {
     grid-area: column-2-upper-right;
-    /* background-color: blue; */
-    /* height: auto; */
     position: absolute;
-    top: 2rem;
+    top: 2.5rem;
     margin-left: 10rem;
     margin-right: -5rem;
 }
@@ -129,7 +122,6 @@ input {
     height: 16rem;
     width: 40vw;
     position: relative;
-    top: 2.5rem;
     display: grid;
     grid-template-areas: "column-2-middle-left column-2-middle-right";
 }
@@ -152,7 +144,7 @@ input {
     grid-area: column-2-middle-left;
     height: auto;
     position: absolute;
-    top: 1.5rem;
+    top: 2rem;
 }
 
 
@@ -160,7 +152,7 @@ input {
     grid-area: column-2-middle-right;
     height: auto;
     position: absolute;
-    top: 1.5rem;
+    top: 2rem;
     margin-left: -13rem;
 }
 
@@ -168,8 +160,8 @@ input {
     grid-area: column-2-middle-2;
     /* background-color: rgba(122, 160, 122, 0.2); */
     position: relative;
+    top: -2rem;
     width: 40vw;
-    top: -2.8rem;
     height: 12rem;
     display: grid;
     grid-template-areas: "column-2-middle-2-left column-2-middle-2-right";
@@ -180,14 +172,13 @@ input {
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
     position: relative;
-    top: 1rem;
 }
 
 .column-2-middle-2 h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
     position: relative;
-    top: -11.5rem;
+    top: -12.5rem;
     display: flex;
     justify-content: center;
 }
@@ -213,7 +204,7 @@ input {
     display: grid;
     grid-template-areas: "column-2-lowest-left column-2-lowest-right";
     position: relative;
-    top: -6.2rem;
+    top: -3rem;
     width: 40vw;
 }
 
@@ -236,14 +227,14 @@ input {
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
     position: relative;
-    top: 0rem;
+    top: -0rem;
 }
 
 .column-2-lowest h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
     position: relative;
-    top: -15.2rem;
+    top: -18.4rem;
     display: flex;
     justify-content: center;
 }

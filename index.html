@@ -326,7 +326,6 @@
     <div class="inline"><p>Ideal ICW:&nbsp;</p><p id="output-ideal-icf"></p></div>
     <div class="inline"><p>Ideal ECW:&nbsp;</p><p id="output-ideal-ecf"></p></div>
     <div>
-      <br>
       <p class="comment" id="ideal-comments"></p>
      </div>
   </div>
@@ -348,7 +347,6 @@
     <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-initial-sodium"></p><p id="time-zero-value-output"></p></div>
     <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-initial-potassium"></p></div>
     <div>
-      <br>
       <p class="comment" id="initial-comments"></p>
      </div>
   </div>
@@ -397,19 +395,28 @@
       <div class="inline"><p>ICW:&nbsp;</p><p id="output-post-interval-icf"></p></div>
       <div class="inline"><p>ECW:&nbsp;</p><p id="output-post-interval-ecf"></p></div>
       <br>
-      <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-post-interval-sodium"></p><p id="time-zero-value-output"></p></div>
+      <div class="inline"><p>Predicted Serum Sodium:&nbsp;</p><p id="output-post-interval-sodium"></p><p id="time-zero-value-output"></p></div>
+      <br>
+      <div class="inline">
+        &nbsp;
+        <label for="measured-post-interval-sodium">Actual Measured Sodium:</label>
+          <p>&nbsp;</p>
+      <input disabled="true"  id="measured-post-interval-sodium" name="measured-post-interval-sodium" placeholder=""> <p><small>mEq/L</small></p>
+      </div>
+      <br>
       <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-post-interval-potassium"></p></div>      <div>
         <br>
       <div class="inline"><p>Interval Duration:&nbsp;</p><p id="interval-duration"></p></div>
         <p class="comment" id="post-interval-comments"></p>
        </div>
+
+
     </div>
      <div class="column-2-lowest-right">
       <div class="inline"><p>TB Solute:&nbsp;</p><p id="output-post-interval-tbosm"></p></div>
       <div class="inline"><p>IC Solute:&nbsp;</p><p id="output-post-interval-icosm"></p></div>
       <div class="inline"><p>EC Solute:&nbsp;</p><p id="output-post-interval-ecosm"></p></div>
-      </div> 
-
+    </div> 
 
   </div>
 </div>
@@ -448,7 +455,6 @@
         <div id="compartment-model-3-midline-dotted"></div>
       </div>
     </div>
-
 
 </div>
 
@@ -496,7 +502,7 @@
 
     <!-- The container for the chart -->
     <div id="chart-container"></div>
-    
+
     <div class="csv-data-class">
       <p hidden="true" id="csv-data"></p>
     </div>
