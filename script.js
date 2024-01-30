@@ -1,3 +1,74 @@
+// TESTING:
+
+    // delete this test data TODO:
+
+    const serumData = [
+      { time: '00:00', value: 135 },
+      { time: '02:00', value: 138 },
+      { time: '04:00', value: 142 },
+      { time: '06:00', value: 136 },
+      { time: '08:00', value: 130 },
+      { time: '10:00', value: 145 },
+      // Add more data points as needed
+    ];
+
+    function createSerumChart(data) {
+      // Set up the SVG container
+      const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+      const width = 600 - margin.left - margin.right;
+      const height = 400 - margin.top - margin.bottom;
+  
+      const svg = d3.select("#chart-container")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  
+      // Parse the time
+      const parseTime = d3.timeParse("%H:%M");
+  
+      // Format the data
+      data.forEach(d => {
+        d.time = parseTime(d.time);
+        d.value = +d.value;
+      });
+  
+      // Set up the X and Y scales
+      const xScale = d3.scaleTime()
+        .range([0, width])
+        .domain(d3.extent(data, d => d.time));
+  
+      const yScale = d3.scaleLinear()
+        .range([height, 0])
+        .domain([d3.min(data, d => d.value), d3.max(data, d => d.value)]);
+  
+      // Define the line
+      const line = d3.line()
+        .x(d => xScale(d.time))
+        .y(d => yScale(d.value));
+  
+      // Add the line to the chart
+      svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .attr("d", line);
+  
+      // Add the X Axis
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(xScale));
+  
+      // Add the Y Axis
+      svg.append("g")
+        .call(d3.axisLeft(yScale));
+    }
+  
+    // Call the function with the serum data
+    createSerumChart(serumData);
+
+
+
 // CLASSES / OBJECTS
 
 class IntervalData {
@@ -298,6 +369,7 @@ const hypertonicBolusButtonEl = document.querySelector("#hypertonic-bolus-button
 const dataTableContainerEl = document.getElementById("data-table-container")
 const baselineCaseDataEl = document.getElementById("baseline-case-data")
 
+
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
@@ -329,7 +401,6 @@ init ()
 function init () {
 
   renderCurrentIntervalNumberEl.innerHTML = `1`
-
 }
 
 function newInterval () {
@@ -447,6 +518,19 @@ function runInterval () {
   intervalButtonEl.setAttribute('disabled', true)
 
   newIntervalButtonEl.removeAttribute("disabled")
+
+  //
+
+    d5wBolusButtonEl.classList.add("pointer-events-none")
+    d5wRateButtonEl.classList.add("pointer-events-none")
+    normalSalineBolusButtonEl.classList.add("pointer-events-none")
+    normalSalineRateButtonEl.classList.add("pointer-events-none")
+    LRRateButtonEl.classList.add("pointer-events-none")
+    LRBolusButtonEl.classList.add("pointer-events-none")
+    halfNormalSalineRateButtonEl.classList.add("pointer-events-none")
+    halfNormalSalineBolusButtonEl.classList.add("pointer-events-none")
+    hypertonicBolusButtonEl.classList.add("pointer-events-none")
+    hypertonicRateButtonEl.classList.add("pointer-events-none")
 
   calculatedVars()
 
@@ -974,7 +1058,18 @@ if (returnVar === false) {
 
     preIntervalSodiumEl.setAttribute('disabled', true)
 
-    // activate next fields:
+    // activate next fields
+
+    d5wBolusButtonEl.classList.remove("pointer-events-none")
+    d5wRateButtonEl.classList.remove("pointer-events-none")
+    normalSalineBolusButtonEl.classList.remove("pointer-events-none")
+    normalSalineRateButtonEl.classList.remove("pointer-events-none")
+    LRRateButtonEl.classList.remove("pointer-events-none")
+    LRBolusButtonEl.classList.remove("pointer-events-none")
+    halfNormalSalineRateButtonEl.classList.remove("pointer-events-none")
+    halfNormalSalineBolusButtonEl.classList.remove("pointer-events-none")
+    hypertonicBolusButtonEl.classList.remove("pointer-events-none")
+    hypertonicRateButtonEl.classList.remove("pointer-events-none")
 
     postIntervalTimeEl.removeAttribute('disabled')
     intakeD5WEl.removeAttribute('disabled')
@@ -1602,4 +1697,3 @@ function setHypertonicBolus() {
   hypertonicBolusButtonEl.setAttribute('disabled', true)
   hypertonicRateButtonEl.removeAttribute('disabled')
 }
-

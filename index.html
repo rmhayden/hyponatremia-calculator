@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hyponatremia Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script defer src="script.js"></script>
+      <!-- does it matter which comes first? -->
 </head>
 
 <body>
@@ -215,8 +217,8 @@
           <div class="inline">
           <label for="d5w-value-input">D5W</label>
            <div class="left-justify toggle-button">
-            &nbsp;<button disabled="true" id="d5w-rate-button"><small>rate (cc/hr)</small></button>
-            <button id="d5w-bolus-button"><small>bolus (cc)</small></button>
+            &nbsp;<button disabled="true" id="d5w-rate-button" class="pointer-events-none"><small>rate (cc/hr)</small></button>
+            <button id="d5w-bolus-button" class="pointer-events-none"><small>bolus (cc)</small></button>
           </div>
          </div>
         </td>
@@ -229,8 +231,8 @@
         <div class="inline">
           <label for="normal-saline-value-input">NS</label>
           <div class="left-justify toggle-button">
-            &nbsp;<button disabled="true" id="normal-saline-rate-button"><small>rate (cc/hr)</small></button>
-            <button id="normal-saline-bolus-button"><small>bolus (cc)</small></button>
+            &nbsp;<button disabled="true" id="normal-saline-rate-button" class="pointer-events-none"><small>rate (cc/hr)</small></button>
+            <button id="normal-saline-bolus-button" class="pointer-events-none"><small>bolus (cc)</small></button>
           </div>
          </div>
         </td>
@@ -243,8 +245,8 @@
           <div class="inline">
           <label id="half-normal-saline-value-input" for="half-normal-saline-value-input"><small>1/2-</small>NS</label>
           <div class="left-justify toggle-button">
-            &nbsp;<button  disabled="true" id="half-normal-saline-rate-button"><small>rate (cc/hr)</small></button>
-            <button id="half-normal-saline-bolus-button"><small>bolus (cc)</small></button>
+            &nbsp;<button disabled="true" id="half-normal-saline-rate-button" class="pointer-events-none"><small>rate (cc/hr)</small></button>
+            <button id="half-normal-saline-bolus-button" class="pointer-events-none"><small>bolus (cc)</small></button>
           </div>
          </div>
         </td>
@@ -257,8 +259,8 @@
           <div class="inline">
           <label id="LR-value-input" for="LR-value-input">LR</label>
           <div class="left-justify toggle-button">
-            &nbsp;<button disabled="true" id="LR-rate-button"><small>rate (cc/hr)</small></button>
-            <button id="LR-bolus-button"><small>bolus (cc)</small></button>
+            &nbsp;<button disabled="true" id="LR-rate-button" class="pointer-events-none"><small>rate (cc/hr)</small></button>
+            <button id="LR-bolus-button" class="pointer-events-none"><small>bolus (cc)</small></button>
           </div>
          </div>
         </td>
@@ -271,8 +273,8 @@
           <div class="inline">
           <label for="hypertonic-value-input"><small>3% sal.</small></label>
           <div class="left-justify toggle-button">
-            &nbsp;<button disabled="true" id="hypertonic-rate-button"><small>rate (cc/hr)</small></button>
-            <button id="hypertonic-bolus-button"><small>bolus (cc)</small></button>
+            &nbsp;<button disabled="true" id="hypertonic-rate-button" class="pointer-events-none"><small>rate (cc/hr)</small></button>
+            <button id="hypertonic-bolus-button" class="pointer-events-none"><small>bolus (cc)</small></button>
           </div>
          </div>
         </td>
@@ -503,8 +505,18 @@
     <div id="data-table-container" class="data-table-container"></div>
 
     <button class="close-modal-2-button">Close</button>
+
+        <!-- now add the graph -->
+
+    <!-- The container for the chart -->
+    <div id="chart-container"></div>
+
+    
   </div>
+
+
 </modal>
+
 
 <h3 class="increase-width-text">Increase width of browser to view calculator</h3>
 

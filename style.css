@@ -1,5 +1,12 @@
 
 
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+
+
 input {
     width: 3rem;
 }
@@ -251,6 +258,10 @@ input {
     margin-left: auto;
 }
 
+button:hover {
+    cursor: pointer; 
+}
+
 .toggle-button {
     height: 0.8rem;
     margin-bottom: 0rem;
@@ -279,6 +290,11 @@ input {
 
 .toggle-button button:disabled small {
     color: black;
+}
+
+.pointer-events-none {
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 #potassium-caps-value-input {
