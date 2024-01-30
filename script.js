@@ -24,6 +24,12 @@
 
 
     function createSerumChart(data) {
+
+             // clear old charts each time
+             if (intervalNumber > 1) {
+              d3.select("#chart-container svg").remove();         
+            }
+
       // Set up the SVG container
       const margin = { top: 20, right: 20, bottom: 30, left: 50 };
       const width = 600 - margin.left - margin.right;
@@ -56,12 +62,8 @@
   
       const yScale = d3.scaleLinear()
         .range([height, 0])
-        .domain([d3.min(data, d => d.value), d3.max(data, d => d.value)]);
+        .domain([(d3.min(data, d => d.value) - 5), (d3.max(data, d => d.value) + 5)]);
   
-        // clear old charts each time
-        if (intervalNumber > 1) {
-          d3.select("#chart-container svg").remove();         
-        }
        
       // Define the line
       const line = d3.line()
@@ -499,6 +501,12 @@ function newInterval () {
       // time: `"${currentHour.toString()}"`,
       time: `0`,
       value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
+    })
+
+    serumData.push( {
+      // time: `"${currentHour.toString()}"`,
+      time: `${Number(currentHour)}`,
+      value: Number(postIntervalSodium)
     })
 
     serumData.shift()   
