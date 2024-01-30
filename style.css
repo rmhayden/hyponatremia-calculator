@@ -125,6 +125,8 @@ input {
 .column-2-middle {
     grid-area: column-2-middle;
     /* background-color: rgba(0, 128, 0, 0.3); */
+    position: relative;
+    top: -0.5rem;
     height: 16rem;
     width: 40vw;
     position: relative;
@@ -166,7 +168,7 @@ input {
     grid-area: column-2-middle-2;
     /* background-color: rgba(122, 160, 122, 0.2); */
     position: relative;
-    top: -2rem;
+    top: -2.7rem;
     width: 40vw;
     height: 12rem;
     display: grid;
@@ -210,7 +212,7 @@ input {
     display: grid;
     grid-template-areas: "column-2-lowest-left column-2-lowest-right";
     position: relative;
-    top: -3rem;
+    top: -4rem;
     width: 40vw;
 }
 
