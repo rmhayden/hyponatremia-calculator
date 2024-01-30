@@ -212,6 +212,7 @@ input {
     grid-area: column-2-lowest-left;
     height: auto;
     position: relative;
+    z-index: 11;
 }
 
 .column-2-lowest-right {

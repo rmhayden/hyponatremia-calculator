@@ -1,27 +1,8 @@
-// TESTING:
+  // GRAPH:
 
-    // delete this test data TODO:
-
-    // const serumData = [
-    //   { time: '00:00', value: 135 },
-    //   { time: '02:00', value: 138 },
-    //   { time: '04:00', value: 142 },
-    //   { time: '06:00', value: 136 },
-    //   { time: '08:00', value: 130 },
-    //   { time: '10:00', value: 145 },
-    // ];
-
-    const serumData = [
+  const serumData = [
       {}
     ];
-
-
-    // const serumData = [
-    //   { time: '1', value: 135 },
-    //   { time: '2', value: 138 },
-    //   { time: '3', value: 142 },
-    // ];
-
 
     function createSerumChart(data) {
 
@@ -50,7 +31,8 @@
         // d.time = parseTime(d.time);
           // skipping parse time to use currentHour?
           d.time = +d.time
-        d.value = +d.value;
+         d.value = +d.value;
+         d.value2 = +d.value2; // adding dotted line
       });
   
       // Set up the X and Y scales
@@ -63,18 +45,31 @@
       const yScale = d3.scaleLinear()
         .range([height, 0])
         .domain([(d3.min(data, d => d.value) - 5), (d3.max(data, d => d.value) + 5)]);
-  
-       
+        // may need to adjust this as below:
+        // .domain([d3.min(data, d => Math.min(d.value, d.value2)), d3.max(data, d => Math.max(d.value, d.value2))]);
+
       // Define the line
       const line = d3.line()
         .x(d => xScale(d.time))
         .y(d => yScale(d.value));
+
+      // Define the second dotted line
+      const dottedLine = d3.line()
+      .x(d => xScale(d.time))
+      .y(d => yScale(d.value2))
+      .defined(d => !isNaN(d.value2)) // Ignore undefined values for the second line
   
-      // Add the line to the chart
+      // Add the first line to the chart
       svg.append("path")
         .data([data])
         .attr("class", "line")
         .attr("d", line);
+
+      svg.append("path") // adding the second line!
+        .data([data])
+        .attr("class", "dotted-line")
+        .attr("d", dottedLine)
+        .style("stroke-dasharray", "3,3"); // Make the line dotted
   
       // Add the X Axis
       svg.append("g")
@@ -112,6 +107,7 @@ class IntervalData {
     postIntervalTBOsmolality,
     postIntervalTBOsm,
     postIntervalSodium,
+    measuredPostIntervalSodium,
     postIntervalECF,
     postIntervalECOsm,
     postIntervalICF,
@@ -149,6 +145,7 @@ class IntervalData {
     this.postIntervalTBOsmolality = postIntervalTBOsmolality;
     this.postIntervalTBOsm = postIntervalTBOsm;
     this.postIntervalSodium = postIntervalSodium;
+    this.measuredPostIntervalSodium = measuredPostIntervalSodium;
     this.postIntervalECF = postIntervalECF;
     this.postIntervalECOsm = postIntervalECOsm;
     this.postIntervalICF = postIntervalICF;
@@ -247,6 +244,7 @@ let postIntervalTBOsm = 0
 let postIntervalICOsm = 0
 let postIntervalECOsm = 0
 let postIntervalSodium = 0
+let measuredPostIntervalSodium = 0
 let postIntervalPotassium = 0
 
 let postIntervalTBOsmolality = 0
@@ -404,6 +402,7 @@ const hypertonicBolusButtonEl = document.querySelector("#hypertonic-bolus-button
 const dataTableContainerEl = document.getElementById("data-table-container")
 const baselineCaseDataEl = document.getElementById("baseline-case-data")
 
+const measuredPostIntervalSodiumEl = document.querySelector("#measured-post-interval-sodium")
 
 // EVENT LISTENERS
 
@@ -440,10 +439,22 @@ function init () {
 
 function newInterval () {
 
+  // now capture the affect of teh measured post interval sodium:
+
+  if (Number(measuredPostIntervalSodiumEl.value) > 0) {
+    console.log("measured postinterval sodium has a value, so set preinterval sodium to it: ", Number(measuredPostIntervalSodiumEl.value).toFixed(0))
+    preIntervalSodiumEl.value = Number(measuredPostIntervalSodiumEl.value).toFixed(0)
+    measuredPostIntervalSodium = Number(measuredPostIntervalSodiumEl.value)
+    // and then clear the value inputted for measured:
+    measuredPostIntervalSodiumEl.value = null
+  } else {
+  preIntervalSodiumEl.value = postIntervalSodium.toFixed(0)
+  measuredPostIntervalSodium = preIntervalSodiumEl.value
+    }
+
   // add most recent data to object:
 
-
-  let intervalDataToAdd = new IntervalData(intervalNumber, currentDay, currentHour, currentTime, preIntervalTBW, preIntervalTBOsmolality, preIntervalTBOsm, preIntervalSodium, preIntervalPotassium, preIntervalECF, preIntervalECOsm, preIntervalICF, preIntervalICOsm, postIntervalTBW, postIntervalTBOsmolality, postIntervalTBOsm, postIntervalSodium, postIntervalECF, postIntervalECOsm, postIntervalICF, postIntervalICOsm, intervalElectrolytesIn, intervalElectrolytesOut, intervalSoluteNet, intervalWaterIn, intervalWaterOut, intervalWaterNet, totalIntervalHypertonicSaline, totalIntervalD5W, totalIntervalNormalSaline, totalIntervalUrineOutput, urineOsm, urineSodium, urinePotassium, urineTonicity, urineElectrolytes)
+  let intervalDataToAdd = new IntervalData(intervalNumber, currentDay, currentHour, currentTime, preIntervalTBW, preIntervalTBOsmolality, preIntervalTBOsm, preIntervalSodium, preIntervalPotassium, preIntervalECF, preIntervalECOsm, preIntervalICF, preIntervalICOsm, postIntervalTBW, postIntervalTBOsmolality, postIntervalTBOsm, postIntervalSodium, measuredPostIntervalSodium, postIntervalECF, postIntervalECOsm, postIntervalICF, postIntervalICOsm, intervalElectrolytesIn, intervalElectrolytesOut, intervalSoluteNet, intervalWaterIn, intervalWaterOut, intervalWaterNet, totalIntervalHypertonicSaline, totalIntervalD5W, totalIntervalNormalSaline, totalIntervalUrineOutput, urineOsm, urineSodium, urinePotassium, urineTonicity, urineElectrolytes)
 
   console.log("new data object: ", intervalDataToAdd)
 
@@ -495,18 +506,21 @@ function newInterval () {
   // })
 
 
+
   if (intervalNumber === 1) {
 
     serumData.push( {
       // time: `"${currentHour.toString()}"`,
       time: `0`,
-      value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
+      value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
+      value2:  Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
     })
 
     serumData.push( {
       // time: `"${currentHour.toString()}"`,
       time: `${Number(currentHour)}`,
-      value: Number(postIntervalSodium)
+      value: Number(postIntervalSodium),
+      value2: Number(measuredPostIntervalSodium),
     })
 
     serumData.shift()   
@@ -515,7 +529,8 @@ function newInterval () {
   serumData.push( {
     // time: `"${currentHour.toString()}"`,
     time: `${Number(currentHour)}`,
-    value: Number(postIntervalSodium)
+    value: Number(postIntervalSodium),
+    value2: Number(measuredPostIntervalSodium),
   })
 
   }
@@ -540,18 +555,18 @@ function newInterval () {
   mostRecentUrineOsmEl.removeAttribute("disabled")
   mostRecentUrineNaEl.removeAttribute("disabled")
   mostRecentUrineKEl.removeAttribute("disabled")
+  //
+  measuredPostIntervalSodiumEl.setAttribute("disabled", true)
 
   // this clears the RENDERING values only so far
   clearAllPreIntervalValues()
   clearAllPostIntervalValues()
 
   // below, also clear the input field values:
-
   mostRecentUrineOsmEl.value = null
   mostRecentUrineNaEl.value = null
   mostRecentUrineKEl.value = null
-  preIntervalSodiumEl.value = postIntervalSodium.toFixed(0)
- 
+
 }
 
 function setBaselineValues() {
@@ -594,6 +609,9 @@ function runInterval () {
   intervalButtonEl.setAttribute('disabled', true)
 
   newIntervalButtonEl.removeAttribute("disabled")
+
+  // activate measured sodium option:
+  measuredPostIntervalSodiumEl.removeAttribute("disabled")
 
   //
 
