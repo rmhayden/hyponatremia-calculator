@@ -179,6 +179,23 @@ let intervalElectrolytesOut = 0
 let intervalSoluteNet = 0
 let intervalWaterNet = 0
 
+    // added and lost variables here
+    let soluteAddedFromNormalSaline = 0
+    let waterAddedFromNormalSaline = 0
+    let rateNormalSaline = 0
+    let totalIntervalNormalSaline = 0
+    let waterAddedFromD5W = 0
+    let rateD5W = 0
+    let totalIntervalD5W = 0
+    let waterAddedFromHypertonicSaline = 0
+    let soluteAddedFromHypertonicSaline = 0
+    let rateHypertonicSaline = 0
+    let totalIntervalHypertonicSaline = 0
+    let waterLostFromUrine = 0
+    let electrolytesLostFromUrine = 0
+    let rateUrineOutput = 0
+    let totalIntervalUrineOutput = 0
+
 let idealTBW = 0
 let idealICF = 0
 let idealECF = 0
@@ -241,10 +258,6 @@ let cummulativeHours = 0
 let cummulativeHoursWithoutRemainder = 0
 let remainingMinutes = 0
 
-let totalIntervalHypertonicSaline = 0
-let totalIntervalD5W = 0
-let totalIntervalNormalSaline = 0
-let totalIntervalUrineOutput = 0
 
 let urineElectrolytes = urineSodium + urinePotassium
 
@@ -589,10 +602,7 @@ function calculatedVars () {
     intervalNaClIn = 0
     intervalKClIn = 0
 
-    urineOsm = 0
-    urineSodium = 0
-    urinePotassium = 0
-    urineTonicity = 0
+    // do not reset urine osm, urine sodium, urine K, urine potassium to zero here (since they are active in the pre-interval step)
 
 
 // manual values not yet here - not yet functional (TODO)
@@ -602,11 +612,11 @@ function calculatedVars () {
   // recall, the "interval specific therapies" will be added by clicking a specific button, so these will easily add to the total field with a separate function triggered that way
 
 // NORMAL SALINE:
-  let soluteAddedFromNormalSaline = 0
-  let waterAddedFromNormalSaline = 0
+    soluteAddedFromNormalSaline = 0
+    waterAddedFromNormalSaline = 0
 
-  let rateNormalSaline = 0
-  let totalIntervalNormalSaline = 0
+    rateNormalSaline = 0
+    totalIntervalNormalSaline = 0
    
   rateNormalSaline = Number(intakeNormalSalineEl.value)
     // console.log("normal saline rate: ", rateNormalSaline, " in context of total hours as fraction: ", cummulativeHours)
@@ -626,10 +636,11 @@ function calculatedVars () {
     intervalElectrolytesIn = (intervalElectrolytesIn + soluteAddedFromNormalSaline)
     intervalWaterIn = intervalWaterIn + waterAddedFromNormalSaline
 
+
  // D5W:
-   let waterAddedFromD5W = 0
-   let rateD5W = 0
-   let totalIntervalD5W = 0
+    waterAddedFromD5W = 0
+    rateD5W = 0
+    totalIntervalD5W = 0
 
    rateD5W = Number(intakeD5WEl.value)
    totalIntervalD5W = (rateD5W * Number(cummulativeHours))
@@ -642,10 +653,10 @@ function calculatedVars () {
     intervalWaterIn = intervalWaterIn + waterAddedFromD5W
 
 // HYPERTONIC SALINE:
-    let waterAddedFromHypertonicSaline = 0
-    let soluteAddedFromHypertonicSaline = 0
-    let rateHypertonicSaline = 0
-    let totalIntervalHypertonicSaline = 0
+    waterAddedFromHypertonicSaline = 0
+    soluteAddedFromHypertonicSaline = 0
+    rateHypertonicSaline = 0
+    totalIntervalHypertonicSaline = 0
 
     rateHypertonicSaline = Number(intakeHypertonicSalineEl.value)
     totalIntervalHypertonicSaline = (rateHypertonicSaline * Number(cummulativeHours))
@@ -664,10 +675,10 @@ function calculatedVars () {
 
 // URINE:
 
-  let waterLostFromUrine = 0
-  let electrolytesLostFromUrine = 0
-  let rateUrineOutput = 0
-  let totalIntervalUrineOutput = 0
+    waterLostFromUrine = 0
+    electrolytesLostFromUrine = 0
+    rateUrineOutput = 0
+    totalIntervalUrineOutput = 0
 
   rateUrineOutput = Number(outputUrineOutputEl.value)
     console.log("urine output rate: ", rateUrineOutput)
@@ -1138,14 +1149,24 @@ if (returnVar === false) {
 
 
 
+      // urine: reset values
+      urineOsm = 0
+      urineSodium = 0
+      urinePotassium = 0
+      urineTonicity = 0
+      urineElectrolytes = 0
+
       // urine tonicity:
 
-      let urineElectrolytes = Number(mostRecentUrineNaEl.value) + Number(mostRecentUrineKEl.value)
-      console.log("urine electrolytes total: ", urineElectrolytes)
+      urineOsm = Number(mostRecentUrineOsmEl.value)
+      urineSodium = Number(mostRecentUrineNaEl.value)
+      urinePotassium = Number(mostRecentUrineKEl.value)
 
-   urineTonicity = (urineElectrolytes / preIntervalSodium) * 100
+      urineElectrolytes = (urineSodium + urinePotassium)
 
-   preIntervalUrineTonicity = urineTonicity
+    urineTonicity = (urineElectrolytes / preIntervalSodium) * 100
+
+    preIntervalUrineTonicity = urineTonicity
 
 
    renderPreIntervalCompartmentModel()
