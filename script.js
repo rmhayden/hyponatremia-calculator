@@ -2,15 +2,26 @@
 
     // delete this test data TODO:
 
+    // const serumData = [
+    //   { time: '00:00', value: 135 },
+    //   { time: '02:00', value: 138 },
+    //   { time: '04:00', value: 142 },
+    //   { time: '06:00', value: 136 },
+    //   { time: '08:00', value: 130 },
+    //   { time: '10:00', value: 145 },
+    // ];
+
     const serumData = [
-      { time: '00:00', value: 135 },
-      { time: '02:00', value: 138 },
-      { time: '04:00', value: 142 },
-      { time: '06:00', value: 136 },
-      { time: '08:00', value: 130 },
-      { time: '10:00', value: 145 },
-      // Add more data points as needed
+      {}
     ];
+
+
+    // const serumData = [
+    //   { time: '1', value: 135 },
+    //   { time: '2', value: 138 },
+    //   { time: '3', value: 142 },
+    // ];
+
 
     function createSerumChart(data) {
       // Set up the SVG container
@@ -26,16 +37,19 @@
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   
       // Parse the time
-      const parseTime = d3.timeParse("%H:%M");
-  
+      // const parseTime = d3.timeParse("%H:%M");
+
       // Format the data
       data.forEach(d => {
-        d.time = parseTime(d.time);
+        // d.time = parseTime(d.time);
+          // skipping parse time to use currentHour?
+          d.time = +d.time
         d.value = +d.value;
       });
   
       // Set up the X and Y scales
-      const xScale = d3.scaleTime()
+      // const xScale = d3.scaleTime()
+      const xScale = d3.scaleLinear()
         .range([0, width])
         .domain(d3.extent(data, d => d.time));
   
@@ -65,7 +79,7 @@
     }
   
     // Call the function with the serum data
-    createSerumChart(serumData);
+    // createSerumChart(serumData);
 
 
 
@@ -461,6 +475,31 @@ function newInterval () {
     // console.log(tableElement)
   dataTableContainerEl.appendChild(tableElement);
 
+  // now update graph:
+
+  let cacheCurrentTimeForGraph = currentTime.toString()
+    console.log("current time for graph cached: ", cacheCurrentTimeForGraph, cacheCurrentTimeForGraph.slice(0, 5))
+
+  // serumData.push( {
+  //   // time: `"${currentHour.toString()}"`,
+  //   time: `${cacheCurrentTimeForGraph.slice(0, 5)}`,
+  //   value: Number(postIntervalSodium)
+  // })
+
+  serumData.push( {
+    // time: `"${currentHour.toString()}"`,
+    time: `${Number(currentHour)}`,
+    value: Number(postIntervalSodium)
+  })
+
+  if (intervalNumber === 1) {
+    serumData.shift()   
+  }
+
+  console.log(serumData)
+
+    // Call the function with the serum data
+    createSerumChart(serumData);
 
 // now we add to the interval:
 
