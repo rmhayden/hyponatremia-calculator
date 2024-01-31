@@ -41,6 +41,13 @@ p, h4, h3 {
     color: var(--lightest-color);
   }
 
+svg {
+    color: var(--lightest-color);
+    opacity: 90%;
+    margin-top: 2rem;
+    margin-bottom: 0rem;
+}
+
 button {
     color: var(--lightest-color);
     background-color: var(--shadow);
@@ -680,6 +687,7 @@ button:hover {
     padding-bottom: 0.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    color: var(--lightest-color)
 }
 
 .footer-render-cummulative-time {
@@ -689,7 +697,7 @@ button:hover {
     left: 50vw;
     height: 2rem;
     width: 12rem;
-    background-color: rgba(134, 67, 67, 0.2);
+    color: var(--lightest-color)
 }
 
 .footer-render-cummulative-time h5 {
@@ -722,7 +730,7 @@ button:hover {
     left: 0;
     overflow: scroll;
     display: none;
-    background-color: rgb(201, 209, 245);
+    /* background-color: rgb(201, 209, 245); */
     /* height: 100%; */
     height: 95vh;
     margin-top: auto;
@@ -739,7 +747,7 @@ button:hover {
     overflow-wrap: break-word;
     margin-left: 1rem;
     margin-bottom: 7rem;
-    background-color: rgb(201, 209, 245);
+    /* background-color: rgb(201, 209, 245); */
 }
 
 .close-modal-2-button {
@@ -757,7 +765,7 @@ button:hover {
     /* margin-right: 9rem; */
     overflow-y: auto;
     padding-bottom: 5rem;
-    background-color: rgb(201, 209, 245);
+    /* background-color: rgb(201, 209, 245); */
 }
 
 .csv-data-class p {
@@ -1014,40 +1022,40 @@ button:hover {
 }
 
 .data-table-container table {
-    border: 0.2rem solid rgb(67, 66, 66);
-    background-color: rgb(252, 251, 251);
-    padding-top: 1.5rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
+    border: 0.05rem solid var(--lightest-color);
+    /* background-color: rgb(252, 251, 251); */
+    padding-bottom: 0.3rem;
+    padding-top: 0.3rem;
     padding-right: 1rem;
     /* width: 100%; */
 }
 
 .data-table-container td {
-    border: 0.05rem solid rgb(115, 114, 114);
+    border: 0.01rem solid var(--lightest-color);
+    opacity: 80%;
     padding: .1rem;
     font-size: 0.8rem;
 }
 
 .data-table-container td:first-child {
-    color: black;
-    font-weight: bold;
+    color: var(--lightest-color);
+    font-weight: normal;
     text-align: center;
 }
 
 .data-table-container tr {
-    color: rgb(82, 77, 77);
+    color: var(--lightest-color);
     font-weight: lighter;
     text-align: center;
 }
 
 .data-table-container tr:first-child {
-    color: black;
-    font-weight: bold;
+    color: var(--lightest-color);
+    font-weight: normal;
 }
 
 .baseline-case-data p {
-    color: rgb(10, 10, 10);
+    color: var(--lightest-color);
     padding-left: 2rem;
     font-size: 0.8rem;
     height:fit-content;

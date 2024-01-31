@@ -121,10 +121,17 @@
           .attr("r", 5)
           .style("fill", "rgb(57, 85, 108)");
   
-      // Add the X Axis
+      // Add the X Axis - original commented out
+      // svg.append("g")
+      //   .attr("transform", "translate(0," + height + ")")
+      //   .call(d3.axisBottom(xScale));
+
+     // New Version of X Axis
       svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(xScale));
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(xScale)
+       .ticks(d3.time, 1)
+      );
   
       // Add the Y Axis
       svg.append("g")
@@ -485,16 +492,16 @@ function init () {
 
 function newInterval () {
 
-  // now capture the affect of teh measured post interval sodium:
+  // now capture the affect of the measured post interval sodium:
 
   if (Number(measuredPostIntervalSodiumEl.value) > 0) {
-    console.log("measured postinterval sodium has a value, so set preinterval sodium to it: ", Number(measuredPostIntervalSodiumEl.value).toFixed(0))
-    preIntervalSodiumEl.value = Number(measuredPostIntervalSodiumEl.value).toFixed(0)
+    console.log("measured postinterval sodium has a value, so set preinterval sodium to it: ", Number(measuredPostIntervalSodiumEl.value))
+    preIntervalSodiumEl.value = Number(measuredPostIntervalSodiumEl.value)
     measuredPostIntervalSodium = Number(measuredPostIntervalSodiumEl.value)
     // and then clear the value inputted for measured:
     measuredPostIntervalSodiumEl.value = null
   } else {
-  preIntervalSodiumEl.value = postIntervalSodium.toFixed(0)
+  preIntervalSodiumEl.value = postIntervalSodium
   measuredPostIntervalSodium = preIntervalSodiumEl.value
     }
 
