@@ -1,4 +1,121 @@
+:root {
+    --green-blue: rgb(151, 246, 201);
+    --sky-blue: rgb(156, 217, 241);
+    --lightest-color: rgb(219, 217, 227);
+    /* --background: rgb(173, 180, 191);  */
+    --background: rgb(28, 30, 34); 
+    /* --navy-blue: rgb(50, 62, 90); */
+    --navy-blue: rgb(89, 99, 123);
+    /* --shadow: rgb(75, 79, 89); */
+    --shadow: rgb(63, 69, 83);
+    --input-color: rgb(233, 240, 253)
+  }
 
+body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    font-weight: lighter;
+}
+
+* {
+    font: var(--lightest-color);
+    background-color: var(--background)
+  }
+
+
+p, h4, h3 {
+    color: var(--lightest-color)
+  }
+
+* h3 {
+    margin: 0rem;
+    font-weight: normal;
+}
+
+* h4 {
+    font-weight: normal;
+}
+
+* label {
+    color: var(--lightest-color);
+  }
+
+button {
+    color: var(--lightest-color);
+    background-color: var(--shadow);
+    border-color: var(--lightest-color);
+    border-width: 0.08rem;
+    font-weight: normal;
+    opacity: 90%;
+    font-size: smaller;
+  }
+
+* button h5 {
+   background-color: var(--shadow);
+   font-weight: light;
+   opacity: 100%
+}
+
+button:disabled h5 {
+    font-weight: light;
+    opacity: 50%;
+}
+
+* select {
+  color: var(--shadow);
+  background-color:  var(--input-color);
+  opacity: 90%;
+}
+
+* select:disabled {
+    opacity: 40%;
+  }
+
+input {
+    /* font: whitesmoke; */
+    color: var(--lightest-color);
+    background-color: var(--input-color);
+    opacity: 90%;
+  }
+
+.faint-line {
+    width: 29vw;
+    margin-top: -0.2rem;
+    border: 0.003rem solid white;
+    opacity: 15%;
+}
+
+.faint-line-2 {
+    width: 100vw;
+    margin-top: -0.2rem;
+    border: 0.003rem solid white;
+    opacity: 20%;
+}
+
+
+.faint-line-3 {
+    width: 100vw;
+    margin-top: -0.2rem;
+    border: 0.003rem solid white;
+    opacity: 20%;
+}
+
+.time-input {
+    color: var(--lightest-color);
+    background-color: var(--input-color);
+    opacity: 90%;
+}
+
+.time-input-2 {
+    color: var(--lightest-color);
+    background-color:var(--input-color);
+    opacity: 90%;
+}
+
+input:disabled {
+    opacity: 40%;
+  }
 
   .line {
     fill: none;
@@ -15,19 +132,65 @@
 
 input {
     width: 3rem;
+    color: var(--shadow)
 }
 
 .time-input {
-    width: 6rem;
+    width: 7rem;
+    position: relative;
+    left: 0rem;
+    color: var(--shadow)
+}
+
+.time-input-2 {
+    width: 7rem;
+    position: relative;
+    left: -3.7rem;
+    color: var(--shadow)
 }
 
 .longer-input {
     width: 7rem;
 }
 
+.first-table {
+    position: relative;
+    top: 0rem;
+    margin-top: 0rem;
+    width: 29vw;
+}
 
+.second-table {
+    position: relative;
+    top: 0rem;
+    margin-top: 0rem;
+    width: 29vw;
+}
+
+.third-table {
+    position: relative;
+    top: 0rem;
+    margin-top: 0rem;
+    width: 29vw;
+}
+
+.third-table input {
+    margin-right: -1rem;
+}
+
+.fourth-table {
+    position: relative;
+    top: 0rem;
+    margin-top: 0rem;
+    width: 29vw;
+}
+
+.fourth-table input {
+    margin-right: -3rem;
+}
 
 .columns {
+   margin-top: 2rem;
    display: grid;
    justify-content: center;
    height: auto;
@@ -40,23 +203,25 @@ input {
 .column-1 {
     grid-area: column-1;
     width: 29vw;
-    margin-left: 1rem;
-    background-color: rgb(244, 244, 226);
+    margin-left: 3rem;
+    border-right: 0.5px solid var(--lightest-color);
+    margin-right: 1rem;
 }
 
 .column-3 {
     grid-area: column-3;
-    width: 29vw;
+    width: 28vw;
+    margin-left: 0rem;
     margin-right: 1rem;
-    background-color: rgb(247, 250, 242);
 }
 
 .column-2 {
     grid-area: column-2;
-    background-color: rgb(235, 240, 243);
     width: 40vw;
     height: auto;
     display: grid;
+    border-right: 0.5px solid var(--lightest-color);
+    margin-right: 1rem;
     grid-template-areas: 
         "column-2-upper"
         "column-2-middle"
@@ -66,8 +231,9 @@ input {
 
 .column-2-upper {
     grid-area: column-2-upper;
-    height: 5.6rem;
+    height: 4.9rem;
     display: grid;
+    position: relative;
     grid-template-areas: "column-2-upper-left columnn-2-upper-right"
 }
 
@@ -124,7 +290,6 @@ input {
 
 .column-2-middle {
     grid-area: column-2-middle;
-    /* background-color: rgba(0, 128, 0, 0.3); */
     position: relative;
     top: -0.5rem;
     height: 16rem;
@@ -166,9 +331,8 @@ input {
 
 .column-2-middle-2 {
     grid-area: column-2-middle-2;
-    /* background-color: rgba(122, 160, 122, 0.2); */
     position: relative;
-    top: -2.7rem;
+    top: -3.3rem;
     width: 40vw;
     height: 12rem;
     display: grid;
@@ -212,7 +376,7 @@ input {
     display: grid;
     grid-template-areas: "column-2-lowest-left column-2-lowest-right";
     position: relative;
-    top: -4rem;
+    top: -5rem;
     width: 40vw;
 }
 
@@ -243,7 +407,7 @@ input {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
     position: relative;
-    top: -18.4rem;
+    top: -19.1rem;
     display: flex;
     justify-content: center;
 }
@@ -272,24 +436,28 @@ button:hover {
 
 
 .toggle-button button {
-    width: 3.0rem;
+    width: 4rem;
     padding-left: 0rem;
     padding-right: 0rem;
     padding-top: 0rem;
     padding-bottom: 0rem;
+    background-color: var(--shadow);
 }
 
 .toggle-button small {
     font-size: 0.55rem;
+    background-color: var(--shadow);
 }
 
 .toggle-button button:disabled {
-    background-color: rgb(133, 233, 129, 0.7);
+    background-color: var(--navy-blue);
     border: 0.1rem solid rgba(47, 46, 46, 0.8);
 }
 
 .toggle-button button:disabled small {
-    color: black;
+    color: var(--lightest-color);
+    background-color: var(--navy-blue);
+    font-weight: normal;
 }
 
 .pointer-events-none {
@@ -349,7 +517,13 @@ button:hover {
 
 .run-interval-button {
     margin-top: 0.5rem;
-    height: 2rem;
+    height: 1.5rem;
+    /* width: 12rem; */
+}
+
+.run-interval-button:disabled {
+    opacity: 50%;
+    pointer-events: none;
 }
 
 .run-interval-button h5 {
@@ -359,7 +533,13 @@ button:hover {
 
 .set-baseline-button {
     margin-top: 0.5rem;
-    height: 2rem;
+    height: 1.5rem;
+    /* width: 12rem; */
+}
+
+.set-baseline-button:disabled {
+    opacity: 50%;
+    pointer-events: none;
 }
 
 .set-baseline-button h5 {
@@ -372,6 +552,11 @@ button:hover {
     height: 2rem;
     position: relative;
     right: -80vw;
+}
+
+.new-interval-button:disabled {
+    opacity: 50%;
+    pointer-events: none;
 }
 
 .new-interval-button h5 {
@@ -406,7 +591,13 @@ button:hover {
 
 .set-pre-interval-button {
     margin-top: 0.5rem;
-    height: 2rem;
+    height: 1.5rem;
+    /* width: 12rem; */
+}
+
+.set-pre-interval-button:disabled {
+    opacity: 50%;
+    pointer-events: none;
 }
 
 
@@ -417,7 +608,13 @@ button:hover {
 
 .set-initial-state-button {
     margin-top: 0.5rem;
-    height: 2rem;
+    height: 1.5rem;
+    /* width: 12rem; */
+}
+
+.set-initial-state-button:disabled {
+    opacity: 50%;
+    pointer-events: none;
 }
 
 .set-initial-state-button h5 {
@@ -430,6 +627,14 @@ button:hover {
     display: flex;
     justify-content: center;
 }
+
+.center-button {
+    display: flex;
+    justify-content: left;
+    margin-top: 0.2rem;
+    margin-bottom: -1.4rem;
+}
+
 
 .gap-below {
     margin-bottom: 1rem;
@@ -446,14 +651,13 @@ button:hover {
 }
 
 .footer-nav-bar {
-    background-color: rgb(232, 209, 209);
-    border-top: solid black 2px;
+    border-top: solid var(--lightest-color) 2px;
     position: fixed;
     overflow: visible;
     bottom: 0;
     height: 4rem;
     width: 98.5vw;
-    z-index: 10;
+    z-index: 15;
     margin-left: 0rem;
     margin-right: -2rem;
 }
@@ -567,7 +771,7 @@ button:hover {
 #compartment-model-1-div {
     width: 15rem;
     height: 15rem;
-    background-color: rgba(188, 154, 109, 0.5);
+    /* background-color: rgba(188, 154, 109, 0.5); */
     margin-left: 1rem;
     margin-top: 3rem;
 }
@@ -579,7 +783,7 @@ button:hover {
     position: relative;
     left: 3rem;
     top: 2rem;
-    border: dotted black 0.18rem;
+    border: dotted var(--lightest-color) 0.18rem;
 }
 
 
@@ -587,21 +791,25 @@ button:hover {
     width: 4rem; 
         /* 40% is 4rem, by default */
     height: 6rem;
-    background-color: rgba(0, 255, 157, 0.5);
+    background-color:  var(--green-blue);
+    opacity: 50%;
     position: relative;
     left: 6rem;
         /* shift left 6rem by default */
     top: -6rem;
+    z-index: 10;
 }
 
 #compartment-model-1-icf-box {
     width: 6rem;
         /* 60% is 6rem, by default */
     height: 6rem;
-    background-color: rgba(13, 0, 255, 0.5);
+    background-color: var(--sky-blue);
+    opacity: 50%;
     position: relative;
     left: 0rem;
     top: 0rem;
+    z-index: 4;
 }
 
 #compartment-model-1-grouping-container {
@@ -610,28 +818,31 @@ button:hover {
     left: 0rem;
     right: 0rem;
     margin-left: 0rem;
+    height: 6rem;
 }
 
 #compartment-model-1-midline-dotted {
     display: visible;
-    border: dotted black 0.18rem;
+    border: dotted var(--lightest-color) 0.18rem;
     height: 5.75rem;
     width: 0rem;
     position: relative;
-    top: -18rem;
+    top: -6rem;
     left: 5.9rem;
-    z-index: 12;
+    z-index: 11;
 }
 
 
 #compartment-model-1-midline-solid {
     display: visible;
-    border: solid black 0.18rem;
+    border: solid var(--lightest-color) 0.18rem;
+    opacity: 70%;
     height: 5.75rem;
     width: 0rem;
     position: relative;
     top: -12rem;
     left: 5.9rem;
+    z-index: 12;
 }
 
 
@@ -640,9 +851,9 @@ button:hover {
 #compartment-model-2-div {
     width: 15rem;
     height: 15rem;
-    background-color: rgba(188, 154, 109, 0.5);
+    /* background-color: rgba(188, 154, 109, 0.5); */
     margin-left: 1rem;
-    margin-top: 5rem;
+    margin-top: 10rem;
 }
 
 #compartment-model-2-outside-box {
@@ -652,7 +863,7 @@ button:hover {
     position: relative;
     left: 3rem;
     top: 2rem;
-    border: dotted black 0.18rem;
+    border: dotted var(--lightest-color) 0.18rem;
 }
 
 
@@ -660,7 +871,8 @@ button:hover {
     width: 4rem; 
         /* 40% is 4rem, by default */
     height: 6rem;
-    background-color: rgba(0, 255, 157, 0.5);
+    background-color: var(--green-blue);
+    opacity: 50%;
     position: relative;
     left: 6rem;
         /* shift left 6rem by default */
@@ -671,7 +883,8 @@ button:hover {
     width: 6rem;
         /* 60% is 6rem, by default */
     height: 6rem;
-    background-color: rgba(13, 0, 255, 0.5);
+    background-color:  var(--sky-blue);
+    opacity: 50%;
     position: relative;
     left: 0rem;
     top: 0rem;
@@ -683,28 +896,31 @@ button:hover {
     left: 0rem;
     right: 0rem;
     margin-left: 0rem;
+    height: 6rem;
 }
 
 #compartment-model-2-midline-dotted {
     display: visible;
-    border: dotted black 0.18rem;
+    border: dotted var(--lightest-color) 0.18rem;
     height: 5.75rem;
     width: 0rem;
     position: relative;
-    top: -18rem;
+    top: -6rem;
     left: 5.9rem;
-    z-index: 12;
+    z-index: 11;
 }
 
 
 #compartment-model-2-midline-solid {
     display: visible;
-    border: solid black 0.18rem;
+    border: solid var(--lightest-color) 0.18rem;
+    opacity: 70%;
     height: 5.75rem;
     width: 0rem;
     position: relative;
     top: -12rem;
     left: 5.9rem;
+    z-index: 12;
 }
 
 
@@ -712,7 +928,7 @@ button:hover {
 #compartment-model-3-div {
     width: 15rem;
     height: 15rem;
-    background-color: rgba(188, 154, 109, 0.5);
+    /* background-color: rgba(188, 154, 109, 0.5); */
     margin-left: 1rem;
     margin-top: 5rem;
 }
@@ -724,7 +940,7 @@ button:hover {
     position: relative;
     left: 3rem;
     top: 2rem;
-    border: dotted black 0.18rem;
+    border: dotted var(--lightest-color) 0.18rem;
 }
 
 
@@ -732,7 +948,8 @@ button:hover {
     width: 4rem; 
         /* 40% is 4rem, by default */
     height: 6rem;
-    background-color: rgba(0, 255, 157, 0.5);
+    background-color:  var(--green-blue);
+    opacity: 50%;
     position: relative;
     left: 6rem;
         /* shift left 6rem by default */
@@ -743,7 +960,8 @@ button:hover {
     width: 6rem;
         /* 60% is 6rem, by default */
     height: 6rem;
-    background-color: rgba(13, 0, 255, 0.5);
+    background-color:  var(--sky-blue);
+    opacity: 50%;
     position: relative;
     left: 0rem;
     top: 0rem;
@@ -755,27 +973,31 @@ button:hover {
     left: 0rem;
     right: 0rem;
     margin-left: 0rem;
+    height: 6rem;
 }
 
 #compartment-model-3-midline-dotted {
     display: visible;
-    border: dotted black 0.18rem;
+    border: dotted var(--lightest-color) 0.18rem;
     height: 5.75rem;
     width: 0rem;
     position: relative;
-    top: -18rem;
+    top: -6rem;
     left: 5.9rem;
+    z-index: 11;
 }
 
 
 #compartment-model-3-midline-solid {
     display: visible;
-    border: solid black 0.18rem;
+    border: solid var(--lightest-color) 0.18rem;
+    opacity: 70%;
     height: 5.75rem;
     width: 0rem;
     position: relative;
     top: -12rem;
     left: 5.9rem;
+    z-index: 12;
 }
 
 .increase-width-text {

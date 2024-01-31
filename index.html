@@ -15,8 +15,8 @@
 <div class="columns" id="main-body">
 
 <div class="column-1">
-  <table>
-    <strong class="center gap-below">Baseline Characteristics</strong>
+  <table class="first-table">
+    <h3><strong class="center gap-below">Baseline Characteristics</strong></h3>
      <tr>
         <td>
           <label for="weight-value-input">Dry Weight (kg)</label>
@@ -38,11 +38,14 @@
         </td>
       </tr>
     </table>
-    <button class="set-baseline-button" type="button"><h5>Set Baseline Characteristics</h5></button>
+    <div class="center-button">
+    <button class="set-baseline-button" type="button"><h5>Set Baseline</h5></button>
+    </div>
    <br>
    <br>
-   <table>
-    <strong class="center gap-below">Initial State</strong>
+   <table class="second-table">
+    <hr class="faint-line">
+    <h3><strong class="center gap-below">Initial State</strong></h3>
     <tr>
       <td>
       <label for="time-zero-value-input">Time</label>
@@ -94,12 +97,14 @@
       </td>
    </tr>
    </table>
+   <div class="center-button">
    <button disabled="disabled" class="set-initial-state-button" type="button"><h5>Set Initial State</h5></button>
+   </div>
    <br>
    <br>
-
-   <strong class="center gap-below">Pre-Interval Lab. Values</strong>
-   <table>
+   <hr class="faint-line-2">
+   <h3><strong class="center gap-below">Pre-Interval Lab. Values</strong></h3>
+   <table class="third-table">
     <tr>
       <td>
       <label for="serum-sodium-pre-interval-input">Serum Sodium</label>
@@ -141,8 +146,9 @@
   </td>
  </tr>
 </table>
+<div class="center-button">
 <button disabled="false" class="set-pre-interval-button" type="button"><h5>Set Pre-Interval Values</h5></button>
-
+</div>
   
       <table class="hide">
         <div class="hide">Total Interval Solute Ins (Manual)</div>
@@ -176,9 +182,9 @@
       </table>
       <br>
       <br> 
-      <table>
-
-  <strong class="center gap-below">Interval Ins/Outs and Time</strong>
+      <table class="fourth-table">
+  <hr class="faint-line-3">
+  <h3><strong class="center gap-below">Interval Ins/Outs and Time</strong></h3>
     
      <tr>
         <td>
@@ -302,13 +308,14 @@
     </td>
     <td>
       <br>
-    <input disabled="true" type="time" class="time-input" id="end-time-value-input" name="end-time-value-input" placeholder="">
+    <input disabled="true" type="time" class="time-input-2" id="end-time-value-input" name="end-time-value-input" placeholder="">
   </td>
  </tr>
 
    </table>
-
+<div class="center-button">
 <button disabled="true" class="run-interval-button" type="button"><h5>Update Interval</h5></button>
+</div>
 <br>
 <br>
 </div>  

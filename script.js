@@ -1184,7 +1184,7 @@ if (returnVar === false) {
 
   initialCommentsEl.innerHTML = initialCommentsVar
 
-  renderTimeZeroEl.innerHTML = ` ${timeZero} (Day 0, Hr 0)`
+  renderTimeZeroEl.innerHTML = ` at ${timeZero} (Day 0, Hr 0)`
 
  }
 
