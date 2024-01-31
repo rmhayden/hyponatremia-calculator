@@ -17,9 +17,9 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
     font-weight: lighter;
-    /* border: 0.1rem solid var(--lightest-color);
+    border: 0.1rem solid var(--lightest-color);
     padding: 0rem;
-    margin: 1rem; */
+    margin: 1rem;
 
 }
 
@@ -282,7 +282,7 @@ input {
 
 .column-1 {
     grid-area: column-1;
-    width: 29vw;
+    width: 28vw;
     margin-left: 3rem;
     border-right: 0.5px solid var(--lightest-color);
     margin-right: 1rem;
@@ -290,14 +290,14 @@ input {
 
 .column-3 {
     grid-area: column-3;
-    width: 28vw;
+    width: 26vw;
     margin-left: 0rem;
     margin-right: 1rem;
 }
 
 .column-2 {
     grid-area: column-2;
-    width: 40vw;
+    width: 32vw;
     height: auto;
     display: grid;
     border-right: 0.5px solid var(--lightest-color);
@@ -309,9 +309,14 @@ input {
         "column-2-lowest"
 }
 
+.column-2 p {
+    font-size: smaller;
+}
+
 .column-2-upper {
     grid-area: column-2-upper;
     height: 4.9rem;
+    width: 32vw;
     display: grid;
     position: relative;
     grid-template-areas: "column-2-upper-left columnn-2-upper-right"
@@ -321,6 +326,7 @@ input {
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
+    width: auto;
 }
 
 .column-2-upper h4 {
@@ -328,7 +334,7 @@ input {
     margin-bottom: 0.3rem;
     display: flex;
     justify-content: center;
-    width: 40vw;
+    width: 30vw;
 }
 
 .center {
@@ -365,7 +371,7 @@ input {
     grid-area: column-2-upper-right;
     position: absolute;
     top: 2.5rem;
-    margin-left: 10rem;
+    margin-left: 9rem;
     margin-right: -5rem;
 }
 
@@ -375,7 +381,7 @@ input {
     position: relative;
     top: -0.8rem;
     height: 14rem;
-    width: 40vw;
+    width: 32vw;
     position: relative;
     display: grid;
     grid-template-areas: "column-2-middle-left column-2-middle-right";
@@ -385,12 +391,13 @@ input {
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
+    width: auto;
 }
 
 .column-2-middle h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
-    width: 40vw;
+    width: 30vw;
     display: flex;
     justify-content: center;
 }
@@ -398,6 +405,7 @@ input {
 .column-2-middle-left {
     grid-area: column-2-middle-left;
     height: auto;
+    width: auto;
     position: absolute;
     top: 2.3rem;
 }
@@ -408,14 +416,15 @@ input {
     height: auto;
     position: absolute;
     top: 2.3rem;
-    margin-left: -13rem;
+    margin-left: -16vw;
+    /* left: -12rem; */
 }
 
 .column-2-middle-2 {
     grid-area: column-2-middle-2;
     position: relative;
-    top: -2.2rem;
-    width: 40vw;
+    top: -1.5rem;
+    width: 32vw;
     height: 10rem;
     display: grid;
     grid-template-areas: "column-2-middle-2-left column-2-middle-2-right";
@@ -426,31 +435,47 @@ input {
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
     position: relative;
-    top: 1rem;
+    top: -0.5rem;
+    width: auto;
 }
 
 .column-2-middle-2 h4 {
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
     position: relative;
-    top: -12.5rem;
+    top: -3rem;
     display: flex;
     justify-content: center;
+}
+
+.fixed-width {
+    display: flex;
+    justify-content: center;
+    width: 32vw;
+    position: relative;
+}
+
+.fixed-width-2 {
+    display: flex;
+    justify-content: center;
+    width: 32vw;
+    position: relative;
+    left: -2rem;
 }
 
 .column-2-middle-2-left {
     grid-area: column-2-middle-2-left;
     height: auto;
-    position: relative;
+    position: absolute;
 }
 
 
 .column-2-middle-2-right {
     grid-area: column-2-middle-2-right;
     height: auto;
-    position: relative;
-    margin-left: -12rem;
-    margin-right: 0rem;
+    position: absolute;
+    left: -16vw;
+    width: auto;
 }
 
 .column-2-lowest {
@@ -459,8 +484,8 @@ input {
     display: grid;
     grid-template-areas: "column-2-lowest-left column-2-lowest-right";
     position: relative;
-    top: -2.7rem;
-    width: 40vw;
+    top: -2.5rem;
+    width: 32vw;
 }
 
 .column-2-lowest-left {
@@ -474,8 +499,8 @@ input {
     grid-area: column-2-lowest-right;
     height: 4rem;
     position: relative;
-    margin-left: -12rem;
-    margin-right: 0rem;
+    margin-left: -22vw;
+    /* margin-right: 0rem; */
     z-index: 11;
 }
 
@@ -727,7 +752,7 @@ button:hover {
 .comment {
     width: 35vw;
     margin-right: 2rem;
-    font-size: smaller;
+    font-size: small;
     position: relative;
     top: 0.4rem;
 }

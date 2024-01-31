@@ -367,17 +367,20 @@
   <div class="column-2-middle-2">
     <div class="center">
     
+      <div class="fixed-width">
         <h4>P<small>RE-</small>I<small>NTERVAL</small>:</h4>
         <h4>&nbsp;</h4>
         <h4 style="font-weight: lighter" id="render-pre-interval-current-time"></h4>
-  
+      </div>
     </div>
     <div class="column-2-middle-2-left">
       <div class="inline"><p>TBW:&nbsp;</p><p id="output-pre-interval-tbw"></p></div>
       <div class="inline"><p>ICW:&nbsp;</p><p id="output-pre-interval-icf"></p></div>
       <div class="inline"><p>ECW:&nbsp;</p><p id="output-pre-interval-ecf"></p></div>
       <br>
-      <div class="inline"><p>Serum Sodium:&nbsp;</p><p id="output-pre-interval-sodium"></p><p id="time-zero-value-output"></p></div>
+      <div class="inline">
+        <p>Serum Sodium:&nbsp;</p><p id="output-pre-interval-sodium"></p><p id="time-zero-value-output"></p>
+      </div>
       <div class="inline disable"><p>Serum Potassium:&nbsp;</p><p id="output-pre-interval-potassium"></p></div>
       <div class="inline"><p>Urine Tonicity:&nbsp;</p><p id="output-pre-interval-urine-tonicity"></p></div>
       <div>
@@ -393,9 +396,11 @@
   </div>
   <div class="column-2-lowest">
     <div class="center">
-      <h4>P<small>OST-</small>I<small>NTERVAL</small>:</h4>
-      <h4>&nbsp;</h4>
-      <h4 style="font-weight: lighter" id="render-post-interval-time"></h4>
+      <div class="fixed-width-2">
+        <h4>P<small>OST-</small>I<small>NTERVAL</small>:</h4>
+        <h4>&nbsp;</h4>
+        <h4 style="font-weight: lighter" id="render-post-interval-time"></h4>
+      </div>
     </div>
 
     <div class="column-2-lowest-left">
@@ -406,8 +411,8 @@
       <div class="inline"><p>Predicted Serum Sodium:&nbsp;</p><p id="output-post-interval-sodium"></p><p id="time-zero-value-output"></p></div>
       <br>
       <div class="inline">
-        &nbsp;
-        <label for="measured-post-interval-sodium">Actual Measured Sodium:</label>
+
+        <label for="measured-post-interval-sodium"><p>Actual Measured Sodium:</p></label>
           <p>&nbsp;</p>
       <input disabled="true"  id="measured-post-interval-sodium" name="measured-post-interval-sodium" placeholder=""> <p><small>mEq/L</small></p>
       </div>
