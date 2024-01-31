@@ -81,6 +81,11 @@ button:disabled h5 {
     opacity: 50%;
 }
 
+button:disabled {
+    pointer-events: none;
+    opacity: 80%; 
+}
+
 * select {
   color: var(--shadow);
   background-color:  var(--input-color);
@@ -110,6 +115,10 @@ input {
     margin-top: -0.2rem;
     border: 0.003rem solid white;
     opacity: 20%;
+}
+
+p strong {
+    font-weight: normal;
 }
 
 
@@ -1081,6 +1090,22 @@ button:hover {
     margin-bottom: 1rem;
 }
 
+#chart-container {
+    position: relative;
+    margin-right: 15rem;
+}
+
+
+.graph-key svg {
+    position: absolute;
+    left: 40vw;
+    height: 8rem;
+    margin-top: 0rem;
+}
+
+.small-font {
+    font-size: small;
+}
 
 @media only screen and (max-width: 900px) {
     .column-3 {
