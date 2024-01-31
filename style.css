@@ -30,7 +30,15 @@ p, h4, h3 {
 
 * h3 {
     margin: 0rem;
-    font-weight: normal;
+    font-weight: light;
+    font-size: larger;
+}
+
+* h3 small {
+    margin: 0rem;
+    font-size: smaller;
+    position: relative;
+    top: 0.165rem;
 }
 
 * h4 {
@@ -108,6 +116,23 @@ input {
     margin-top: -0.2rem;
     border: 0.003rem solid white;
     opacity: 15%;
+}
+
+.logo {
+    position: absolute;
+    color: var(--lightest-color);
+    font-size: x-large;
+    font-style: oblique;
+    margin-left: 1rem;
+    top: -0.3rem;
+}
+
+.logo small {
+    /* position: absolute; */
+    color: var(--lightest-color);
+    font-size: small;
+    font-style: oblique;
+    top: -0.3rem;
 }
 
 .faint-line-2 {
