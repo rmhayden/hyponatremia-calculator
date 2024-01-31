@@ -372,6 +372,7 @@ input {
     margin-bottom: 0.1rem;
     padding-left: 0.2rem;
     position: relative;
+    top: 0.5rem;
 }
 
 .column-2-middle-2 h4 {
@@ -673,6 +674,8 @@ button:hover {
     width: 35vw;
     margin-right: 2rem;
     font-size: smaller;
+    position: relative;
+    top: 0.4rem;
 }
 
 .hide {
@@ -1107,21 +1110,63 @@ button:hover {
     font-size: small;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 950px) {
     .column-3 {
         display: none;
     }
     .column-2 {
-        width: 60vw;
+        width: 55vw;
     }
     .column-1 {
-        width: 35vw;
-        margin-left: 0rem;
+        width: 40vw;
+        /* margin-left: 0rem; */
     }
-  }
+
+    .first-table {
+        position: relative;
+        top: 0rem;
+        margin-top: 0rem;
+        width: 40vw;
+    }
 
 
-  @media only screen and (max-width: 750px) {
+.second-table {
+    position: relative;
+    top: 0rem;
+    margin-top: 0rem;
+    width: 40vw;
+}
+
+.third-table {
+    position: relative;
+    top: 0rem;
+    margin-top: 0rem;
+    width: 40vw;
+}
+
+.third-table input {
+    margin-right: -1rem;
+}
+
+.fourth-table {
+    position: relative;
+    top: 0rem;
+    margin-top: 0rem;
+    width: 40vw;
+}
+
+.fourth-table input {
+    margin-right: -3rem;
+}
+
+.comment {
+    font-size: x-small
+}
+
+}
+
+
+  @media only screen and (max-width: 760px) {
     .column-3 {
         display: none;
     }
