@@ -12,14 +12,22 @@
   }
 
 
+html {
+    background-color: black;
+}
+
+
 body {
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
     font-weight: lighter;
-    border: 0.1rem solid var(--lightest-color);
+    border: 0.08rem solid var(--lightest-color);
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
     padding: 0rem;
     margin: 1rem;
+    margin-top: 2rem;
 
 }
 
@@ -201,12 +209,14 @@ input:disabled {
     fill: none;
     stroke: rgb(57, 85, 108);
     stroke-width: 2px; 
+    z-index: 10;
   }
 
   .dotted-line { 
     fill: none;
     stroke: rgb(175, 171, 168);
     stroke-width: 1.5px; 
+    z-index: 9;
  }
 
 
@@ -769,14 +779,19 @@ button:hover {
 
 .footer-nav-bar {
     border-top: solid var(--lightest-color) 2px;
+    border-left: solid var(--lightest-color) 2px;
+    border-right: solid var(--lightest-color) 2px;
+    border-bottom: solid var(--lightest-color) 2px;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
     position: fixed;
     overflow: visible;
-    bottom: 0;
+    bottom: 2rem;
     height: 4rem;
-    width: 98.5vw;
+    width: 98.8vw;
     z-index: 15;
-    margin-left: 0rem;
-    margin-right: -2rem;
+    margin-left: -0.7rem;
+    margin-right: -0.5rem;
 }
 
 .footer-render-interval-number {
@@ -836,20 +851,23 @@ button:hover {
 
 #modal-2 {
     position: fixed;
-    top: 0;
+    top: 1;
     left: 0;
     overflow: scroll;
     display: none;
     /* background-color: rgb(201, 209, 245); */
     /* height: 100%; */
-    height: 95vh;
-    margin-top: auto;
+    height: 85vh;
+    margin-top: -5rem;
     margin-bottom: auto;
     padding-bottom: auto;
-    width: 98.5vw;
+    width: 98.4vw;
     z-index: 7;
-    margin-left: 0.5rem;
+    margin-left: 0.6rem;
     margin-right: 0rem;
+    border: 0.08rem solid var(--lightest-color);
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
 }
 
 #modal-2 p {
@@ -861,11 +879,11 @@ button:hover {
 }
 
 .close-modal-2-button {
-    height: 3rem;
-    width: 4rem;
+    height: 2rem;
+    width: 3rem;
     position: fixed;
     overflow: none;
-    top: 1rem;
+    top: 5rem;
     right: 3rem;
     z-index: 8;
 }
@@ -891,7 +909,7 @@ button:hover {
     height: 15rem;
     /* background-color: rgba(188, 154, 109, 0.5); */
     margin-left: 1rem;
-    margin-top: 3rem;
+    margin-top: 10rem;
 }
 
 #compartment-model-1-outside-box {
@@ -971,7 +989,7 @@ button:hover {
     height: 15rem;
     /* background-color: rgba(188, 154, 109, 0.5); */
     margin-left: 1rem;
-    margin-top: 10rem;
+    margin-top: 2rem;
 }
 
 #compartment-model-2-outside-box {
@@ -1048,7 +1066,7 @@ button:hover {
     height: 15rem;
     /* background-color: rgba(188, 154, 109, 0.5); */
     margin-left: 1rem;
-    margin-top: 5rem;
+    margin-top: 0rem;
 }
 
 #compartment-model-3-outside-box {
@@ -1193,6 +1211,26 @@ button:hover {
 
 .small-font {
     font-size: small;
+}
+
+.lower-space {
+    position: fixed;
+    bottom: 0rem;
+    left: 0rem;
+    height: 6.2rem;
+    width: 100vw;
+    background-color: black;
+    z-index: 14;
+}
+
+.top-cover {
+    position: fixed;
+    top: 0rem;
+    left: 0rem;
+    height: 2rem;
+    width: 100vw;
+    background-color: black;
+    z-index: 14;
 }
 
 
