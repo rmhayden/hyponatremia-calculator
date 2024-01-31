@@ -42,7 +42,17 @@ p, h4, h3 {
 }
 
 * h4 {
-    font-weight: normal;
+    font-weight: light;
+    font-size: larger;
+    position: relative;
+    margin-top: 2rem;
+}
+
+* h4 small {
+    margin: 0rem;
+    font-size: smaller;
+    position: relative;
+    top: 0.165rem;
 }
 
 * label {
@@ -112,7 +122,7 @@ input {
   }
 
 .faint-line {
-    width: 29vw;
+    width: 70vw;
     margin-top: -0.2rem;
     border: 0.003rem solid white;
     opacity: 15%;
@@ -144,6 +154,10 @@ input {
 
 p strong {
     font-weight: normal;
+}
+
+.text-left {
+    text-align: left;
 }
 
 
@@ -385,7 +399,7 @@ input {
 .column-2-middle-2 {
     grid-area: column-2-middle-2;
     position: relative;
-    top: -3.3rem;
+    top: -3.0rem;
     width: 40vw;
     height: 12rem;
     display: grid;
@@ -430,7 +444,7 @@ input {
     display: grid;
     grid-template-areas: "column-2-lowest-left column-2-lowest-right";
     position: relative;
-    top: -5rem;
+    top: -4.8rem;
     width: 40vw;
 }
 
@@ -1186,6 +1200,13 @@ button:hover {
 
 .comment {
     font-size: x-small
+}
+
+.faint-line {
+    width: 100vw;
+    margin-top: -0.2rem;
+    border: 0.003rem solid white;
+    opacity: 15%;
 }
 
 }
