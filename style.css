@@ -61,14 +61,19 @@ button {
     border-color: var(--lightest-color);
     border-width: 0.08rem;
     font-weight: normal;
-    opacity: 90%;
+    opacity: 80%;
     font-size: smaller;
+    border-radius: 0.2rem;
   }
 
 * button h5 {
    background-color: var(--shadow);
    font-weight: light;
    opacity: 100%
+}
+
+button:hover {
+    opacity: 100%;
 }
 
 button:disabled h5 {
@@ -403,10 +408,11 @@ input {
 
 .column-2-lowest-right {
     grid-area: column-2-lowest-right;
-    height: auto;
+    height: 4rem;
     position: relative;
     margin-left: -12rem;
     margin-right: 0rem;
+    z-index: 11;
 }
 
 .column-2-lowest p {

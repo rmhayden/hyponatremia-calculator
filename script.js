@@ -13,7 +13,7 @@
 
       // Set up the SVG container
       // const margin = { top: 20, right: 20, bottom: 30, left: 50 };
-      const margin = { top: 20, right: 20, bottom: 30, left: 70 };
+      const margin = { top: -20, right: 20, bottom: 30, left: 70 };
       const width = 600 - margin.left - margin.right;
       const height = 400 - margin.top - margin.bottom;
   
@@ -121,13 +121,8 @@
           .attr("cy", d => yScale(d.value3))
           .attr("r", 5)
           .style("fill", "rgb(57, 85, 108)");
-  
-      // Add the X Axis - original commented out
-      // svg.append("g")
-      //   .attr("transform", "translate(0," + height + ")")
-      //   .call(d3.axisBottom(xScale));
 
-     // New Version of X Axis
+     // X Axis
       svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(xScale)
@@ -140,9 +135,22 @@
       .style("fill", "rgb(219, 217, 227)")
       .text("Cummulative Hour(s)");
   
-      // Add the Y Axis
+      // Y Axis
       svg.append("g")
-        .call(d3.axisLeft(yScale))
+        // .call(d3.axisLeft(yScale))
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(yScale).tickSize(-width, 0.01).ticks(5)) // Add grid lines
+          .selectAll(".tick line") // Select all tick lines
+          .style("stroke-opacity", 0.2) // Set stroke-opacity to 20%
+          .style("shape-rendering", "crispEdges") // Ensure crisp rendering
+          .select(".domain") // Select the axis line
+          .style("stroke-opacity", 0) // Hide the axis line
+          .filter(d => d !== 0) // Filter out ticks at y=0
+          .select(".domain") // Select the axis line
+          .style("stroke-opacity", 0) // Hide the axis line
+
+      svg.append("g")
+        // .call(d3.axisLeft(yScale))
         .append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", -margin.left) // adjusting this
@@ -152,6 +160,7 @@
         .style("fill", "rgb(219, 217, 227)")
         .text("Serum Sodium (mEq/L)");
     }
+
 
 
 // CLASSES / OBJECTS
