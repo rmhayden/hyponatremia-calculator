@@ -12,7 +12,8 @@
             }
 
       // Set up the SVG container
-      const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+      // const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+      const margin = { top: 20, right: 20, bottom: 30, left: 70 };
       const width = 600 - margin.left - margin.right;
       const height = 400 - margin.top - margin.bottom;
   
@@ -131,11 +132,25 @@
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(xScale)
        .ticks(d3.time, 1)
-      );
+      )
+      .append("text")
+      .attr("x", width / 2)
+      .attr("y", margin.bottom + 20) // had to adjust this
+      .style("text-anchor", "middle")
+      .style("fill", "rgb(219, 217, 227)")
+      .text("Cummulative Hour(s)");
   
       // Add the Y Axis
       svg.append("g")
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(yScale))
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -margin.left) // adjusting this
+        .attr("x", -height / 2)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .style("fill", "rgb(219, 217, 227)")
+        .text("Serum Sodium (mEq/L)");
     }
 
 
