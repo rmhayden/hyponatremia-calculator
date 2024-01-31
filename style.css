@@ -135,10 +135,10 @@ input {
   }
 
 .faint-line {
-    width: 70vw;
-    margin-top: -0.2rem;
+    width: 63vw;
+    margin-top: -0.2rem; 
     border: 0.003rem solid white;
-    opacity: 15%;
+    opacity: 15%; 
 }
 
 .logo {
@@ -159,92 +159,92 @@ input {
 }
 
 .faint-line-2 {
-    width: 100vw;
-    margin-top: -0.2rem;
+    width: 89vw;
+    /* margin-top: -0.2rem; */
     border: 0.003rem solid white;
-    opacity: 20%;
+    opacity: 20%; 
 }
 
-p strong {
-    font-weight: normal;
+p strong { 
+    font-weight: normal; 
 }
 
-.text-left {
-    text-align: left;
+.text-left { 
+    text-align: left; 
 }
 
 
-.faint-line-3 {
-    width: 100vw;
-    margin-top: -0.2rem;
+.faint-line-3 { 
+    width: 89vw; 
+    margin-top: -0.2rem;  
     border: 0.003rem solid white;
-    opacity: 20%;
+    opacity: 20%;  
 }
 
-.time-input {
+.time-input {  
     color: var(--lightest-color);
-    background-color: var(--input-color);
-    opacity: 90%;
+    background-color: var(--input-color);  
+    opacity: 90%; 
 }
 
-.time-input-2 {
+.time-input-2 { 
     color: var(--lightest-color);
-    background-color:var(--input-color);
-    opacity: 90%;
+    background-color:var(--input-color); 
+    opacity: 90%; 
 }
 
-input:disabled {
-    opacity: 40%;
+input:disabled { 
+    opacity: 40%; 
   }
 
   .line {
     fill: none;
     stroke: rgb(57, 85, 108);
-    stroke-width: 2px;
+    stroke-width: 2px; 
   }
 
-  .dotted-line {
+  .dotted-line { 
     fill: none;
     stroke: rgb(175, 171, 168);
-    stroke-width: 1.5px;
+    stroke-width: 1.5px; 
  }
 
 
-input {
-    width: 3rem;
+input { 
+    width: 3rem; 
     color: var(--shadow)
 }
 
-.time-input {
-    width: 7rem;
-    position: relative;
+.time-input { 
+    width: 7rem; 
+    position: relative; 
     left: 0rem;
     color: var(--shadow)
 }
 
-.time-input-2 {
-    width: 7rem;
-    position: relative;
+.time-input-2 { 
+    width: 7rem; 
+    position: relative; 
     left: -3.7rem;
     color: var(--shadow)
 }
-
-.longer-input {
-    width: 7rem;
+ 
+.longer-input { 
+    width: 7rem; 
 }
 
-.first-table {
-    position: relative;
+.first-table { 
+    position: relative; 
     top: 0rem;
-    margin-top: 0rem;
-    width: 29vw;
+    margin-top: 0rem; 
+    width: 29vw; 
 }
 
-.second-table {
-    position: relative;
+.second-table { 
+    position: relative; 
     top: 0rem;
-    margin-top: 0rem;
-    width: 29vw;
+    margin-top: 0rem; 
+    width: 29vw; 
 }
 
 .third-table {
@@ -282,27 +282,28 @@ input {
 
 .column-1 {
     grid-area: column-1;
-    width: 28vw;
-    margin-left: 3rem;
-    border-right: 0.5px solid var(--lightest-color);
-    margin-right: 1rem;
+    width: 30vw;
+    margin-left: 3rem;  
+    border-right: 0.5px solid var(--lightest-color);  
+    margin-right: 1rem; 
+    z-index: 2;
 }
 
-.column-3 {
-    grid-area: column-3;
-    width: 26vw;
-    margin-left: 0rem;
-    margin-right: 1rem;
+.column-3 {  
+    grid-area: column-3; 
+    margin-left: 0rem; 
+    margin-right: 1rem; 
+    width: 28vw; 
 }
 
-.column-2 {
-    grid-area: column-2;
-    width: 32vw;
-    height: auto;
-    display: grid;
-    border-right: 0.5px solid var(--lightest-color);
-    margin-right: 1rem;
-    grid-template-areas: 
+.column-2 { 
+    grid-area: column-2; 
+    width: 32vw; 
+    height: auto; 
+    display: grid; 
+    border-right: 0.5px solid var(--lightest-color); 
+    margin-right: 1rem; 
+    grid-template-areas:  
         "column-2-upper"
         "column-2-middle"
         "column-2-middle-2"
@@ -379,7 +380,7 @@ input {
 .column-2-middle {
     grid-area: column-2-middle;
     position: relative;
-    top: -0.8rem;
+    top: -1.2rem;
     height: 14rem;
     width: 32vw;
     position: relative;
@@ -423,7 +424,7 @@ input {
 .column-2-middle-2 {
     grid-area: column-2-middle-2;
     position: relative;
-    top: -1.5rem;
+    top: -0.7rem;
     width: 32vw;
     height: 10rem;
     display: grid;
@@ -460,7 +461,11 @@ input {
     justify-content: center;
     width: 32vw;
     position: relative;
-    left: -2rem;
+    /* left: -2rem; */
+}
+
+.font-normal-size {
+    font-size: larger;
 }
 
 .column-2-middle-2-left {
@@ -493,6 +498,7 @@ input {
     height: auto;
     position: relative;
     z-index: 11;
+    width: 30vw;
 }
 
 .column-2-lowest-right {
@@ -1189,13 +1195,40 @@ button:hover {
     font-size: small;
 }
 
-@media only screen and (max-width: 950px) {
+
+@media only screen and (max-width: 1025px) {
     .column-3 {
         display: none;
     }
     .column-2 {
-        width: 55vw;
+        width: 50vw;
+        border-right: none;
     }
+
+    .column-2-middle-left {
+        width: 50vw;
+    }
+
+    .column-2-upper-left {
+        width: 50vw;
+    }
+
+    .column-2-upper-right {
+        width: 22vw;
+    }
+
+    .column-2-middle-right {
+        width: 22vw;
+    }
+
+    .column-2-middle-2-right {
+        width: 22vw;
+    }
+
+    .column-2-lowest {
+        width: 50vw;
+    }
+
     .column-1 {
         width: 40vw;
         /* margin-left: 0rem; */
@@ -1220,7 +1253,7 @@ button:hover {
     position: relative;
     top: 0rem;
     margin-top: 0rem;
-    width: 40vw;
+    width: 28vw;
 }
 
 .third-table input {
@@ -1231,7 +1264,6 @@ button:hover {
     position: relative;
     top: 0rem;
     margin-top: 0rem;
-    width: 40vw;
 }
 
 .fourth-table input {
@@ -1243,7 +1275,7 @@ button:hover {
 }
 
 .faint-line {
-    width: 100vw;
+    width: 40vw;
     margin-top: -0.2rem;
     border: 0.003rem solid white;
     opacity: 15%;
@@ -1252,7 +1284,7 @@ button:hover {
 }
 
 
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: 960px) {
     .column-3 {
         display: none;
     }
