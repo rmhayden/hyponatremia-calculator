@@ -51,7 +51,8 @@ p, h4, h3 {
     margin: 0rem;
     font-size: smaller;
     position: relative;
-    top: 0.165rem;
+    top: 0.23rem;
+    margin-left: 0.04rem;
 }
 
 * h4 {
@@ -65,7 +66,23 @@ p, h4, h3 {
     margin: 0rem;
     font-size: smaller;
     position: relative;
-    top: 0.165rem;
+    top: 0.22rem;
+    margin-left: 0.04rem;
+}
+
+* h5 {
+    font-size: normal;
+    font-weight: light;
+    position: relative;
+    margin-top: 1.6rem;
+    color: var(--lightest-color);
+}
+
+* h5 small {
+    font-size: smaller;
+    position: relative;
+    top: 0.02rem;
+    margin-left: 0.04rem;
 }
 
 * label {
@@ -143,10 +160,21 @@ input {
   }
 
 .faint-line {
-    width: 63vw;
+    width: 89vw;
     margin-top: -0.2rem; 
     border: 0.003rem solid white;
     opacity: 15%; 
+}
+
+.compartments-explanation {
+    position: absolute;
+    top: 5.3rem;
+    margin-left: 70vw;
+    width: 24vw;
+    font-size: small;
+    margin-right: 0rem;
+    background-color: rgba(0, 0, 0, 0);
+    font-style: italic;
 }
 
 .logo {
@@ -515,7 +543,7 @@ input {
     grid-area: column-2-lowest-right;
     height: 4rem;
     position: relative;
-    margin-left: -22vw;
+    margin-left: -16vw;
     /* margin-right: 0rem; */
     z-index: 11;
 }
@@ -529,7 +557,7 @@ input {
 }
 
 .column-2-lowest h4 {
-    margin-top: 0.2rem;
+    margin-top: 1rem;
     margin-bottom: 0.3rem;
     position: relative;
     top: -19.1rem;
@@ -858,7 +886,7 @@ button:hover {
     /* background-color: rgb(201, 209, 245); */
     /* height: 100%; */
     height: 85vh;
-    margin-top: -5rem;
+    margin-top: -4rem;
     margin-bottom: auto;
     padding-bottom: auto;
     width: 98.4vw;
@@ -915,6 +943,12 @@ button:hover {
 
 /* COMPARTMENT MODELS: */
 
+
+.compartments-title {
+    position: relative;
+    top: -7rem;
+}
+
 #compartment-model-1-div {
     width: 15rem;
     height: 15rem;
@@ -943,7 +977,7 @@ button:hover {
     position: relative;
     left: 6rem;
         /* shift left 6rem by default */
-    top: -6rem;
+    top: -10.4rem;
     z-index: 10;
 }
 
@@ -955,7 +989,7 @@ button:hover {
     opacity: 50%;
     position: relative;
     left: 0rem;
-    top: 0rem;
+    top: -4.4rem;
     z-index: 4;
 }
 
@@ -967,6 +1001,8 @@ button:hover {
     margin-left: 0rem;
     height: 6rem;
     top: -1rem;
+    background-color: rgba(188, 154, 109, 0);
+    /* invisible so does not block anything */
 }
 
 #compartment-model-1-midline-dotted {
@@ -975,7 +1011,7 @@ button:hover {
     height: 5.75rem;
     width: 0rem;
     position: relative;
-    top: -7rem;
+    top: -11.3rem;
     left: 5.9rem;
     z-index: 11;
 }
@@ -1025,7 +1061,7 @@ button:hover {
     position: relative;
     left: 6rem;
         /* shift left 6rem by default */
-    top: -6rem;
+    top: -10.4rem;
 }
 
 #compartment-model-2-icf-box {
@@ -1036,7 +1072,7 @@ button:hover {
     opacity: 50%;
     position: relative;
     left: 0rem;
-    top: 0rem;
+    top: -4.4rem;
 }
 
 #compartment-model-2-grouping-container {
@@ -1047,6 +1083,8 @@ button:hover {
     margin-left: 0rem;
     height: 6rem;
     top: -1rem;
+    background-color: rgba(188, 154, 109, 0);
+    /* invisible so does not block anything */
 }
 
 #compartment-model-2-midline-dotted {
@@ -1055,7 +1093,7 @@ button:hover {
     height: 5.75rem;
     width: 0rem;
     position: relative;
-    top: -7rem;
+    top: -11.3rem;
     left: 5.9rem;
     z-index: 11;
 }
@@ -1077,10 +1115,12 @@ button:hover {
 
 #compartment-model-3-div {
     width: 15rem;
-    height: 15rem;
-    /* background-color: rgba(188, 154, 109, 0.5); */
+    height: 10rem;
+    background-color: rgba(188, 154, 109, 0);
+    /* invisible so does not block anything */
     margin-left: 1rem;
-    margin-top: 0rem;
+    margin-top: 4rem;
+    
 }
 
 #compartment-model-3-outside-box {
@@ -1089,7 +1129,8 @@ button:hover {
     /* background-color: rgba(13, 0, 255, 0.5); */
     position: relative;
     left: 3rem;
-    top: 2rem;
+    margin-left: 1rem;
+    top: 1rem;
     border: dotted var(--lightest-color) 0.18rem;
 }
 
@@ -1103,7 +1144,7 @@ button:hover {
     position: relative;
     left: 6rem;
         /* shift left 6rem by default */
-    top: -6rem;
+    top: -14.4rem;
 }
 
 #compartment-model-3-icf-box {
@@ -1114,7 +1155,8 @@ button:hover {
     opacity: 50%;
     position: relative;
     left: 0rem;
-    top: 0rem;
+    top: -8.4rem;
+    
 }
 
 #compartment-model-3-grouping-container {
@@ -1122,7 +1164,7 @@ button:hover {
     position: relative;
     left: 0rem;
     right: 0rem;
-    margin-left: 0rem;
+    margin-left: -1rem;
     height: 6rem;
     top: -1rem;
 }
@@ -1133,8 +1175,9 @@ button:hover {
     height: 5.75rem;
     width: 0rem;
     position: relative;
-    top: -7rem;
-    left: 5.9rem;
+    top: -15.3rem;
+    left: 4.9rem;
+    /* shifted 1rem to left to align */
     z-index: 11;
 }
 
@@ -1249,10 +1292,15 @@ button:hover {
 }
 
 
-@media only screen and (max-width: 1025px) {
+@media only screen and (max-width: 1010px) {
     .column-3 {
         display: none;
     }
+
+    .compartments-explanation {
+        display: none;
+    }
+
     .column-2 {
         width: 50vw;
         border-right: none;
@@ -1280,6 +1328,14 @@ button:hover {
 
     .column-2-lowest {
         width: 50vw;
+    }
+
+    .column-2-lowest-left {
+        width: 22vw;
+    }
+
+    .column-2-lowest-right {
+        width: 22vw;
     }
 
     .column-1 {
@@ -1327,17 +1383,17 @@ button:hover {
     font-size: x-small
 }
 
-.faint-line {
+/* .faint-line {
     width: 40vw;
     margin-top: -0.2rem;
     border: 0.003rem solid white;
     opacity: 15%;
-}
+} */
 
 }
 
 
-  @media only screen and (max-width: 960px) {
+  @media only screen and (max-width: 1010px) {
     .column-3 {
         display: none;
     }
@@ -1350,5 +1406,14 @@ button:hover {
     .increase-width-text {
         display: block;
         margin-left: 2rem;
+    }
+    .low-width-div {
+        height: 70vh;
+    }
+    .footer-nav-bar {
+        display: none
+    }
+    modal {
+        display: none;
     }
   }
