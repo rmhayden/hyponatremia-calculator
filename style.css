@@ -724,8 +724,8 @@ button:hover {
 .see-models-button {
     margin-top: -2rem;
     height: 2rem;
-    position: absolute;
-    left: 15vw;
+    position: relative;
+    margin-right: 1rem;
 }
 
 .see-models-button h5 {
@@ -736,8 +736,8 @@ button:hover {
 .csv-data-button {
     margin-top: -2rem;
     height: 2rem;
-    position: absolute;
-    left: 30vw;
+    position: relative;
+    margin-right: 1rem;
 }
 
 .csv-data-button h5 {
@@ -831,6 +831,13 @@ button:hover {
     flex-direction: row;
     justify-content: flex-end;
     margin-right: 1.5rem;
+}
+
+.flex-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 10rem;
 }
 
 .footer-render-interval-number {

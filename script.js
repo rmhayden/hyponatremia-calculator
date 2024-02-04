@@ -724,26 +724,21 @@ function setVars () {
   if (biologicalSexEl.value === "male") {
     biologicalSexVar = "male"
     idealTBW = 0.6 * (weightEl.value)
-    // will use 60% for male
+       // will use 60% for male
     idealCommentsVar = "Comment: assuming ideal TBW is 60% of dry weight"
-    console.log("male; ideal TBW: ", idealTBW)
   } else {
     biologicalSexVar = "female"
     idealTBW = 0.55 * (weightEl.value)
-    // will use 55% for female
+       // will use 55% for female
     idealCommentsVar = "Comment: assuming ideal TBW is 55% of dry weight"
-    console.log("female; ideal TBW: ", idealTBW)
   }
 
   idealECF = idealTBW * 0.4
   idealICF = idealTBW * 0.6
-    console.log("ideal ICF/ECF: ", idealICF, "/", idealECF)
 
-  idealTBOsm = 280 * idealTBW
+  idealTBOsm = 280 * idealTBW // assuming TBOsmolality is 280 for ideal Na of 140
   idealECOsm = 280 * idealECF
   idealICOsm = 280 * idealICF
-    console.log("ideal TBOsm/ICOsm/ECOsm: ", idealTBOsm, "/", idealICOsm, "/", idealECOsm)
-
 
   renderIdealValues()
 }
@@ -867,8 +862,6 @@ function calculatedVars () {
   postIntervalTBOsmolality = postIntervalTBOsm / postIntervalTBW
 
   postIntervalSodium = (postIntervalTBOsmolality / 2)
-
-    console.log("post interval osmolarity and sodium: ", postIntervalTBOsmolality, postIntervalSodium)
   
   postIntervalICOsm = preIntervalICOsm
   postIntervalICF = postIntervalICOsm / postIntervalTBOsmolality
@@ -1124,6 +1117,7 @@ if (returnVar === false) {
 
         preIntervalTBOsmolality = preIntervalSodium * 2
         preIntervalTBOsm = idealTBOsm
+        
     let hypotheticalPreIntervalTBW = preIntervalTBOsm / preIntervalTBOsmolality
         // in reality, after 1-2 days, increase in TBW will only be half what would be expected if no change in solute:
     let hypotheticalIncreaseTBW = hypotheticalPreIntervalTBW - idealTBW
@@ -1144,6 +1138,7 @@ if (returnVar === false) {
   } else {
 
     // for now, will just call the new TBW the current/most recent weight
+
       console.log("pre-interval weight: ", preIntervalWeightEl.value)
     if (biologicalSexVar === "male") {
       preIntervalTBW = 0.6 * (preIntervalWeightEl.value)
@@ -1156,23 +1151,14 @@ if (returnVar === false) {
 
 
     // ignoring potassium for now; will also assume IC solute fixed for now
+
     preIntervalICOsm = idealICOsm
-
     preIntervalSodium = Number(mostRecentSodiumEl.value)
-
     preIntervalTBOsmolality = preIntervalSodium * 2
-       console.log("pre-interval TBOsm: ", preIntervalTBOsmolality)
-
     preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
-
     preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
-
     preIntervalECF = preIntervalTBW - preIntervalICF
-
     preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
-
-    console.log("ensuring total osmolality adds up; pre-interval IC OSM + EC Osm = TB Osm: ", preIntervalICOsm, " + ", preIntervalECOsm, " = ", (preIntervalICOsm + preIntervalECOsm), " = ", preIntervalTBOsm)
-
   }
 
 
