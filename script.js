@@ -34,6 +34,8 @@
          d.value2 = +d.value2; // adding dotted line
          // adding value 3:
          d.value3 = +d.value3
+         // adding value 4:
+        d.value4 = +d.value4
       });
   
       // Set up the X and Y scales
@@ -47,7 +49,7 @@
         .range([height, 0])
         // .domain([(d3.min(data, d => d.value) - 5), (d3.max(data, d => d.value) + 5)]);
         // may need to adjust this as below:
-        .domain([(d3.min(data, d => Math.min(d.value, d.value2)) - 5), (d3.max(data, d => Math.max(d.value, d.value2)) + 5)]);
+        .domain([(d3.min(data, d => Math.min(d.value, d.value2, d.value4)) - 5), (d3.max(data, d => Math.max(d.value, d.value2, d.value4)) + 5)]);
 
       // Define the line
       const line = d3.line()
@@ -77,6 +79,21 @@
         ];
        }).slice(1); // Skip the first segment since it doesn't have a prior data point
 
+      // define second NEW dotted line:
+      const dottedLine2 = d3.line()
+      .x(d => xScale(d.time))
+      .y(d => yScale(d.value4))
+      .defined(d => !isNaN(d.value4)); 
+
+       // Extract line segments for second NEW dotted line
+    const dottedLine2Segments = data.map((d, i) => {
+      return [
+      { time: data[i - 1] ? data[i - 1].time : d.time, value: d.value3 },
+      { time: d.time, value: d.value4 }
+      ];
+      }).slice(1); // Skip the first segment since it doesn't have a prior data point
+      
+
         // Add the first line to the chart
           svg.selectAll(".line")
           .data(lineSegments)
@@ -102,6 +119,15 @@
        .attr("d", dottedLine)
        .style("stroke-dasharray", "3,3"); // Make the line dotted
 
+      // Add the second dotted line to the chart as separate line segments
+      svg.selectAll(".dotted-line-2")
+      .data(dottedLine2Segments)
+      .enter().append("path")
+      .attr("class", "dotted-line-2")
+      .attr("d", dottedLine)
+      .style("stroke-dasharray", "3,3"); // Make the line dotted
+
+
         // Add points
           svg.selectAll(".value2-point")
           .data(data)
@@ -121,6 +147,15 @@
           .attr("cy", d => yScale(d.value3))
           .attr("r", 5)
           .style("fill", "rgb(57, 85, 108)");
+
+          svg.selectAll(".value4-point")
+        .data(data)
+        .enter().append("circle")
+        .attr("class", "value4-point")
+        .attr("cx", d => xScale(d.time))
+        .attr("cy", d => yScale(d.value4))
+        .attr("r", 3)
+        .style("fill", "rgb(255, 10, 10)");
 
      // X Axis
       svg.append("g")
@@ -323,6 +358,8 @@ let postIntervalECOsm = 0
 let postIntervalSodium = 0
 let measuredPostIntervalSodium = 0
 let postIntervalPotassium = 0
+
+let machineLearningSodium = 0
 
 let postIntervalTBOsmolality = 0
 
@@ -592,6 +629,7 @@ function newInterval () {
       value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
       value2: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
       value3: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)), // value 3 is inputted preInterval Na
+      value4: Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
     })
 
     serumData.push( {
@@ -599,7 +637,8 @@ function newInterval () {
       time: `${Number(currentHour)}`,
       value: Number(postIntervalSodium),
       value2: Number(measuredPostIntervalSodium),
-      value3: Number(preIntervalSodium)
+      value3: Number(preIntervalSodium),
+      value4: Number(machineLearningSodium)
     })
 
     serumData.shift()   
@@ -610,7 +649,8 @@ function newInterval () {
     time: `${Number(currentHour)}`,
     value: Number(postIntervalSodium),
     value2: Number(measuredPostIntervalSodium),
-    value3: Number(preIntervalSodium)
+    value3: Number(preIntervalSodium),
+    value4: Number(machineLearningSodium)
   })
 
   }
@@ -870,6 +910,53 @@ function calculatedVars () {
   postIntervalECOsm = postIntervalTBOsmolality * postIntervalECF
 
   //
+
+  // NOW UPDATE MACHINE LEARNING:
+
+  machineLearningSodium =  0 // reset to zero
+
+  const options = {
+    task: 'regression',
+  //   learningRate: 0.01,
+    debug: true
+  }
+
+  const nn = ml5.neuralNetwork(options);
+
+  const modelInfo = {
+    model: 'machineLearning/machineLearningPretraining/model/model.case1.json',
+    metadata: 'machineLearning/machineLearningPretraining/model/model_meta.case1.json',
+    weights: 'machineLearning/machineLearningPretraining/model/model.weights.case1.bin'
+  }
+
+  nn.load(modelInfo, modelLoaded);
+
+  function modelLoaded() {
+    console.log("model loaded");
+    predict();
+  }
+
+  function predict(){
+    const inputs = {
+      preIntervalTBW: Number(preIntervalTBW),
+      preIntervalSodium: Number(preIntervalSodium),
+      intervalWaterNet: Number(intervalWaterNet),
+      intervalSoluteNet: Number(intervalWaterNet)
+    }
+    nn.predict(inputs, handleResults);
+  }
+
+
+  function handleResults(error, result) {
+    if(error){
+      console.error(error);
+      return;
+    }
+
+    machineLearningSodium = Number(result[0].measuredPostIntervalSodium)
+    console.log("machine learning sodium: ", machineLearningSodium)
+  }
+
 
   renderPostIntervalCompartmentModel()
   renderPostIntervalValues()
@@ -1822,3 +1909,4 @@ function setHypertonicBolus() {
   hypertonicBolusButtonEl.setAttribute('disabled', true)
   hypertonicRateButtonEl.removeAttribute('disabled')
 }
+

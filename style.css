@@ -247,6 +247,14 @@ input:disabled {
     z-index: 9;
  }
 
+ .dotted-line-2 {
+    fill: none;
+    stroke: rgba(220, 98, 85, 0.7);
+    stroke-width: 1.5px; 
+    z-index: 8;
+ }
+
+
 
 input { 
     width: 3rem; 
