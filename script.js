@@ -221,7 +221,7 @@ const nn = ml5.neuralNetwork(options);
 
     var points = document.getElementsByClassName("value4-point");
     // Loop through each line element and modify the style
-    for (var i = 0; i < lines.length; i++) {
+    for (var i = 0; i < points.length; i++) {
       points[i].style.display = "none";
       }
 
@@ -593,7 +593,7 @@ function init () {
   renderCurrentIntervalNumberEl.innerHTML = `1`
 
   machineLearningButtonEl.classList.add("pointer-events-none")
-  
+
 }
 
 function newInterval () {
