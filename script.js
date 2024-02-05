@@ -1,3 +1,13 @@
+//
+
+const options = {
+  task: 'regression',
+//   learningRate: 0.01,
+  debug: true
+}
+
+const nn = ml5.neuralNetwork(options);
+
 // GRAPH:
 
   const serumData = [
@@ -34,8 +44,7 @@
          d.value2 = +d.value2; // adding dotted line
          // adding value 3:
          d.value3 = +d.value3
-         // adding value 4:
-        d.value4 = +d.value4
+         d.value4 = +d.value4
       });
   
       // Set up the X and Y scales
@@ -46,10 +55,10 @@
         .domain([0, d3.max(data, d => d.time)]);
   
       const yScale = d3.scaleLinear()
-        .range([height, 0])
-        // .domain([(d3.min(data, d => d.value) - 5), (d3.max(data, d => d.value) + 5)]);
-        // may need to adjust this as below:
-        .domain([(d3.min(data, d => Math.min(d.value, d.value2, d.value4)) - 5), (d3.max(data, d => Math.max(d.value, d.value2, d.value4)) + 5)]);
+          .range([height, 0])
+          // .domain([(d3.min(data, d => d.value) - 5), (d3.max(data, d => d.value) + 5)]);
+          // may need to adjust this as below:
+          .domain([(d3.min(data, d => Math.min(d.value, d.value2, d.value4)) - 5), (d3.max(data, d => Math.max(d.value, d.value2, d.value4)) + 5)]);
 
       // Define the line
       const line = d3.line()
@@ -79,20 +88,21 @@
         ];
        }).slice(1); // Skip the first segment since it doesn't have a prior data point
 
+
       // define second NEW dotted line:
-      const dottedLine2 = d3.line()
-      .x(d => xScale(d.time))
-      .y(d => yScale(d.value4))
-      .defined(d => !isNaN(d.value4)); 
+        const dottedLine2 = d3.line()
+        .x(d => xScale(d.time))
+        .y(d => yScale(d.value4))
+        .defined(d => !isNaN(d.value4));
+
 
        // Extract line segments for second NEW dotted line
-    const dottedLine2Segments = data.map((d, i) => {
-      return [
-      { time: data[i - 1] ? data[i - 1].time : d.time, value: d.value3 },
-      { time: d.time, value: d.value4 }
-      ];
-      }).slice(1); // Skip the first segment since it doesn't have a prior data point
-      
+        const dottedLine2Segments = data.map((d, i) => {
+        return [
+        { time: data[i - 1] ? data[i - 1].time : d.time, value: d.value3 },
+        { time: d.time, value: d.value4 }
+        ];
+        }).slice(1);
 
         // Add the first line to the chart
           svg.selectAll(".line")
@@ -128,7 +138,7 @@
       .style("stroke-dasharray", "3,3"); // Make the line dotted
 
 
-        // Add points
+      // Add points
           svg.selectAll(".value2-point")
           .data(data)
           .enter().append("circle")
@@ -148,7 +158,7 @@
           .attr("r", 5)
           .style("fill", "rgb(57, 85, 108)");
 
-          svg.selectAll(".value4-point")
+        svg.selectAll(".value4-point")
         .data(data)
         .enter().append("circle")
         .attr("class", "value4-point")
@@ -194,7 +204,30 @@
         .style("text-anchor", "middle")
         .style("fill", "rgb(219, 217, 227)")
         .text("Serum Sodium (mEq/L)");
+
+
+        // finally, toggle on or off:
+
+      
+  if (machineLearningOn === false) {
+
+        // Get all SVG line elements with the specified class
+      var lines = document.getElementsByClassName("dotted-line-2");
+
+    // Loop through each line element and modify the style
+    for (var i = 0; i < lines.length; i++) {
+      lines[i].style.display = "none";
+      }
+
+    var points = document.getElementsByClassName("value4-point");
+    // Loop through each line element and modify the style
+    for (var i = 0; i < lines.length; i++) {
+      points[i].style.display = "none";
+      }
+
     }
+
+ }
 
 
 
@@ -220,6 +253,7 @@ class IntervalData {
     postIntervalTBOsm,
     postIntervalSodium,
     measuredPostIntervalSodium,
+    machineLearningSodium,
     postIntervalECF,
     postIntervalECOsm,
     postIntervalICF,
@@ -258,6 +292,7 @@ class IntervalData {
     this.postIntervalTBOsm = postIntervalTBOsm;
     this.postIntervalSodium = postIntervalSodium;
     this.measuredPostIntervalSodium = measuredPostIntervalSodium;
+    this.machineLearningSodium = machineLearningSodium;
     this.postIntervalECF = postIntervalECF;
     this.postIntervalECOsm = postIntervalECOsm;
     this.postIntervalICF = postIntervalICF;
@@ -402,6 +437,9 @@ let halfNormalSalineRateBoolean = true
 let LRRAteBoolean = true
 let hypertonicRateBoolean = true
 
+// start as false
+let machineLearningOn = false
+
 // CACHED ELEMENTS
 
 const intervalWaterInEl = document.querySelector("#water-manual-value-input")
@@ -518,6 +556,10 @@ const baselineCaseDataEl = document.getElementById("baseline-case-data")
 
 const measuredPostIntervalSodiumEl = document.querySelector("#measured-post-interval-sodium")
 
+const machineLearningButtonEl = document.querySelector(".machine-learning-button")
+
+const dottedLine2 = document.querySelector("#dotted-line-2")
+
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
@@ -537,7 +579,7 @@ LRRateButtonEl.addEventListener('click', setLRRate)
 LRBolusButtonEl.addEventListener('click', setLRBolus)
 hypertonicRateButtonEl.addEventListener('click', setHypertonicRate)
 hypertonicBolusButtonEl.addEventListener('click', setHypertonicBolus)
-
+machineLearningButtonEl.addEventListener('click', toggleMachineLearning)
 
 // FUNCTIONS
 
@@ -549,6 +591,9 @@ init ()
 function init () {
 
   renderCurrentIntervalNumberEl.innerHTML = `1`
+
+  machineLearningButtonEl.classList.add("pointer-events-none")
+  
 }
 
 function newInterval () {
@@ -568,7 +613,7 @@ function newInterval () {
 
   // add most recent data to object:
 
-  let intervalDataToAdd = new IntervalData(intervalNumber, currentDay, currentHour, currentTime, preIntervalTBW, preIntervalTBOsmolality, preIntervalTBOsm, preIntervalSodium, preIntervalPotassium, preIntervalECF, preIntervalECOsm, preIntervalICF, preIntervalICOsm, postIntervalTBW, postIntervalTBOsmolality, postIntervalTBOsm, postIntervalSodium, measuredPostIntervalSodium, postIntervalECF, postIntervalECOsm, postIntervalICF, postIntervalICOsm, intervalElectrolytesIn, intervalElectrolytesOut, intervalSoluteNet, intervalWaterIn, intervalWaterOut, intervalWaterNet, totalIntervalHypertonicSaline, totalIntervalD5W, totalIntervalNormalSaline, totalIntervalUrineOutput, urineOsm, urineSodium, urinePotassium, urineTonicity, urineElectrolytes)
+  let intervalDataToAdd = new IntervalData(intervalNumber, currentDay, currentHour, currentTime, preIntervalTBW, preIntervalTBOsmolality, preIntervalTBOsm, preIntervalSodium, preIntervalPotassium, preIntervalECF, preIntervalECOsm, preIntervalICF, preIntervalICOsm, postIntervalTBW, postIntervalTBOsmolality, postIntervalTBOsm, postIntervalSodium, measuredPostIntervalSodium, machineLearningSodium, postIntervalECF, postIntervalECOsm, postIntervalICF, postIntervalICOsm, intervalElectrolytesIn, intervalElectrolytesOut, intervalSoluteNet, intervalWaterIn, intervalWaterOut, intervalWaterNet, totalIntervalHypertonicSaline, totalIntervalD5W, totalIntervalNormalSaline, totalIntervalUrineOutput, urineOsm, urineSodium, urinePotassium, urineTonicity, urineElectrolytes)
 
   console.log("new data object: ", intervalDataToAdd)
 
@@ -623,37 +668,69 @@ function newInterval () {
 
   if (intervalNumber === 1) {
 
-    serumData.push( {
-      // time: `"${currentHour.toString()}"`,
-      time: `0`,
-      value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
-      value2: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
-      value3: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)), // value 3 is inputted preInterval Na
-      value4: Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
-    })
+    if (machineLearningOn === true) {
+      serumData.push( {
+        // time: `"${currentHour.toString()}"`,
+        time: `0`,
+        value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
+        value2: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
+        value3: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)), // value 3 is inputted preInterval Na
+        value4: Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
+      })
 
-    serumData.push( {
-      // time: `"${currentHour.toString()}"`,
-      time: `${Number(currentHour)}`,
-      value: Number(postIntervalSodium),
-      value2: Number(measuredPostIntervalSodium),
-      value3: Number(preIntervalSodium),
-      value4: Number(machineLearningSodium)
-    })
+      serumData.push( {
+        // time: `"${currentHour.toString()}"`,
+        time: `${Number(currentHour)}`,
+        value: Number(postIntervalSodium),
+        value2: Number(measuredPostIntervalSodium),
+        value3: Number(preIntervalSodium),
+        value4: Number(machineLearningSodium)
+      })
 
-    serumData.shift()   
+    } else {
+      serumData.push( {
+        // time: `"${currentHour.toString()}"`,
+        time: `0`,
+        value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
+        value2: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
+        value3: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)), // value 3 is inputted preInterval Na
+        value4: Number((renderInitialSodiumEl.innerHTML).slice(0, 3))
+      })
+
+      serumData.push( {
+        // time: `"${currentHour.toString()}"`,
+        time: `${Number(currentHour)}`,
+        value: Number(postIntervalSodium),
+        value2: Number(measuredPostIntervalSodium),
+        value3: Number(preIntervalSodium),
+        value4: Number(machineLearningSodium)
+      })
+    }
+
+    serumData.shift() 
+
   } else {
 
-  serumData.push( {
-    // time: `"${currentHour.toString()}"`,
-    time: `${Number(currentHour)}`,
-    value: Number(postIntervalSodium),
-    value2: Number(measuredPostIntervalSodium),
-    value3: Number(preIntervalSodium),
-    value4: Number(machineLearningSodium)
-  })
-
+    if (machineLearningOn === true) {
+      serumData.push( {
+        // time: `"${currentHour.toString()}"`,
+        time: `${Number(currentHour)}`,
+        value: Number(postIntervalSodium),
+        value2: Number(measuredPostIntervalSodium),
+        value3: Number(preIntervalSodium),
+        value4: Number(machineLearningSodium)
+      })
+    } else {
+      serumData.push( {
+        // time: `"${currentHour.toString()}"`,
+        time: `${Number(currentHour)}`,
+        value: Number(postIntervalSodium),
+        value2: Number(measuredPostIntervalSodium),
+        value3: Number(preIntervalSodium),
+        value4: Number(machineLearningSodium)
+    })
   }
+}
 
   console.log(serumData)
 
@@ -677,6 +754,9 @@ function newInterval () {
   mostRecentUrineKEl.removeAttribute("disabled")
   //
   measuredPostIntervalSodiumEl.setAttribute("disabled", true)
+
+
+  machineLearningButtonEl.classList.add("pointer-events-none")
 
   // this clears the RENDERING values only so far
   clearAllPreIntervalValues()
@@ -745,6 +825,8 @@ function runInterval () {
     halfNormalSalineBolusButtonEl.classList.add("pointer-events-none")
     hypertonicBolusButtonEl.classList.add("pointer-events-none")
     hypertonicRateButtonEl.classList.add("pointer-events-none")
+
+    machineLearningButtonEl.classList.remove("pointer-events-none")
 
   calculatedVars()
 
@@ -913,15 +995,15 @@ function calculatedVars () {
 
   // NOW UPDATE MACHINE LEARNING:
 
-  machineLearningSodium =  0 // reset to zero
 
-  const options = {
-    task: 'regression',
-  //   learningRate: 0.01,
-    debug: true
-  }
 
-  const nn = ml5.neuralNetwork(options);
+  // const options = {
+  //   task: 'regression',
+  // //   learningRate: 0.01,
+  //   debug: true
+  // }
+
+  // const nn = ml5.neuralNetwork(options);
 
   const modelInfo = {
     model: 'machineLearning/machineLearningPretraining/model/model.case1.json',
@@ -941,8 +1023,9 @@ function calculatedVars () {
       preIntervalTBW: Number(preIntervalTBW),
       preIntervalSodium: Number(preIntervalSodium),
       intervalWaterNet: Number(intervalWaterNet),
-      intervalSoluteNet: Number(intervalWaterNet)
+      intervalSoluteNet: Number(intervalSoluteNet)
     }
+    console.log("predicting inputs: ", inputs.preIntervalTBW, inputs.preIntervalSodium, inputs.intervalWaterNet, inputs.intervalSoluteNet)
     nn.predict(inputs, handleResults);
   }
 
@@ -952,8 +1035,8 @@ function calculatedVars () {
       console.error(error);
       return;
     }
-
-    machineLearningSodium = Number(result[0].measuredPostIntervalSodium)
+    console.log(result)
+    machineLearningSodium = result[0].measuredPostIntervalSodium
     console.log("machine learning sodium: ", machineLearningSodium)
   }
 
@@ -1831,6 +1914,9 @@ function csvToTable(csvString) {
 // 
 
 function toggleModal2 () {
+
+
+
   document.getElementById("modal-2").style.display = "block"
   hideBody()
 }
@@ -1908,5 +1994,23 @@ function setHypertonicBolus() {
   hypertonicRateBoolean = false
   hypertonicBolusButtonEl.setAttribute('disabled', true)
   hypertonicRateButtonEl.removeAttribute('disabled')
+}
+
+
+function toggleMachineLearning() {
+
+  console.log("toggle machine learning button")
+
+  if (machineLearningOn === false) {
+    machineLearningButtonEl.innerHTML = `<h5>A.I. Online</h5>`
+    machineLearningButtonEl.style.border = "0.15rem solid white"
+    machineLearningOn = true
+
+  } else {
+    machineLearningButtonEl.innerHTML = `<h5>A.I. Offline</h5>`
+    machineLearningButtonEl.style.border = "0rem solid maroon"
+    machineLearningOn = false
+
+  }
 }
 

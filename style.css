@@ -248,12 +248,12 @@ input:disabled {
  }
 
  .dotted-line-2 {
+    display: block;
     fill: none;
     stroke: rgba(220, 98, 85, 0.7);
     stroke-width: 1.5px; 
-    z-index: 8;
+    z-index: 10;
  }
-
 
 
 input { 
@@ -629,6 +629,11 @@ button:hover {
     opacity: 0.5;
 }
 
+.ai-predicted-sodium-div {
+    position: relative;
+    top: 3rem;
+}
+
 #potassium-caps-value-input {
     pointer-events: none;
     opacity: 30%
@@ -737,6 +742,18 @@ button:hover {
 }
 
 .see-models-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+.machine-learning-button {
+    margin-top: -2rem;
+    height: 2rem;
+    position: relative;
+    margin-right: 1rem;
+}
+
+.machine-learning-button h5 {
     margin-top: 0rem;
     margin-bottom: 0rem;
 }
