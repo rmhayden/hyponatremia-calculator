@@ -2266,7 +2266,6 @@ const DataForInputs = [
 var newInputDataArray = []
 var specificOutputData = []
 
-
 function runML () {
 
     // reset these again each time it is run
@@ -2296,11 +2295,28 @@ function runML () {
 // Step 2: set your neural network options
 const options = {
   task: 'regression',
+//   learningRate: 0.01,
   debug: true
 }
 
 // Step 3: initialize your neural network
 const nn = ml5.neuralNetwork(options);
+// otherwise known as the model
+
+const modelInfo = {
+        model: 'model/model.case1.json',
+        metadata: 'model/model_meta.case1.json',
+        weights: 'model/model.weights.case1.bin'
+    }
+
+nn.load(modelInfo, modelLoaded);
+
+function modelLoaded() {
+    console.log("model loaded");
+    predict();
+}
+
+
 
 // Step 4: add data to the neural network
 
@@ -2314,60 +2330,34 @@ newInputDataArray.forEach(item => {
   const output = {
     measuredPostIntervalSodium: item.measuredPostIntervalSodium
   };
+  
 
 //   console.log("training data values: ", "inputs: ", inputs.preIntervalTBW, inputs.preIntervalSodium, inputs.intervalWaterNet, inputs.intervalWaterNet, "training output: ", output.measuredPostIntervalSodium)
 
-  nn.addData(inputs, output);
+//   nn.addData(inputs, output);
+// no need to add data if already pretrained
+
 });
 
-
-// data.forEach((item, index) => {
-//   const inputs = {
-//     preIntervalTBW: item.preIntervalTBW, 
-//     preIntervalSodium: item.preIntervalSodium, 
-//     intervalWaterNet: item.intervalWaterNet,
-//     intervalSoluteNet: item.intervalSoluteNet
-//   };
-
-//     console.log("current preIntervalSodium: ", inputs.preIntervalSodium)
-
-//   // Check if there is a next item in the array
-//   if (index < data.length - 1) {
-//     const output = {
-//       postIntervalSodium: data[index + 1].preIntervalSodium
-//     };
-//         console.log("refactored postIntervalSodium", output.postIntervalSodium) // should match preinterval sodium
-//     nn.addData(inputs, output);
-//     console.log("confirming output is refactored postIntervalSodium: ", output.postIntervalSodium)
-
-//   } else {
-//     // Handle the last item in the array if needed
-//     // You may choose to skip this part if not required
-//     const output = {
-//       postIntervalSodium: item.postIntervalSodium
-//     };
-//     nn.addData(inputs, output);
-//     // console.log("confirming output is refactored postIntervalSodium: ", output.postIntervalSodium)
-
-//   }
-// //   console.log("checking all pre- and post-interval sodiums: ")
-// //   console.log("interval's pre-interval sodium, actual post-interval sodium, refactored post-interval sodium, next interval's pre-interval sodium")
-// //   console.log(inputs.preIntervalSodium), item.postIntervalSodium, item[index + 1].preIntervalSodium
-// });
-
 // Step 5: normalize your data;
-nn.normalizeData();
+// nn.normalizeData();
+// no need to normalize data if already pretrained
 
 // Step 6: train your neural network
 const trainingOptions = {
-  epochs: 30,
+  epochs: 200,
 //   batchSize: 12
     batchSize: 4
 }
-nn.train(trainingOptions, finishedTraining);
+// nn.train(trainingOptions, finishedTraining);
+// no need to train if already pretrained
 
 // Step 7: use the trained model
 function finishedTraining(){
+
+
+nn.save()
+
 //   classify();
   predict();
 }
