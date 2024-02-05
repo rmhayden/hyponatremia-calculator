@@ -226,7 +226,6 @@ const nn = ml5.neuralNetwork(options);
       }
 
     }
-
  }
 
 
@@ -559,6 +558,8 @@ const measuredPostIntervalSodiumEl = document.querySelector("#measured-post-inte
 const machineLearningButtonEl = document.querySelector(".machine-learning-button")
 
 const dottedLine2 = document.querySelector("#dotted-line-2")
+
+const aiPredictedSodium = document.querySelector("#ai-predicted-sodium")
 
 // EVENT LISTENERS
 
@@ -995,8 +996,6 @@ function calculatedVars () {
 
   // NOW UPDATE MACHINE LEARNING:
 
-
-
   // const options = {
   //   task: 'regression',
   // //   learningRate: 0.01,
@@ -1038,6 +1037,9 @@ function calculatedVars () {
     console.log(result)
     machineLearningSodium = result[0].measuredPostIntervalSodium
     console.log("machine learning sodium: ", machineLearningSodium)
+
+    aiPredictedSodium.innerHTML = `${machineLearningSodium.toFixed(0)} mEq/L`
+
   }
 
 
@@ -1219,6 +1221,8 @@ function calculatedVars () {
   renderPostIntervalEndTimeEl.innerHTML = ``
   renderPostIntervalSodiumEl.innerHTML = ``
   renderPostIntervalPotassiumEl.innerHTML = ``
+
+  aiPredictedSodium.innerHTML = ``
 
   document.getElementById("compartment-model-3-grouping-container").style.visibility = "hidden"
 
@@ -2006,10 +2010,15 @@ function toggleMachineLearning() {
     machineLearningButtonEl.style.border = "0.15rem solid white"
     machineLearningOn = true
 
+    document.querySelector(".ai-predicted-sodium-div").style.visibility = "visible"
+
   } else {
     machineLearningButtonEl.innerHTML = `<h5>A.I. Offline</h5>`
     machineLearningButtonEl.style.border = "0rem solid maroon"
     machineLearningOn = false
+
+
+    document.querySelector(".ai-predicted-sodium-div").style.visibility = "hidden"
 
   }
 }

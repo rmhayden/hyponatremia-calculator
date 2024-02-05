@@ -630,6 +630,7 @@ button:hover {
 }
 
 .ai-predicted-sodium-div {
+    visibility: hidden;
     position: relative;
     top: 3rem;
 }
