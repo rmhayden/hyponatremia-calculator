@@ -28,6 +28,7 @@ body {
     padding: 0rem;
     margin: 1rem;
     margin-top: 2rem;
+    height: auto;
 
 }
 
@@ -748,6 +749,18 @@ button:hover {
     margin-bottom: 0rem;
 }
 
+.about-button {
+    margin-top: -2rem;
+    height: 2rem;
+    position: relative;
+    margin-right: 1rem;
+}
+
+.about-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
 .machine-learning-button {
     margin-top: -2rem;
     height: 2rem;
@@ -858,6 +871,7 @@ button:hover {
     flex-direction: row;
     justify-content: flex-end;
     margin-right: 1.5rem;
+    margin-left: 1rem;
 }
 
 .flex-left {
@@ -1369,6 +1383,11 @@ button:hover {
 
 .machine-learning-key {
     visibility: hidden  
+}
+
+.low-width-div {
+    position: fixed;
+    height: 70vh;
 }
 
 
