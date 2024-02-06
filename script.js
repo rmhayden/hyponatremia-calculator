@@ -440,8 +440,12 @@ let hypertonicRateBoolean = true
 
 // start as false
 let machineLearningOn = false
-
 let machineLearningGraphKey = false
+
+//
+
+let modal1On = false
+let modal2On = false
 
 // CACHED ELEMENTS
 
@@ -543,6 +547,9 @@ const modal2El = document.querySelector("#modal-2")
 
 const closeModal2ButtonEl = document.querySelector(".close-modal-2-button")
 
+const closeModal1ButtonEl = document.querySelector(".close-modal-1-button")
+const seeModelsbuttonEl = document.querySelector(".see-models-button")
+
 const d5wRateButtonEl = document.querySelector("#d5w-rate-button")
 const d5wBolusButtonEl = document.querySelector("#d5w-bolus-button")
 const normalSalineRateButtonEl = document.querySelector("#normal-saline-rate-button")
@@ -567,6 +574,7 @@ const aiPredictedSodium = document.querySelector("#ai-predicted-sodium")
 
 const machineLearningKeyEl = document.querySelector("#machine-learning-key")
 
+
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
@@ -575,7 +583,9 @@ setPreIntervalButtonEl.addEventListener('click', setPreIntervalValues)
 intervalButtonEl.addEventListener('click', runInterval)
 newIntervalButtonEl.addEventListener('click', newInterval)
 csvModalButtonEl.addEventListener('click', toggleModal2)
+seeModelsbuttonEl.addEventListener("click", toggleModal1)
 closeModal2ButtonEl.addEventListener('click', closeModal2)
+closeModal1ButtonEl.addEventListener('click', closeModal1)
 d5wRateButtonEl.addEventListener('click', setD5WRate)
 d5wBolusButtonEl.addEventListener('click', setD5WBolus)
 normalSalineRateButtonEl.addEventListener('click', setNormalSalineRate)
@@ -1035,9 +1045,9 @@ function calculatedVars () {
   // const nn = ml5.neuralNetwork(options);
 
   const modelInfo = {
-    model: 'machineLearning/machineLearningPretraining/model2/model_2.json',
-    metadata: 'machineLearning/machineLearningPretraining/model2/model_meta_2.json',
-    weights: 'machineLearning/machineLearningPretraining/model2/model.weights_2.bin'
+    model: 'machineLearning/machineLearningPreTraining/model2/model_2.json',
+    metadata: 'machineLearning/machineLearningPreTraining/model2/model_meta_2.json',
+    weights: 'machineLearning/machineLearningPreTraining/model2/model.weights_2.bin'
   }
 
   nn.load(modelInfo, modelLoaded);
@@ -1943,20 +1953,51 @@ function csvToTable(csvString) {
 
 
 
-// 
+// modals:
 
 function toggleModal2 () {
-
-
-
   document.getElementById("modal-2").style.display = "block"
   hideBody()
+  csvModalButtonEl.setAttribute("disabled", true)
+  modal2On = true
 }
 
 function closeModal2 () {
   document.getElementById("modal-2").style.display = "none"
+  csvModalButtonEl.removeAttribute("disabled")
   showBody()
+  modal2On = false
 }
+
+function toggleModal1 () {
+  document.getElementById("modal-1").style.display = "block"
+  closeModal1ButtonEl.style.display = "block"
+  seeModelsbuttonEl.setAttribute('disabled', true)
+  hideBody()
+  modal1On = true
+
+  if (modal2On === true) { // modal2 already open, so put higher in stack
+    document.getElementById("modal-1").style.zIndex = "15"
+    closeModal1ButtonEl.style.zIndex = "15"
+  } else { // if not open, put lower in stack
+    document.getElementById("modal-1").style.zIndex = "13"
+    closeModal1ButtonEl.style.zIndex = "13"
+  }
+
+}
+
+function closeModal1 () {
+  document.getElementById("modal-1").style.display = "none"
+  closeModal1ButtonEl.style.display = "none"
+  seeModelsbuttonEl.removeAttribute('disabled')
+  showBody()
+  modal1On = false
+  // reset zIndex
+  document.getElementById("modal-1").style.zIndex = "13"
+  closeModal1ButtonEl.style.zIndex = "13"
+}
+
+
 
 function showBody () {
   document.getElementById("main-body").style.display = "grid"
@@ -1965,6 +2006,7 @@ function showBody () {
 function hideBody () {
   document.getElementById("main-body").style.display = "none"
 }
+
 
 // toggle functions 
 

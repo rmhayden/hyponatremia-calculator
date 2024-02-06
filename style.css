@@ -175,6 +175,7 @@ input {
     margin-right: 0rem;
     background-color: rgba(0, 0, 0, 0);
     font-style: italic;
+    z-index: 1;
 }
 
 .logo {
@@ -847,7 +848,7 @@ button:hover {
     bottom: 2rem;
     height: 4rem;
     width: 98.8vw;
-    z-index: 15;
+    z-index: 16;
     margin-left: -0.7rem;
     margin-right: -0.5rem;
 }
@@ -909,33 +910,51 @@ button:hover {
 }
 
 
-.modal-1 {
-    position: absolute;
-    top: 0;
-    left: 0;
+#modal-1 {
+    position: fixed;
+    top: 6.3rem;
+    left: 0.3rem;
+    overflow: scroll;
     display: none;
-    background-color: red;
-    height: 100%;
-    margin-top: auto;
+    height: 90vh;
+    margin-top: -4rem;
     margin-bottom: auto;
-    width: 100vw;
-    z-index: 9;
+    padding-bottom: auto;
+    width: 97.5vw;
+    z-index: 13;
+    margin-left: 0.6rem;
+    margin-right: 0rem;
+    border: 0.08rem solid var(--lightest-color);
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
 }
+
+#modal-1 p {
+    font-size: larger;
+    overflow-wrap: break-word;
+    margin-left: 1rem;
+    margin-bottom: 7rem;
+}
+
+#modal-1 h3 {
+    margin-left: 0.7rem;
+    margin-top: 0.3rem;
+}
+
+
 
 #modal-2 {
     position: fixed;
-    top: 1;
+    top: 6.8rem;
     left: 0;
     overflow: scroll;
     display: none;
-    /* background-color: rgb(201, 209, 245); */
-    /* height: 100%; */
     height: 90vh;
     margin-top: -4rem;
     margin-bottom: auto;
     padding-bottom: auto;
     width: 98.4vw;
-    z-index: 7;
+    z-index: 14;
     margin-left: 0.6rem;
     margin-right: 0rem;
     border: 0.08rem solid var(--lightest-color);
@@ -969,7 +988,18 @@ button:hover {
     overflow: none;
     top: 5rem;
     right: 3rem;
-    z-index: 8;
+    z-index: 14;
+}
+
+.close-modal-1-button {
+    display: none;
+    height: 2rem;
+    width: 3rem;
+    position: fixed;
+    overflow: none;
+    top: 4.2rem;
+    right: 3rem;
+    z-index: 13;
 }
 
 .csv-data-class {
@@ -992,6 +1022,7 @@ button:hover {
 .compartments-title {
     position: relative;
     top: -7rem;
+    z-index: 5;
 }
 
 #compartment-model-1-div {
