@@ -2259,7 +2259,7 @@ const DataForInputs = [
     ]
 
 
-// const postIntervalSodiumArray = DataForInputs.map(obj => obj.postIntervalSodium);
+const postIntervalSodiumArray = DataForInputs.map(obj => obj.postIntervalSodium);
     
 // console.log("filtered: ", postIntervalSodiumArray)
 
@@ -2292,10 +2292,11 @@ function runML () {
     console.log("new length = ", newInputDataArray.length)
     console.log("specific output data = ", specificOutputData)
 
+
 // Step 2: set your neural network options
 const options = {
   task: 'regression',
-//   learningRate: 0.01,
+  learningRate: 0.01,
   debug: true
 }
 
@@ -2303,17 +2304,17 @@ const options = {
 const nn = ml5.neuralNetwork(options);
 // otherwise known as the model
 
-const modelInfo = {
-        model: 'model/model.case1.json',
-        metadata: 'model/model_meta.case1.json',
-        weights: 'model/model.weights.case1.bin'
-    }
+// const modelInfo = {
+//         model: 'model/model.case1.json',
+//         metadata: 'model/model_meta.case1.json',
+//         weights: 'model/model.weights.case1.bin'
+//     }
 
-nn.load(modelInfo, modelLoaded);
+// nn.load(modelInfo, modelLoaded);
 
 function modelLoaded() {
     console.log("model loaded");
-    predict();
+    // predict();
 }
 
 
@@ -2322,43 +2323,42 @@ function modelLoaded() {
 newInputDataArray.forEach(item => {
   const inputs = {
     preIntervalTBW: item.preIntervalTBW, 
-    preIntervalSodium: item.preIntervalSodium, 
+    preIntervalTBOsm: item.preIntervalTBOsm, 
     intervalWaterNet: item.intervalWaterNet,
     intervalSoluteNet: item.intervalSoluteNet
   };
   const output = {
-    measuredPostIntervalSodium: item.measuredPostIntervalSodium
+    changeInSodium: (item.measuredPostIntervalSodium - item.preIntervalSodium)
   };
   
 
-//   console.log("training data values: ", "inputs: ", inputs.preIntervalTBW, inputs.preIntervalSodium, inputs.intervalWaterNet, inputs.intervalWaterNet, "training output: ", output.measuredPostIntervalSodium)
-
-//   nn.addData(inputs, output);
+  nn.addData(inputs, output);
 // no need to add data if already pretrained
 
 });
 
 // Step 5: normalize your data;
-// nn.normalizeData();
+nn.normalizeData();
 // no need to normalize data if already pretrained
 
 // Step 6: train your neural network
 const trainingOptions = {
-  epochs: 200,
-//   batchSize: 12
-    batchSize: 4
+  epochs: 180,
+  batchSize: 26
+    // batchSize: 6
 }
-// nn.train(trainingOptions, finishedTraining);
+
+nn.train(trainingOptions, finishedTraining);
 // no need to train if already pretrained
 
 // Step 7: use the trained model
 function finishedTraining(){
 
+    console.log("finished training")
+// nn.save()
 
-nn.save()
-
+predict()
 //   classify();
-  predict();
 }
 
 // console.log("data for inputs sodium? ", DataForInputs[0].preIntervalSodium)
@@ -2369,7 +2369,7 @@ function predict(){
 
   const inputs = {
     preIntervalTBW: specificOutputData[0].preIntervalTBW,
-    preIntervalSodium: specificOutputData[0].preIntervalSodium,
+    preIntervalTBOsm: specificOutputData[0].preIntervalTBOsm,
     intervalWaterNet: specificOutputData[0].intervalWaterNet,
     intervalSoluteNet: specificOutputData[0].intervalSoluteNet
   }
@@ -2382,11 +2382,10 @@ function predict(){
 //     for (let i = 0; i < DataForInputs.length; i++) {
 //     const inputs = {
 //       preIntervalTBW: DataForInputs[i].preIntervalTBW,
-//       preIntervalSodium: DataForInputs[i].preIntervalSodium,
+//       preIntervalTBOsm: DataForInputs[i].preIntervalTBOsm,
 //       intervalWaterNet: DataForInputs[i].intervalWaterNet,
 //       intervalSoluteNet: DataForInputs[i].intervalSoluteNet
 //     };
-//     console.log("input preintervalsodium:: ", inputs.preIntervalSodium)
 //     nn.predict(inputs, handleResults);
 //   }
 // }
@@ -2400,15 +2399,15 @@ function handleResults(error, result) {
     // console.log("show result: ", result, result[0]); // {label: 'red', confidence: 0.8};
     // add edelmanResult to results for each
 
-    // console.log("result: ", result)
+    console.log("result: ", result[0])
 
     compareResults.push({
-        resultCheck: result[0].measuredPostIntervalSodium,
-        edelmanResult: DataForInputs[count].postIntervalSodium
+        resultCheck: result[0].changeInSodium,
+        edelmanResult: (DataForInputs[count].postIntervalSodium - DataForInputs[count].preIntervalSodium)
     })
 
     console.log("compareResults check: ", "interval: ", (count + 1), compareResults[count].resultCheck, compareResults[count].edelmanResult)
-    console.log("actual measured result: ", DataForInputs[count].measuredPostIntervalSodium)
+    console.log("actual measured result: ", DataForInputs[count].changeInSodium)
 
 
     if (count === 0) {
@@ -2423,10 +2422,10 @@ function handleResults(error, result) {
 
         dataForGraph.push({
             time: `${Number((count + 1))}`,
-            value: Number(compareResults[count].edelmanResult),
-            value2: Number(DataForInputs[count].measuredPostIntervalSodium),
-            value3: Number(DataForInputs[count].preIntervalSodium),
-            value4: Number(compareResults[count].resultCheck)
+            value: (Number(DataForInputs[count].preIntervalSodium) + (Number(compareResults[count].edelmanResult))),
+            value2: (Number(DataForInputs[count].measuredPostIntervalSodium)),
+            value3: (Number(DataForInputs[count].preIntervalSodium)),
+            value4: (Number(DataForInputs[count].preIntervalSodium) + Number(compareResults[count].resultCheck))
         })
 
         // dataForGraph.shift()   
@@ -2435,49 +2434,20 @@ function handleResults(error, result) {
 
         dataForGraph.push({
             time: `${Number((count + 1))}`,
-            value: Number(compareResults[count].edelmanResult),
-            value2: Number(DataForInputs[count].measuredPostIntervalSodium),
-            value3: Number(DataForInputs[count].preIntervalSodium),
-            value4: Number(compareResults[count].resultCheck)
+            value: (Number(DataForInputs[count].preIntervalSodium) + (Number(compareResults[count].edelmanResult))),
+            value2: (Number(DataForInputs[count].measuredPostIntervalSodium)),
+            value3: (Number(DataForInputs[count].preIntervalSodium)),
+            value4: (Number(DataForInputs[count].preIntervalSodium) + Number(compareResults[count].resultCheck))
         })
     }
 
-    //
-
-
-//     if (intervalNumber === 1) {
-
-// serumData.push( {
-//   // time: `"${currentHour.toString()}"`,
-//   time: `0`,
-//   value: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
-//   value2: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)),
-//   value3: Number((renderInitialSodiumEl.innerHTML).slice(0, 3)), // value 3 is inputted preInterval Na
-// })
-
-// serumData.push( {
-//   // time: `"${currentHour.toString()}"`,
-//   time: `${Number(currentHour)}`,
-//   value: Number(postIntervalSodium),
-//   value2: Number(measuredPostIntervalSodium),
-//   value3: Number(preIntervalSodium)
-// })
-
-// serumData.shift()   
-// } else {
-
-// serumData.push( {
-// // time: `"${currentHour.toString()}"`,
-// time: `${Number(currentHour)}`,
-// value: Number(postIntervalSodium),
-// value2: Number(measuredPostIntervalSodium),
-// value3: Number(preIntervalSodium)
-// })
-
-// }
-
-
-    //
+    // dataForGraph.push({
+    //         time: `${Number((count + 1))}`,
+    //         value: Number(compareResults[count].edelmanResult),
+    //         value2: Number(DataForInputs[count].measuredPostIntervalSodium),
+    //         value3: Number(DataForInputs[count].preIntervalSodium),
+    //         value4: Number(compareResults[count].resultCheck)
+    //     })
 
 
     count = count + 1
@@ -2489,9 +2459,8 @@ function handleResults(error, result) {
 }
 
 
-
 // for (let i = count; i < DataForInputs.length; i++) {
-//     runML ()
+    // runML ()
 // }
 
 function nextInterval () {
