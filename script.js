@@ -119,7 +119,7 @@ const nn = ml5.neuralNetwork(options);
             .attr("cx", d => xScale(d.time))
             .attr("cy", d => yScale(d.value2))
             .attr("r", 5)
-            .style("fill", "rgb(57, 85, 108)");
+            .style("fill", "rgba(57, 85, 108, 1.0)");
 
        // Add the second dotted line to the chart as separate line segments
        svg.selectAll(".dotted-line")
@@ -127,7 +127,8 @@ const nn = ml5.neuralNetwork(options);
        .enter().append("path")
        .attr("class", "dotted-line")
        .attr("d", dottedLine)
-       .style("stroke-dasharray", "3,3"); // Make the line dotted
+       .style("stroke-dasharray", "3,3")
+       .style("z-index", "11"); // Make the line dotted
 
       // Add the second dotted line to the chart as separate line segments
       svg.selectAll(".dotted-line-2")
@@ -156,7 +157,8 @@ const nn = ml5.neuralNetwork(options);
           .attr("cx", d => xScale(data[data.indexOf(d) - 1] ? data[data.indexOf(d) - 1].time : d.time))
           .attr("cy", d => yScale(d.value3))
           .attr("r", 5)
-          .style("fill", "rgb(57, 85, 108)");
+          .style("fill", "rgba(57, 85, 108, 1.0)")
+          .style("z-index", "11");
 
         svg.selectAll(".value4-point")
         .data(data)
@@ -165,7 +167,8 @@ const nn = ml5.neuralNetwork(options);
         .attr("cx", d => xScale(d.time))
         .attr("cy", d => yScale(d.value4))
         .attr("r", 3)
-        .style("fill", "rgb(255, 10, 10)");
+        .style("fill", "rgba(250, 10, 10, 0.4)")
+        .style("z-index", "8");
 
      // X Axis
       svg.append("g")
@@ -560,6 +563,8 @@ const machineLearningButtonEl = document.querySelector(".machine-learning-button
 const dottedLine2 = document.querySelector("#dotted-line-2")
 
 const aiPredictedSodium = document.querySelector("#ai-predicted-sodium")
+
+const machineLearningKeyEl = document.querySelector("#machine-learning-key")
 
 // EVENT LISTENERS
 
@@ -1005,26 +1010,25 @@ function calculatedVars () {
   // const nn = ml5.neuralNetwork(options);
 
   const modelInfo = {
-    model: 'machineLearning/machineLearningPretraining/model/model.case1.json',
-    metadata: 'machineLearning/machineLearningPretraining/model/model_meta.case1.json',
-    weights: 'machineLearning/machineLearningPretraining/model/model.weights.case1.bin'
+    model: 'machineLearning/machineLearningPretraining/model2/model_2.json',
+    metadata: 'machineLearning/machineLearningPretraining/model2/model_meta_2.json',
+    weights: 'machineLearning/machineLearningPretraining/model2/model.weights_2.bin'
   }
 
   nn.load(modelInfo, modelLoaded);
 
   function modelLoaded() {
-    console.log("model loaded");
     predict();
   }
 
   function predict(){
     const inputs = {
       preIntervalTBW: Number(preIntervalTBW),
-      preIntervalSodium: Number(preIntervalSodium),
+      preIntervalTBOsm: Number(preIntervalTBOsm),
       intervalWaterNet: Number(intervalWaterNet),
       intervalSoluteNet: Number(intervalSoluteNet)
     }
-    console.log("predicting inputs: ", inputs.preIntervalTBW, inputs.preIntervalSodium, inputs.intervalWaterNet, inputs.intervalSoluteNet)
+    // console.log("predicting inputs: ", inputs.preIntervalTBW, inputs.preIntervalSodium, inputs.intervalWaterNet, inputs.intervalSoluteNet)
     nn.predict(inputs, handleResults);
   }
 
@@ -1035,7 +1039,7 @@ function calculatedVars () {
       return;
     }
     console.log(result)
-    machineLearningSodium = result[0].measuredPostIntervalSodium
+    machineLearningSodium = (preIntervalSodium + result[0].changeInSodium)
     console.log("machine learning sodium: ", machineLearningSodium)
 
     aiPredictedSodium.innerHTML = `${machineLearningSodium.toFixed(0)} mEq/L`
@@ -2009,16 +2013,29 @@ function toggleMachineLearning() {
     machineLearningButtonEl.innerHTML = `<h5>A.I. Online</h5>`
     machineLearningButtonEl.style.border = "0.15rem solid white"
     machineLearningOn = true
-
+   
     document.querySelector(".ai-predicted-sodium-div").style.visibility = "visible"
+    document.querySelector(".machine-learning-key").style.visibility = "visible"
+
+    var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
+
+    for (var i = 0; i < machineLearningKeyEl.length; i++) {
+     machineLearningKeyEl[i].style.visibility = "visible";
+      }
 
   } else {
     machineLearningButtonEl.innerHTML = `<h5>A.I. Offline</h5>`
     machineLearningButtonEl.style.border = "0rem solid maroon"
     machineLearningOn = false
 
-
     document.querySelector(".ai-predicted-sodium-div").style.visibility = "hidden"
+    document.querySelector(".machine-learning-key").style.visibility = "hidden"
+
+    var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
+
+    for (var i = 0; i < machineLearningKeyEl.length; i++) {
+     machineLearningKeyEl[i].style.visibility = "hidden";
+      }
 
   }
 }

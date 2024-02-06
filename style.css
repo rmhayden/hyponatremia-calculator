@@ -250,7 +250,7 @@ input:disabled {
  .dotted-line-2 {
     display: block;
     fill: none;
-    stroke: rgba(220, 98, 85, 0.7);
+    stroke: rgba(220, 98, 85, 0.5);
     stroke-width: 1.5px; 
     z-index: 10;
  }
@@ -1334,6 +1334,10 @@ button:hover {
     width: 100vw;
     background-color: black;
     z-index: 14;
+}
+
+.machine-learning-key {
+    visibility: hidden  
 }
 
 
