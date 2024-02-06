@@ -227,7 +227,6 @@ const nn = ml5.neuralNetwork(options);
     for (var i = 0; i < points.length; i++) {
       points[i].style.display = "none";
       }
-
     }
  }
 
@@ -441,6 +440,8 @@ let hypertonicRateBoolean = true
 
 // start as false
 let machineLearningOn = false
+
+let machineLearningGraphKey = false
 
 // CACHED ELEMENTS
 
@@ -738,10 +739,34 @@ function newInterval () {
   }
 }
 
-  console.log(serumData)
+  // console.log(serumData)
+
+  // before we create the chart, we set second machine learning boolean:
+
+  if (machineLearningOn ===  true) {
+    machineLearningGraphKey = true
+  } else {
+    machineLearningGraphKey = false
+  }
+
 
     // Call the function with the serum data
     createSerumChart(serumData);
+
+    // and again after the chart:
+
+    if (machineLearningGraphKey === false) {
+      var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
+        for (var i = 0; i < machineLearningKeyEl.length; i++) {
+          machineLearningKeyEl[i].style.visibility = "hidden";
+        }
+    } else if (machineLearningGraphKey === true) {
+      var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
+      for (var i = 0; i < machineLearningKeyEl.length; i++) {
+        machineLearningKeyEl[i].style.visibility = "visible";
+      }
+
+  }
 
 // now we add to the interval:
 
@@ -1918,7 +1943,6 @@ function csvToTable(csvString) {
 
 
 
-
 // 
 
 function toggleModal2 () {
@@ -2012,31 +2036,45 @@ function toggleMachineLearning() {
   if (machineLearningOn === false) {
     machineLearningButtonEl.innerHTML = `<h5>A.I. Online</h5>`
     machineLearningButtonEl.style.border = "0.15rem solid white"
+
     machineLearningOn = true
    
     document.querySelector(".ai-predicted-sodium-div").style.visibility = "visible"
     document.querySelector(".machine-learning-key").style.visibility = "visible"
 
-    var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
-
-    for (var i = 0; i < machineLearningKeyEl.length; i++) {
-     machineLearningKeyEl[i].style.visibility = "visible";
+    if (machineLearningGraphKey === true) {
+      var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
+        for (var i = 0; i < machineLearningKeyEl.length; i++) {
+          machineLearningKeyEl[i].style.visibility = "visible";
+        }
+    } else if (machineLearningGraphKey === false) {
+      var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
+      for (var i = 0; i < machineLearningKeyEl.length; i++) {
+        machineLearningKeyEl[i].style.visibility = "hidden";
       }
+    }
 
   } else {
     machineLearningButtonEl.innerHTML = `<h5>A.I. Offline</h5>`
     machineLearningButtonEl.style.border = "0rem solid maroon"
+
     machineLearningOn = false
 
     document.querySelector(".ai-predicted-sodium-div").style.visibility = "hidden"
     document.querySelector(".machine-learning-key").style.visibility = "hidden"
 
-    var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
-
-    for (var i = 0; i < machineLearningKeyEl.length; i++) {
-     machineLearningKeyEl[i].style.visibility = "hidden";
+    if (machineLearningGraphKey === false) {
+      var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
+        for (var i = 0; i < machineLearningKeyEl.length; i++) {
+          machineLearningKeyEl[i].style.visibility = "hidden";
+        }
+    } else if (machineLearningGraphKey === true) {
+      var machineLearningKeyEl = document.getElementsByClassName("machine-learning-key");
+      for (var i = 0; i < machineLearningKeyEl.length; i++) {
+        machineLearningKeyEl[i].style.visibility = "visible";
       }
 
   }
+ }
 }
 
