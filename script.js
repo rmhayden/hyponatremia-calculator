@@ -2024,7 +2024,7 @@ function closeModal3() {
 
 
     // will only re-activate y-axis body scrolling if all modals are off:
-  if (modal1On === false && modal1On === false) {
+  if (modal1On === false && modal2On === false) {
   document.body.style.overflowY = "scroll"
   }
 }
@@ -2035,7 +2035,7 @@ function showBody () {
   document.getElementById("height-expander").style.height = "0vh"
 
   // will only re-activate y-axis body scrolling if all modals are off:
-  if (modal1On === false && modal1On === false) {
+  if (modal1On === false && modal2On === false) {
   document.body.style.overflowY = "scroll"
   }
 }
