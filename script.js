@@ -626,6 +626,8 @@ function init () {
 
   machineLearningButtonEl.classList.add("pointer-events-none")
 
+  toggleAboutModal()
+
 }
 
 function redoIntervalFunction() {
@@ -641,6 +643,8 @@ function redoIntervalFunction() {
 
   setPreIntervalValues()
   clearAllPostIntervalValues()
+
+  newIntervalButtonEl.setAttribute("disabled", true)
 
   redoIntervalActive = false
     // reset to false
@@ -829,6 +833,7 @@ function newInterval () {
   //
   measuredPostIntervalSodiumEl.setAttribute("disabled", true)
 
+  redoIntervalButtonEl.setAttribute("disabled", true)
 
   machineLearningButtonEl.classList.add("pointer-events-none")
 
