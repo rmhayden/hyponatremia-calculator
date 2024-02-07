@@ -428,6 +428,9 @@ let cummulativeHours = 0
 let cummulativeHoursWithoutRemainder = 0
 let remainingMinutes = 0
 
+let cachePreIntervalTime = ""
+let cachePreIntervalDay = 0
+let cachePreIntervalHour = 0
 
 let urineElectrolytes = urineSodium + urinePotassium
 
@@ -446,6 +449,10 @@ let machineLearningGraphKey = false
 
 let modal1On = false
 let modal2On = false
+
+// 
+
+let redoIntervalActive = false
 
 // CACHED ELEMENTS
 
@@ -577,6 +584,7 @@ const aiPredictedSodium = document.querySelector("#ai-predicted-sodium")
 
 const machineLearningKeyEl = document.querySelector("#machine-learning-key")
 
+const redoIntervalButtonEl = document.querySelector(".redo-interval-button")
 
 // EVENT LISTENERS
 
@@ -602,6 +610,8 @@ LRBolusButtonEl.addEventListener('click', setLRBolus)
 hypertonicRateButtonEl.addEventListener('click', setHypertonicRate)
 hypertonicBolusButtonEl.addEventListener('click', setHypertonicBolus)
 machineLearningButtonEl.addEventListener('click', toggleMachineLearning)
+redoIntervalButtonEl.addEventListener('click', redoIntervalFunction)
+
 
 // FUNCTIONS
 
@@ -616,6 +626,24 @@ function init () {
 
   machineLearningButtonEl.classList.add("pointer-events-none")
 
+}
+
+function redoIntervalFunction() {
+  redoIntervalButtonEl.setAttribute("disabled", true)
+
+  // activating
+  redoIntervalActive = true
+
+  console.log("what is current time?",   cachePreIntervalTime)
+  currentTime = cachePreIntervalTime
+  currentDay = cachePreIntervalDay
+  currentHour = cachePreIntervalHour
+
+  setPreIntervalValues()
+  clearAllPostIntervalValues()
+
+  redoIntervalActive = false
+    // reset to false
 }
 
 function newInterval () {
@@ -855,6 +883,8 @@ function runInterval () {
   intervalButtonEl.setAttribute('disabled', true)
 
   newIntervalButtonEl.removeAttribute("disabled")
+
+  redoIntervalButtonEl.removeAttribute("disabled")
 
   // activate measured sodium option:
   measuredPostIntervalSodiumEl.removeAttribute("disabled")
@@ -1457,72 +1487,73 @@ if (returnVar === false) {
 
     intervalButtonEl.removeAttribute('disabled')
 
-  if (intervalNumber > 1) {
-    // new calculations here for subsequent intervals:
 
-    // set actual post values to pre-values;
+  if (redoIntervalActive === false) {
+    // we only want to reset preinterval values if redo is not happening
 
-     // ignoring potassium for now; will also assume IC solute fixed for now
-     preIntervalICOsm = postIntervalICOsm
+    if (intervalNumber > 1) {
+      // new calculations here for subsequent intervals:
 
-     // updating pre-interval sodium depending on if a value was placed or not:
-     // to see if preinterval sodium same as was given: 
+      // set actual post values to pre-values;
 
-    //  preIntervalSodiumEl is the preinterval input sodium html
+      // ignoring potassium for now; will also assume IC solute fixed for now
+      preIntervalICOsm = postIntervalICOsm
+
+      // updating pre-interval sodium depending on if a value was placed or not:
+      // to see if preinterval sodium same as was given: 
+
+      //  preIntervalSodiumEl is the preinterval input sodium html
 
 
-    if (preIntervalSodiumEl.value === measuredPostIntervalSodium) {
-      console.log("no change in value for pre-interval sodium from most recent measuredPostIntervalSodium, so using prior postint Na", preIntervalSodium, " = ", postIntervalSodium)
-      preIntervalSodium = postIntervalSodium
+      if ((preIntervalSodiumEl.value === measuredPostIntervalSodium)) {
+        console.log("redo is ACTIVE, and measured post interval sodium does equal preinterval value... no change in value for pre-interval sodium from most recent measuredPostIntervalSodium, so using prior postint Na", preIntervalSodium, " = ", postIntervalSodium)
+        preIntervalSodium = postIntervalSodium
 
-      preIntervalTBOsmolality = postIntervalSodium * 2
-      preIntervalTBW = postIntervalTBW
-              // will be difficult to know what the true preIntervalTBW actually is, so with this limited approach will just assume it is unchanged from predicted prior postTBW
-      preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
-      preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
-      preIntervalECF = preIntervalTBW - preIntervalICF
-      preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
-
-    } else {
-
-      // cache new sodium value (will then re-calculate things)
-      preIntervalSodium = Number(preIntervalSodiumEl.value)
-
-        console.log("is the new sodium caching? ", preIntervalSodium, Number(preIntervalSodiumEl.value))
-
-        // step 1: we will assume TBW is conserved from the post-interval value
+        preIntervalTBOsmolality = postIntervalSodium * 2
         preIntervalTBW = postIntervalTBW
-
-          console.log("what was the preinterval TBOsmolality before? ", preIntervalTBOsmolality)
-
-        preIntervalTBOsmolality = (preIntervalSodium * 2)
-          // osmolality is not updating...
-          console.log("checking that new preinterval TBOsmolality is no longer post-total Osmolality and double new perintevalsodium: ", (preIntervalSodium * 2), postIntervalTBOsmolality, preIntervalTBOsmolality)
-
-
-        preIntervalTBOsm = (preIntervalTBOsmolality * preIntervalTBW)
-        // ...
-        console.log("preinterval new TBOsmolality and TBOSm(solute) from higher sodium: ", preIntervalTBOsmolality, preIntervalTBOsm)
-
-        console.log("is new preinterval TBOSm higher than prior with manually increasing sodium?", preIntervalTBOsm, postIntervalTBOsm)
-
+                // will be difficult to know what the true preIntervalTBW actually is, so with this limited approach will just assume it is unchanged from predicted prior postTBW
+        preIntervalTBOsm = preIntervalTBOsmolality * preIntervalTBW
         preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
         preIntervalECF = preIntervalTBW - preIntervalICF
         preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
+
+      } else {
+
+        // cache new sodium value (will then re-calculate things)
+        preIntervalSodium = Number(preIntervalSodiumEl.value)
+
+          console.log("is the new sodium caching? ", preIntervalSodium, Number(preIntervalSodiumEl.value))
+
+          // step 1: we will assume TBW is conserved from the post-interval value
+          preIntervalTBW = postIntervalTBW
+
+            console.log("what was the preinterval TBOsmolality before? ", preIntervalTBOsmolality)
+
+          preIntervalTBOsmolality = (preIntervalSodium * 2)
+            // osmolality is not updating...
+            console.log("checking that new preinterval TBOsmolality is no longer post-total Osmolality and double new perintevalsodium: ", (preIntervalSodium * 2), postIntervalTBOsmolality, preIntervalTBOsmolality)
+
+
+          preIntervalTBOsm = (preIntervalTBOsmolality * preIntervalTBW)
+          // ...
+          console.log("preinterval new TBOsmolality and TBOSm(solute) from higher sodium: ", preIntervalTBOsmolality, preIntervalTBOsm)
+
+          console.log("is new preinterval TBOSm higher than prior with manually increasing sodium?", preIntervalTBOsm, postIntervalTBOsm)
+
+          preIntervalICF = preIntervalICOsm / preIntervalTBOsmolality
+          preIntervalECF = preIntervalTBW - preIntervalICF
+          preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
+      }
     }
-  }
 
-
-
-      // urine: reset values
+    // urine: reset values
       urineOsm = 0
       urineSodium = 0
       urinePotassium = 0
       urineTonicity = 0
       urineElectrolytes = 0
 
-      // urine tonicity:
-
+     // urine tonicity
       urineOsm = Number(mostRecentUrineOsmEl.value)
       urineSodium = Number(mostRecentUrineNaEl.value)
       urinePotassium = Number(mostRecentUrineKEl.value)
@@ -1533,6 +1564,12 @@ if (returnVar === false) {
 
     preIntervalUrineTonicity = urineTonicity
 
+  }
+
+   // cache preinterval time for later in case of re-do interval:
+    cachePreIntervalTime = currentTime
+    cachePreIntervalDay = currentDay
+    cachePreIntervalHour = currentHour
 
    renderPreIntervalCompartmentModel()
    renderPreIntervalValues()
