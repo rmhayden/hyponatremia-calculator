@@ -318,11 +318,16 @@ input {
 }
 
 .fourth-table input {
-    margin-right: -3rem;
+    margin-right: -4rem;
+    margin-left: 0.5rem;
 }
 
 .units-text {
     font: var(--lightest-color);
+    font-size: smaller;
+}
+
+#output-pre-interval-urine-tonicity small {
     font-size: smaller;
 }
 
