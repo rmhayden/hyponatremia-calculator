@@ -1956,26 +1956,25 @@ function csvToTable(csvString) {
 // modals:
 
 function toggleModal2 () {
+  modal2On = true
   document.getElementById("modal-2").style.display = "block"
   hideBody()
   csvModalButtonEl.setAttribute("disabled", true)
-  modal2On = true
 }
 
 function closeModal2 () {
+  modal2On = false
   document.getElementById("modal-2").style.display = "none"
   csvModalButtonEl.removeAttribute("disabled")
   showBody()
-  modal2On = false
 }
 
 function toggleModal1 () {
+  modal1On = true
   document.getElementById("modal-1").style.display = "block"
   closeModal1ButtonEl.style.display = "block"
   seeModelsbuttonEl.setAttribute('disabled', true)
   hideBody()
-  modal1On = true
-
   if (modal2On === true) { // modal2 already open, so put higher in stack
     document.getElementById("modal-1").style.zIndex = "15"
     closeModal1ButtonEl.style.zIndex = "15"
@@ -1987,11 +1986,11 @@ function toggleModal1 () {
 }
 
 function closeModal1 () {
+  modal1On = false
   document.getElementById("modal-1").style.display = "none"
   closeModal1ButtonEl.style.display = "none"
   seeModelsbuttonEl.removeAttribute('disabled')
   showBody()
-  modal1On = false
   // reset zIndex
   document.getElementById("modal-1").style.zIndex = "13"
   closeModal1ButtonEl.style.zIndex = "13"
@@ -2001,10 +2000,20 @@ function closeModal1 () {
 
 function showBody () {
   document.getElementById("main-body").style.display = "grid"
+  document.getElementById("height-expander").style.height = "0vh"
+
+  // will only re-activate y-axis body scrolling if all modals are off:
+  if (modal1On === false && modal1On === false) {
+  document.body.style.overflowY = "scroll"
+  }
 }
 
 function hideBody () {
   document.getElementById("main-body").style.display = "none"
+  document.getElementById("height-expander").style.height = "100vh"
+
+  // always make y-scrolling in body hidden if anything activated
+  document.body.style.overflowY = "hidden"
 }
 
 

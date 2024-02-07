@@ -28,8 +28,9 @@ body {
     padding: 0rem;
     margin: 1rem;
     margin-top: 2rem;
-    height: auto;
-
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 * {
@@ -1386,8 +1387,14 @@ button:hover {
 }
 
 .low-width-div {
-    position: fixed;
-    height: 70vh;
+    /* position: fixed; */
+    /* height: 70vh; */
+    margin-right: 2rem;
+}
+
+#height-expander {
+    display: block;
+    height: 0vh;
 }
 
 
@@ -1489,6 +1496,11 @@ button:hover {
     opacity: 15%;
 } */
 
+#height-expander {
+    display: none;
+    height: 0vh;
+}
+
 }
 
 
@@ -1508,6 +1520,7 @@ button:hover {
     }
     .low-width-div {
         height: 70vh;
+        width: 100%;
     }
     .footer-nav-bar {
         display: none
@@ -1515,4 +1528,5 @@ button:hover {
     modal {
         display: none;
     }
+
   }
