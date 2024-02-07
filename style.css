@@ -985,6 +985,25 @@ button:hover {
     /* background-color: rgb(201, 209, 245); */
 }
 
+#modal-3 {
+    position: fixed;
+    top: 0rem;
+    left: 0;
+    margin-bottom: 20rem;
+    overflow: hidden;
+    display: none;
+    height: 100%;
+    margin-top: 0rem;
+    margin-bottom: auto;
+    padding-bottom: auto;
+    width: 100vw;
+    z-index: 50;
+    margin-left: 0rem;
+    margin-right: 0rem;
+    background-color: rgb(155, 105, 68);
+    opacity: 50%;
+}
+
 .space {
     width: 4rem;
 }
@@ -1015,6 +1034,24 @@ button:hover {
     top: 4.2rem;
     right: 3rem;
     z-index: 13;
+}
+
+.close-modal-3-button {
+    display: none;
+    height: 3rem;
+    width: 4rem;
+    position: fixed;
+    overflow: none;
+    top: 4.2rem;
+    right: 3rem;
+    z-index: 60;
+    background-color: rgb(209, 150, 91);
+    color: black;
+}
+
+.close-modal-3-button:hover {
+    opacity: 100%;
+    background-color: rgb(163, 110, 57);
 }
 
 .csv-data-class {

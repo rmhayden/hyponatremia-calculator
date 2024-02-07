@@ -58,7 +58,7 @@ const nn = ml5.neuralNetwork(options);
           .range([height, 0])
           // .domain([(d3.min(data, d => d.value) - 5), (d3.max(data, d => d.value) + 5)]);
           // may need to adjust this as below:
-          .domain([(d3.min(data, d => Math.min(d.value, d.value2, d.value4)) - 5), (d3.max(data, d => Math.max(d.value, d.value2, d.value4)) + 5)]);
+          .domain([(d3.min(data, d => Math.min(d.value, d.value2, d.value3, d.value4)) - 5), (d3.max(data, d => Math.max(d.value, d.value2, d.value3, d.value4)) + 5)]);
 
       // Define the line
       const line = d3.line()
@@ -550,6 +550,9 @@ const closeModal2ButtonEl = document.querySelector(".close-modal-2-button")
 const closeModal1ButtonEl = document.querySelector(".close-modal-1-button")
 const seeModelsbuttonEl = document.querySelector(".see-models-button")
 
+const aboutButtonEl = document.querySelector(".about-button")
+const closeModal3ButtonEl = document.querySelector(".close-modal-3-button")
+
 const d5wRateButtonEl = document.querySelector("#d5w-rate-button")
 const d5wBolusButtonEl = document.querySelector("#d5w-bolus-button")
 const normalSalineRateButtonEl = document.querySelector("#normal-saline-rate-button")
@@ -586,6 +589,8 @@ csvModalButtonEl.addEventListener('click', toggleModal2)
 seeModelsbuttonEl.addEventListener("click", toggleModal1)
 closeModal2ButtonEl.addEventListener('click', closeModal2)
 closeModal1ButtonEl.addEventListener('click', closeModal1)
+aboutButtonEl.addEventListener('click', toggleAboutModal)
+closeModal3ButtonEl.addEventListener('click', closeModal3)
 d5wRateButtonEl.addEventListener('click', setD5WRate)
 d5wBolusButtonEl.addEventListener('click', setD5WBolus)
 normalSalineRateButtonEl.addEventListener('click', setNormalSalineRate)
@@ -1996,6 +2001,27 @@ function closeModal1 () {
   closeModal1ButtonEl.style.zIndex = "13"
 }
 
+
+function toggleAboutModal() {
+
+  aboutButtonEl.setAttribute('disabled', true)
+  closeModal3ButtonEl.style.display = "block"
+  document.getElementById("modal-3").style.display = "block"
+  // can always make y-scrolling hidden
+  document.body.style.overflowY = "hidden"
+}
+
+function closeModal3() {
+
+  aboutButtonEl.removeAttribute('disabled')
+  closeModal3ButtonEl.style.display = "none"
+  document.getElementById("modal-3").style.display = "none"
+
+    // will only re-activate y-axis body scrolling if all modals are off:
+  if (modal1On === false && modal1On === false) {
+  document.body.style.overflowY = "scroll"
+  }
+}
 
 
 function showBody () {
