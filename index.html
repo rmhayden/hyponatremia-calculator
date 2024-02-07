@@ -9,6 +9,16 @@
     <script defer src="script.js"></script>
     <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
       <!-- does it matter which comes first? -->
+    <script>
+        var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+          if (isChrome) {
+              // Chrome-specific code or no warning needed
+          } else if (isSafari) {
+              // Safari-specific code or show a warning
+              alert("This web application is optimized for Chrome. Some features may not work as expected in Safari.");
+          } 
+    </script>
 </head>
 
 <body>
