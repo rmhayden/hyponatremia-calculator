@@ -307,7 +307,7 @@ input {
 }
 
 .third-table input {
-    margin-right: -1rem;
+    margin-left: 1rem;
 }
 
 .fourth-table {
@@ -319,6 +319,11 @@ input {
 
 .fourth-table input {
     margin-right: -3rem;
+}
+
+.units-text {
+    font: var(--lightest-color);
+    font-size: smaller;
 }
 
 .columns {
