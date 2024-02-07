@@ -433,7 +433,7 @@ input {
 .column-2-middle {
     grid-area: column-2-middle;
     position: relative;
-    top: -1.0rem;
+    top: -0.8rem;
     height: 14rem;
     width: 32vw;
     position: relative;
@@ -477,7 +477,7 @@ input {
 .column-2-middle-2 {
     grid-area: column-2-middle-2;
     position: relative;
-    top: -0.4rem;
+    top: 0rem;
     width: 32vw;
     height: 10rem;
     display: grid;
@@ -542,7 +542,7 @@ input {
     display: grid;
     grid-template-areas: "column-2-lowest-left column-2-lowest-right";
     position: relative;
-    top: -2.5rem;
+    top: -2.7rem;
     width: 32vw;
 }
 
@@ -550,7 +550,7 @@ input {
     grid-area: column-2-lowest-left;
     height: auto;
     position: relative;
-    top: 0.7rem;
+    top: 0.9rem;
     z-index: 11;
     width: 30vw;
 }
@@ -558,7 +558,7 @@ input {
 .column-2-lowest-right {
     grid-area: column-2-lowest-right;
     height: 4rem;
-    top: 0.7rem;
+    top: 0.9rem;
     position: relative;
     margin-left: -16vw;
     /* margin-right: 0rem; */
