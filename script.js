@@ -2006,7 +2006,10 @@ function toggleAboutModal() {
 
   aboutButtonEl.setAttribute('disabled', true)
   closeModal3ButtonEl.style.display = "block"
-  document.getElementById("modal-3").style.display = "block"
+
+  // document.getElementById("modal-3").style.display = "block"
+  document.getElementById("modal-3").classList.toggle("show");
+
   // can always make y-scrolling hidden
   document.body.style.overflowY = "hidden"
 }
@@ -2015,7 +2018,10 @@ function closeModal3() {
 
   aboutButtonEl.removeAttribute('disabled')
   closeModal3ButtonEl.style.display = "none"
-  document.getElementById("modal-3").style.display = "none"
+
+  // document.getElementById("modal-3").style.display = "none"
+  document.getElementById("modal-3").classList.toggle("show");
+
 
     // will only re-activate y-axis body scrolling if all modals are off:
   if (modal1On === false && modal1On === false) {
