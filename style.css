@@ -707,6 +707,23 @@ button:hover {
     margin-bottom: 0rem;
 }
 
+.redo-interval-button {
+    position: relative;
+    top: 7rem;
+    height: 1.5rem;
+}
+
+.redo-interval-button:disabled {
+    opacity: 50%;
+    pointer-events: none;
+}
+
+.redo-interval-button h5 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+
 .set-baseline-button {
     margin-top: 0.5rem;
     height: 1.5rem;
