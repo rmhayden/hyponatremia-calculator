@@ -487,7 +487,7 @@ input {
 .column-2-middle-2 {
     grid-area: column-2-middle-2;
     position: relative;
-    top: 0rem;
+    top: -0.3rem;
     width: 32vw;
     height: 10rem;
     display: grid;
@@ -981,18 +981,44 @@ button:hover {
 
 #modal-1 p {
     overflow-wrap: break-word;
+    font-size: normal;
+    font-weight: light;
     margin-left: 1rem;
     margin-right: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
     margin-top: 0rem;
+    opacity: 80%;
+}
+
+#modal-1 sup {
+    position: relative;
+    top: 0.15rem;
+    font-size: x-small;
+    margin-right: 0.2rem;
+}
+
+#modal-1 sub {
+    position: relative;
+    bottom: 0.15rem;
+    font-size: x-small;
+    margin-right: 0.2rem;
 }
 
 #modal-1 h3 {
     margin-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
+    margin-bottom: -1rem;
 }
 
+.specific-small-1 {
+    position: relative;
+    font-size: small;
+    top: -0.1rem;
+}
 
+.url {
+    color: lightblue;
+}
 
 #modal-2 {
     position: fixed;
@@ -1575,6 +1601,38 @@ button:hover {
     padding-top: 0.4rem;
 }
 
+.lower-text {
+    color: var(--lightest-color);
+    background-color: black;
+    position: absolute;
+    left: 20vw;
+    bottom: 0rem;
+    font-size: x-small;
+    z-index: 100;
+    opacity: 60%;
+}
+
+.lower-text-2 {
+    color: var(--lightest-color);
+    background-color: black;
+    position: absolute;
+    left: 48vw;
+    bottom: 0rem;
+    font-size: x-small;
+    z-index: 100;
+    opacity: 60%;
+}
+
+.lower-text-3 {
+    color: var(--lightest-color);
+    background-color: black;
+    position: absolute;
+    left: 70vw;
+    bottom: 0rem;
+    font-size: x-small;
+    z-index: 100;
+    opacity: 60%;
+}
 
 @media only screen and (max-width: 1010px) {
     .column-3 {

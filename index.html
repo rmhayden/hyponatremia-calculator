@@ -573,16 +573,72 @@
   </div>
   </div>
 </footer>
-<div class="lower-space"></div>
+<div class="lower-space">  
+  
+  <p class="lower-text">Robert Hayden, MD</p>
+  <p class="lower-text-2">Version 1.0 &#169; 2024</p>
+  <p class="lower-text-3">Hyponatremia Calculator</p>
+
+</div>
+
 
 <modal>
   <div id="modal-1">
     
     <br>
-    <h3>Approach</h3>
+    <h3>Overall Concept</h3>
+    <br>
+    <p>The calculator's model uses the Rose equation, which assumes that Effective Plasma Osmolarity = 2 x plasma [Na+].<sup>1</sup> Potassium homeostasis has not yet been comprehensively integrated into version 1.0 of this calculator. Although potassium is overwhelmingly intracellular, any potassium lost in the urine in version 1.0 accounts for a loss of effective extracellular (rather than intracellular) solute that is equivalent to that of any equimolar amount of sodium lost in the urine. In accordance with the relationship described by Edelman et al. (1958), the calculator assumes that the serum sodium concentration is proportional to the ratio of total body exchangeable sodium and potassium to total body water: Plasma [Na+] ~= (TB Na<sub>e</sub><sup>+</sup> + TB K<sub>e</sub><sup>+</sup>).<sup>2</sup>. Only the effective solutes--exchangeable total body sodium and potassium--are included in this model at present.
+
+    <h3>Inclusion/Exclusion Criteria</h3>
+    <br>
+    <p>In order to apply this calculator, the following must be assumed: no hyperglycemia and normal renal function.</p> For version 1.0, the etiology of the hyponatremia is assumed to be SIADH.
+
+    <h3>Ideal State</h3>
+    <br>
+    <p>In a baseline state with a normal tonicity balance and volume status, total body water (L) is assumed to be 60% or 55% of ideal body weight (kg) for cases where the biological sex is classified as male and female, respectively. This simple approach limits the need for additional case data, though other more complicated estimates of total body water incorporating age and height do exist.<sup>3</sup> The ratio of ICF (intracellular fluid) to ECF (extracellular fluid) at baseline is assumed to be 60 : 40.<sup>1</sup> Assuming a normal baseline serum sodium of 140 mEq/L, total body osmolarity can be calculated by way of the Rose and Edelman equations described above.</p>
+
+    <h3>Initial State</h3>
+    <br>
+    <p>
+      Along with the time, an initial serum sodium must be logged by the user. While this allows us to calculate total body osmolarity (2 x serum sodium), determining the total solute and water within the intra- and extra-cellular fluid compartments is less certain and requires multiple assumptions. Volume status and tonicity balance interact but are independent. In this version 1.0 of the calculator, we assume that the etiology of SIADH; 
+      
+      ultiple assumptions are then required in order to characterize the initial total body 
+
+      For now, it is assumed that 
+    </p>
+
+    <h3>Interval Changes</h3>
     <br>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus exercitationem possimus culpa dicta animi ab soluta magni cupiditate repellat saepe obcaecati quis nesciunt quam, vitae placeat dignissimos neque totam incidunt?</p>
-   
+
+    <h3>A.I. <span class="specific-small-1">(Machine Learning)</span></h3>
+    <br>
+    <p>machine learning using the <a href="https://learn.ml5js.org/#/" target="_blank" class="url">ml5.js</a> API, which provides web browser access to <a href="https://www.tensorflow.org/js" target="_blank" class="url">TensorFlow.js</a> machine learning models.</p>
+
+
+    <h3>Future Features</h3>
+    <br>
+    <p>Potassium...expand to other etiologies (incorporating weight and different initial ICF)</p>
+
+    <br>
+    <br>
+    <br>
+
+    <h3>References</h3>
+    <br>
+    <p>1. Rose BD, Post TW. Clinical Physiology of Acid-Base and Electrolyte Disorders, 5th ed, McGraw-Hill, New York 2001</p>
+    <p>2. Edelman et al. Journal of Clinical Investigation. 37:1236-56, 1958 </p>
+    <p>3. Watson PE, Watson ID, Batt RD. American Journal of Clinical Nutrition 1980, 33 (1): 27-39</p>
+    <p>4. Verbalis JG, Drutarosky MD. Adaptation to chronic hypoosmolality in rats. Kidney International, Vol. 34 (1988), pp. 351—360</p>
+    <p>5.  Peronnet et al. Pharmacokinetic analysis of absorption, distribution and disappearance of ingested water labeled with D2O in humans. Eur J App Physiol. 2012. 112:2213-2222 </p>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
     <button class="close-modal-1-button">Close</button>
   </div>
