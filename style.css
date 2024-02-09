@@ -109,6 +109,11 @@ svg {
     /* width: 40rem; */
 }
 
+.italic {
+    font-style: italic;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 button {
     color: var(--lightest-color);
     background-color: var(--shadow);
@@ -1125,16 +1130,59 @@ button:hover {
     background-color: rgba(155, 105, 68, 0.0);
 }
 
+.modal-3-title-2 {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    top: 0rem;
+    opacity: 100%;
+    z-index: 100;
+    background-color: rgba(155, 105, 68, 0.0);
+    color: black;
+    font-size: large;
+    font-style: italic;
+}
+
+.modal-3-title-2 small {
+    position: relative;
+    top: 0rem;
+    font-size: small;
+    color: black;
+    background-color: rgba(155, 105, 68, 0.0);
+    font-style: italic;
+}
+
+
 .modal-3-content {
     position: fixed;
+    overflow: scroll;
     margin-left: 2rem;
     margin-right: 3rem;
     width: 55vw;
+    height: 40vh;
     top: 12rem;
     opacity: 100%;
     z-index: 100;
     color: black;
     background-color: rgba(155, 105, 68, 0.0);
+    margin-bottom: 3rem;
+}
+
+.inner-content-modal-3 {
+    position: relative;
+    overflow: scroll;
+    margin-left: 2rem;
+    margin-right: 3rem;
+    /* width: 55vw; */
+    height: 100%;
+    top: 0rem;
+    bottom: 5vh;
+    opacity: 100%;
+    z-index: 100;
+    color: black;
+    background-color: rgba(155, 105, 68, 0.0);
+    margin-bottom: 3rem;
 }
 
 .modal-3-translucent-background {
@@ -1204,7 +1252,7 @@ button:hover {
     width: 12rem;
     position: fixed;
     overflow: none;
-    top: 70vh;
+    top: 72vh;
     z-index: 60;
     background-color: var(--shadow);
     opacity: 100%;
@@ -1781,11 +1829,61 @@ button:hover {
         height: 70vh;
         width: 100%;
     }
+
+    .increase-width-text {
+        margin-right: 1rem;
+        margin-left: 2rem;
+        font-size: small
+    }
+
     .footer-nav-bar {
         display: none
     }
     modal {
         display: none;
     }
+
+  }
+
+
+  /* Y AXIS: */
+
+  @media only screen and (max-height: 700px) {
+    .modal-3-content {
+        height: 30vh;
+    }
+    .close-modal-3-button {
+        top: 70vh;
+    }
+  }
+
+  @media only screen and (max-height: 550px) {
+    .modal-3-content {
+        height: 20vh;
+        top: 10rem;
+    }
+    .close-modal-3-button {
+        top: 65vh;
+    }
+  }
+
+  @media only screen and (max-height: 400px) {
+    .modal-3-content {
+        display: none;
+    }
+    .close-modal-3-button {
+        top: 60vh;
+    }
+
+    .low-width-div {
+        margin-top: -5rem;
+    }
+
+    .increase-width-text {
+        font-size: small;
+        margin-right: 0.5rem;
+        margin-top: -1rem;
+    }
+
 
   }

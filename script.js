@@ -1101,7 +1101,7 @@ function calculatedVars () {
       intervalWaterNet: Number(intervalWaterNet),
       intervalSoluteNet: Number(intervalSoluteNet)
     }
-    // console.log("predicting inputs: ", inputs.preIntervalTBW, inputs.preIntervalSodium, inputs.intervalWaterNet, inputs.intervalSoluteNet)
+    console.log("predicting inputs: ", inputs.preIntervalTBW, inputs.preIntervalSodium, inputs.intervalWaterNet, inputs.intervalSoluteNet)
     nn.predict(inputs, handleResults);
   }
 

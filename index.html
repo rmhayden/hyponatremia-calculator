@@ -556,7 +556,7 @@
   </div>
   <div class="footer-render-cummulative-time">
     <div class="inline">
-      <h5 id="render-cumulative-time">Cummulative Hour(s):</h5>
+      <h5 id="render-cumulative-time">Cummulative Hour(s):&nbsp;&nbsp; 0</h5>
     </div>
   </div>
   <button disabled="true" class="new-interval-button" type="button"><h5>New Interval</h5></button>
@@ -615,8 +615,7 @@
 
     <h3>Future Features</h3>
     <br>
-    <p>Potassium...expand to other etiologies (incorporating weight and different initial ICF)</p>
-
+    <p>Future versions of this calculator may permit a more complicated determination of the initial state such that the user may select alternative etiologies of hyponatremia and manually adjust the initial total body water (by inputting an updated initial weight) and the clinical volume status (by adjusting the ECF volume). Potassium lost or gained will currently impact total body osmolarity but is considered to be extracellular like sodium; in future versions, potassium homeostasis will be more accurately modeled, including its distribution within the intracellular compartment. Currently, only D5W, NS, and hypertonic (3%) saline are available as therapeutic options; additional options such as half-normal saline, LR, urea packets, potassium, and logging ddAVP administration may be integrated. As mentioned, the machine learning predictions are not yet accurate; further training will likely allow this feature to be better optimized.</p>
     <br>
     <br>
     <br>
@@ -730,13 +729,22 @@
     <!-- this gives us the see through modal background -->
 
   <h2 class="modal-3-title">H<small>YPONATREMIA</small>&nbsp;C<small>ALCULATOR</small></h2>
-  <p class="modal-3-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus exercitationem possimus culpa dicta animi ab soluta magni cupiditate repellat saepe obcaecati quis nesciunt quam, vitae placeat dignissimos neque totam incidunt?</p>
+  <h3 class="modal-3-title-2">K<small>IDNEY</small>&nbsp;C<small>ALC.org</small></h3>
+  <br>
+  <br>
+  <p class="modal-3-content">
+    <span class="inner-content-modal-3"><br>Welcome! This educational tool has been designed to aid in the clinician's understanding of hyponatremia and the associated physiology of water balance disorders.  <br><br> After setting baseline characteristics and values for the initial state, adjust interval effects to view the predicted changes for each physiologic parameter as well as the predicted post-interval serum sodium based on the calculator's underlying models (see <span class="italic">Models</span> in the lower toolbar for details). Visualize the corresponding distribution of water between the intra- and extra-cellular fluid compartments by comparing the fluid compartments models for each state. <br><br> This initial version 1.0 of the hyponatremia calculator has not been clinically validated and should therefore not be used for patient care. Please also note that the A.I. feature, which uses machine learning to predict the post-interval sodium, has not yet been adequately trained and is not yet considered to be accurate.</p>
+    </span>
+    <br>
+    <br>
 
   <div class="modal-3-translucent-background"></div>
 
+  <button class="close-modal-3-button">Enter Calculator</button>
+  
   </div>
 
-  <button class="close-modal-3-button">Enter Calculator</button>
+
 
 
 </modal>
