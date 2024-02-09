@@ -988,8 +988,8 @@ button:hover {
     overflow-wrap: break-word;
     font-size: normal;
     font-weight: light;
-    margin-left: 1rem;
-    margin-right: 3rem;
+    margin-left: 3rem;
+    margin-right: 6rem;
     margin-bottom: 0rem;
     margin-top: 0rem;
     opacity: 80%;
@@ -1010,7 +1010,7 @@ button:hover {
 }
 
 #modal-1 h3 {
-    margin-left: 1rem;
+    margin-left: 3rem;
     margin-top: 2rem;
     margin-bottom: -1rem;
 }

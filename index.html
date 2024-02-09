@@ -606,14 +606,11 @@
 
     <h3>Interval Changes</h3>
     <br>
-    <p>
-      
-      
-      We assume that the intracellular solute remains consistent. ... Assumes kinetics are immediate<sup>5</sup> ...</p>
+    <p>The net interval change in water and the net interval change in solute (defined as exchangeable total body sodium and potassium, as above) determine the post-interval total body water and total body solute, respectively, from which the new total body osmolarity and predicted post-interval sodium are calculated. Between each interval, the intracellular solute is assumed to remain constant (unlike above-described assumption regarding intracellular solute losses more chronically). Regardless of the precise timing of all effects within an interval period, the post-interval state is assumed to be at equilibrium; in reality, the kinetics of an evolving tonicity balance may be more complex.<sup>5</sup></p>
 
     <h3>A.I. <span class="specific-small-1">(Machine Learning)</span></h3>
     <br>
-    <p>machine learning using the <a href="https://learn.ml5js.org/#/" target="_blank" class="url">ml5.js</a> API, which provides web browser access to <a href="https://www.tensorflow.org/js" target="_blank" class="url">TensorFlow.js</a> machine learning models.</p>
+    <p>As of this initial Version 1.0, the integrated machine learning prediction of sodium is still being trained and cannot yet be used to accurately predict post-interval sodium. The current maching learning technology is powered by the <a href="https://learn.ml5js.org/#/" target="_blank" class="url">ml5.js</a> API, which provides web browser access to <a href="https://www.tensorflow.org/js" target="_blank" class="url">TensorFlow.js</a> machine learning models. Current predictive inputs include pre-interval total body water, pre-interval total body solute, interval change in water, and interval change in sodium. The neural network is being trained based on the single output of measured post-interval sodium. The predicted post-interval sodium output from the calculator is independent from the machine learning prediction model.</p>
 
 
     <h3>Future Features</h3>
@@ -746,11 +743,8 @@
 
 <div class="low-width-div">
   <h3 class="increase-width-text">Increase width of browser to view calculator</h3>
-
-
   <br>
   <br>
-
   <h3 class="increase-width-text">Not currently optimized for mobile devices</h3>
 </div>
 
