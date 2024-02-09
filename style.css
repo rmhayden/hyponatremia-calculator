@@ -1211,7 +1211,8 @@ button:hover {
     color: var(--lightest-color);
     box-shadow: 0.1rem 0.2rem 0.18rem 0 rgba(17, 16, 16, 1);
     opacity: 80%;
-    left: 43%;
+    left: 50vw;
+    margin-left: -6rem;
     font-size: larger;
 }
 
@@ -1646,7 +1647,7 @@ button:hover {
 .vert-line-1 {
     position: fixed;
     top: 0;
-    left: 75vw;
+    left: 50vw;
     background-color: white;
     height: 100vh;
     width: 100%;

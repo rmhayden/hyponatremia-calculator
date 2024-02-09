@@ -2056,6 +2056,8 @@ function toggleAboutModal() {
 
 function closeModal3() {
 
+  closeModal3ButtonEl.innerHTML = `Back to Calculator`
+
   aboutButtonEl.removeAttribute('disabled')
   closeModal3ButtonEl.style.display = "none"
 
