@@ -1776,55 +1776,8 @@ function renderPreIntervalCompartmentModel () {
       document.getElementById("compartment-model-2-icf-box").style.left = "-2.5rem"
     }
 
+         // DELETED shifting of baseline (1/31/24)
 
-    // shifting of baseline:
-
-      // if BOTH compartments are bigger than baseline, no shift
-      // if BOTH compartments are smaller than baseline, no need to shift
-
-      // if ECF is bigger than baseline but ICF is smaller than baseline, shift left
-      // if ICF is bigger than baseline but ECF is smaller than baseline, shift right
-
-
-      // FIRST: reset margin-left to zero so shift doesn't stick around automatically:
-
-      document.getElementById("compartment-model-2-grouping-container").style.left = "0rem"
-
-      if (difInTBW < 0) { 
-
-        if ((difInECF > 0) && (difInICF < 0)) {
-              if (difInECF > 3.5) {
-                // entireContainerStyle.marginLeft = "-40px"
-                document.getElementById("compartment-model-2-grouping-container").style.left = "-1rem"
-            } else if (difInECF > 2.5) {
-                // entireContainerstyle.left = "-30px"
-                document.getElementById("compartment-model-2-grouping-container").style.left = "-1.66rem"
-            } else if (difInECF > 1.5) {
-                // entireContainerstyle.left = "-20px"
-                document.getElementById("compartment-model-2-grouping-container").style.left = "-1.33rem"
-            } else if (difInECF > 0.5) {
-                // entireContainerstyle.left = "-10px"
-                document.getElementById("compartment-model-2-grouping-container").style.left = "0rem"
-            }
-        }
-
-        if ((difInICF > 0) && (difInECF < 0)) {
-
-            if (difInICF > 3.5) {
-              // entireContainerstyle.left = "40px"
-              document.getElementById("compartment-model-2-grouping-container").style.left = "1rem"
-          } else if (difInICF > 2.5) {
-              // entireContainerstyle.left = "30px"
-              document.getElementById("compartment-model-2-grouping-container").style.left = "1.66rem"
-          } else if (difInICF > 1.5) {
-              // entireContainerstyle.left = "20px"
-              document.getElementById("compartment-model-2-grouping-container").style.left = "1.33rem"
-          } else if (difInICF > 0.5) {
-              // entireContainerstyle.left = "10px"
-              document.getElementById("compartment-model-2-grouping-container").style.left = "0rem"
-          }
-      }
-    }
 }
 
 
@@ -1902,55 +1855,7 @@ function renderPostIntervalCompartmentModel () {
       document.getElementById("compartment-model-3-icf-box").style.width = "8.5rem"
       document.getElementById("compartment-model-3-icf-box").style.left = "-2.5rem"
     }
-
-
-    // shifting of baseline:
-
-      // if BOTH compartments are bigger than baseline, no shift
-      // if BOTH compartments are smaller than baseline, no need to shift
-
-      // if ECF is bigger than baseline but ICF is smaller than baseline, shift left
-      // if ICF is bigger than baseline but ECF is smaller than baseline, shift right
-
-      // FIRST: reset margin-left to zero so shift doesn't stick around automatically:
-
-      document.getElementById("compartment-model-3-grouping-container").style.left = "0rem"
-
-      if (difInTBW < 0) { 
-
-        if ((difInECF > 0) && (difInICF < 0)) {
-              if (difInECF > 3.5) {
-                // entireContainerStyle.marginLeft = "-40px"
-                document.getElementById("compartment-model-3-grouping-container").style.left = "-1rem"
-            } else if (difInECF > 2.5) {
-                // entireContainerstyle.left = "-30px"
-                document.getElementById("compartment-model-3-grouping-container").style.left = "-1.66rem"
-            } else if (difInECF > 1.5) {
-                // entireContainerstyle.left = "-20px"
-                document.getElementById("compartment-model-3-grouping-container").style.left = "-1.33rem"
-            } else if (difInECF > 0.5) {
-                // entireContainerstyle.left = "-10px"
-                document.getElementById("compartment-model-3-grouping-container").style.left = "0rem"
-            }
-        }
-
-        if ((difInICF > 0) && (difInECF < 0)) {
-
-            if (difInICF > 3.5) {
-              // entireContainerStyle.marginLeft = "40px"
-              document.getElementById("compartment-model-3-grouping-container").style.left = "1rem"
-          } else if (difInICF > 2.5) {
-              // entireContainerstyle.left = "30px"
-              document.getElementById("compartment-model-3-grouping-container").style.left = "1.66rem"
-          } else if (difInICF > 1.5) {
-              // entireContainerstyle.left = "20px"
-              document.getElementById("compartment-model-3-grouping-container").style.left = "1.33rem"
-          } else if (difInICF > 0.5) {
-              // entireContainerstyle.left = "10px"
-              document.getElementById("compartment-model-3-grouping-container").style.left = "0rem"
-          }
-      }
-    }
+      // DELETED shifting of baseline (1/31/24)
 
 }
 
