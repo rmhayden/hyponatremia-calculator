@@ -586,6 +586,7 @@ const machineLearningKeyEl = document.querySelector("#machine-learning-key")
 
 const redoIntervalButtonEl = document.querySelector(".redo-interval-button")
 
+
 // EVENT LISTENERS
 
 setBaselinesButtonEl.addEventListener('click', setBaselineValues)
@@ -614,9 +615,6 @@ redoIntervalButtonEl.addEventListener('click', redoIntervalFunction)
 
 
 // FUNCTIONS
-
-
-//
 
 init ()
 

@@ -752,7 +752,7 @@ button:hover {
 
 .new-interval-button {
     margin-top: 1rem;
-    margin-left: 0.5rem;
+    margin-left: 0rem;
     height: 2rem;
     position: relative;
     /* left: 87vw; */
@@ -905,24 +905,24 @@ button:hover {
     flex-direction: row;
     justify-content: flex-end;
     margin-right: 1.5rem;
-    margin-left: 1rem;
+    margin-left: 3rem;
 }
 
 .flex-left {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    margin-left: 10rem;
+    margin-left: 15rem;
 }
 
 .footer-render-interval-number {
     position: relative;
     /* overflow: visible; */
-    margin-top: 0.8rem;
+    margin-top: 1rem;
     /* left: 70vw; */
     height: 2rem;
-    width: 10rem;
-    background-color: rgba(134, 67, 67, 0.2);
+    width: 8.5rem;
+    /* background-color: rgba(134, 67, 67, 1); */
 }
 
 .footer-render-interval-number h5 {
@@ -931,30 +931,35 @@ button:hover {
     font-size: 14px;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    font-size: small;
     color: var(--lightest-color)
 }
 
 .footer-render-cummulative-time {
     position: relative;
+    margin-left: 0rem;
     /* overflow: visible; */
     margin-top: 0.8rem;
     /* left: 50vw; */
-    margin-left: 1rem;
+    margin-right: -0.3rem;
     height: 2rem;
     width: 12rem;
-    color: var(--lightest-color)
+    color: var(--lightest-color);
+    /* background-color: rgba(134, 67, 67, 1); */
 }
 
 .footer-render-cummulative-time h5 {
-    margin-top: 0rem;
+    margin-top: 0.2rem;
     margin-bottom: 0rem;
     font-size: 14px;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    font-size: small;
+    /* background-color: rgba(134, 67, 67, 1); */
 }
 
 
@@ -1440,7 +1445,7 @@ button:hover {
     width: 6rem;
         /* 60% is 6rem, by default */
     height: 6rem;
-    background-color:  var(--sky-blue);
+    background-color: var(--sky-blue);
     opacity: 50%;
     position: relative;
     left: 0rem;
@@ -1456,6 +1461,7 @@ button:hover {
     margin-left: -1rem;
     height: 6rem;
     top: -1rem;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #compartment-model-3-midline-dotted {
@@ -1605,7 +1611,8 @@ button:hover {
     color: var(--lightest-color);
     background-color: black;
     position: absolute;
-    left: 20vw;
+    left: 25vw;
+    margin-left: -2.5rem;
     bottom: 0rem;
     font-size: x-small;
     z-index: 100;
@@ -1616,7 +1623,8 @@ button:hover {
     color: var(--lightest-color);
     background-color: black;
     position: absolute;
-    left: 48vw;
+    left: 50vw;
+    margin-left: -3rem;
     bottom: 0rem;
     font-size: x-small;
     z-index: 100;
@@ -1627,11 +1635,25 @@ button:hover {
     color: var(--lightest-color);
     background-color: black;
     position: absolute;
-    left: 70vw;
+    left: 75vw;
+    margin-left: -3rem;
     bottom: 0rem;
     font-size: x-small;
     z-index: 100;
     opacity: 60%;
+}
+
+.vert-line-1 {
+    position: fixed;
+    top: 0;
+    left: 75vw;
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+    border: 1px solid red;
+    width: 0.2rem;
+    z-index: 300;
+    opacity: 0%;
 }
 
 @media only screen and (max-width: 1010px) {

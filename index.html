@@ -546,7 +546,7 @@
 <div class="footer-nav-bar">
 
 
-  <h2 class="logo">K<small>IDNEY</small>C<small>ALC.org</small></h2>
+  <h2 class="logo">H<small>YPONATREMIA </small>C<small>ALCULATOR</small></h2>
 
  <div class="flex-right">
   <div class="footer-render-interval-number">
@@ -576,8 +576,8 @@
 <div class="lower-space">  
   
   <p class="lower-text">Robert Hayden, MD</p>
-  <p class="lower-text-2">Version 1.0 &#169; 2024</p>
-  <p class="lower-text-3">Hyponatremia Calculator</p>
+  <p class="lower-text-2">KidneyCalc.org &#169; 2024</p>
+  <p class="lower-text-3">Version 1.0 &nbsp;|&nbsp; Updated: 2/2024</p>
 
 </div>
 
@@ -588,7 +588,7 @@
     <br>
     <h3>Overall Concept</h3>
     <br>
-    <p>The calculator's model uses the Rose equation, which assumes that Effective Plasma Osmolarity = 2 x plasma [Na+].<sup>1</sup> Potassium homeostasis has not yet been comprehensively integrated into version 1.0 of this calculator. Although potassium is overwhelmingly intracellular, any potassium lost in the urine in version 1.0 accounts for a loss of effective extracellular (rather than intracellular) solute that is equivalent to that of any equimolar amount of sodium lost in the urine. In accordance with the relationship described by Edelman et al. (1958), the calculator assumes that the serum sodium concentration is proportional to the ratio of total body exchangeable sodium and potassium to total body water: Plasma [Na+] ~= (TB Na<sub>e</sub><sup>+</sup> + TB K<sub>e</sub><sup>+</sup>).<sup>2</sup>. Only the effective solutes--exchangeable total body sodium and potassium--are included in this model at present.
+    <p>The calculator's model primarily uses the Rose equation, which assumes that effective plasma osmolarity = 2 x plasma [Na+].<sup>1</sup> In accordance with the relationship described by Edelman et al. (1958),<sup>2</sup> the calculator assumes that the serum sodium concentration is proportional to the ratio of total body exchangeable sodium and potassium to total body water: Plasma [Na+] ~= (TB Na<sub>e</sub><sup>+</sup> + TB K<sub>e</sub><sup>+</sup>).<sup>2</sup> Only the effective solutes exchangeable total body sodium and potassium are included in this model at present. Potassium homeostasis has not yet been comprehensively integrated into version 1.0 of this calculator. Although potassium is overwhelmingly intracellular, any potassium lost in the urine in version 1.0 accounts for a loss of effective extracellular (rather than intracellular) solute that is equivalent to that of any equimolar amount of sodium lost in the urine. 
 
     <h3>Inclusion/Exclusion Criteria</h3>
     <br>
@@ -596,17 +596,20 @@
 
     <h3>Ideal State</h3>
     <br>
-    <p>In a baseline state with a normal tonicity balance and volume status, total body water (L) is assumed to be 60% or 55% of ideal body weight (kg) for cases where the biological sex is classified as male and female, respectively. This simple approach limits the need for additional case data, though other more complicated estimates of total body water incorporating age and height do exist.<sup>3</sup> The ratio of ICF (intracellular fluid) to ECF (extracellular fluid) at baseline is assumed to be 60 : 40.<sup>1</sup> Assuming a normal baseline serum sodium of 140 mEq/L, total body osmolarity can be calculated by way of the Rose and Edelman equations described above.</p>
+    <p>In a baseline state with a normal tonicity balance and volume status, total body water (L) is assumed to be 60% or 55% of ideal body weight (kg) for cases in which the biological sex is classified as male or female, respectively. This relatively simple approach limits the need for additional case data, though other more complicated estimates of total body water incorporating age and height do exist.<sup>3</sup> The ratio of ICF (intracellular fluid) to ECF (extracellular fluid) at baseline is assumed to be 60 : 40.<sup>1</sup> Assuming a normal baseline serum sodium of 140 mEq/L, total body osmolarity can be calculated by way of the Rose and Edelman equations described above.</p>
 
     <h3>Initial State</h3>
     <br>
     <p>
-      Along with the time, an initial serum sodium must be logged by the user. While this allows us to calculate total body osmolarity (2 x serum sodium), determining the total solute and water within the intra- and extra-cellular fluid compartments is less certain and requires multiple assumptions. Volume status and tonicity balance interact but are independent. In this version 1.0 of the calculator, we assume that the etiology of SIADH; therefore, with natiuresis intact, the ECF is assumed to be at ideal baseline initially. The volume of the ICF cannot be certain, though in chronic hyponatremia, there is likely some degree of loss of intracellular fluid.<sup>4</sup> Similar to what has been demonstrated in animal models,<sup>4</sup> we assume that solute loss has occured along with increased TBW for the initial state of hyponatremia such that the increase is half of what it would be if gain in free water alone were the sole contributor. In future versions of this calculator, we hope to allow the user to manually adjust the initial weight (and therefore, modulate the expected initial TBW) and ECF volume status along with permitting additional etiologies of hyponatremia beyond SIADH.
+      Along with the time, an initial serum sodium must be logged by the user. While this allows for a calculation of total body osmolarity (2 x serum sodium), determining the total solute and water within the intra- and extra-cellular fluid compartments is less certain and requires multiple assumptions. Volume status and tonicity balance interact but are independent. In this version 1.0 of the calculator, we assume that the etiology of SIADH; therefore, with natiuresis presumably intact, the ECF is set to be at ideal baseline initially. The volume of the ICF cannot be certain, though in chronic hyponatremia, there is likely some degree of loss of intracellular fluid.<sup>4</sup> Similar to what has been demonstrated in animal models,<sup>4</sup> we assume that solute loss has occured along with increased TBW for the initial state of hyponatremia such that the increase is half of what it would be if gain in free water alone were the sole contributor. In future versions of this calculator, we hope to allow the user to manually adjust the initial weight (and therefore, modulate the expected initial TBW) and ECF volume status along with permitting additional etiologies of hyponatremia beyond SIADH.
     </p>
 
     <h3>Interval Changes</h3>
     <br>
-    <p>We assume that the intracellular solute remains consistent. ... ...</p>
+    <p>
+      
+      
+      We assume that the intracellular solute remains consistent. ... Assumes kinetics are immediate<sup>5</sup> ...</p>
 
     <h3>A.I. <span class="specific-small-1">(Machine Learning)</span></h3>
     <br>
@@ -754,5 +757,8 @@
 <div id="height-expander"></div>
 
 </body>
+
+<div class="vert-line-1"></div>
+<!-- for alignment purposes during testing only -->
 
 </html>
