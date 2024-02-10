@@ -16,7 +16,6 @@ html {
     background-color: black;
 }
 
-
 body {
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -879,6 +878,7 @@ button:hover {
     font-size: small;
     position: relative;
     top: 0.4rem;
+    font-style: italic;
 }
 
 .hide {
@@ -1223,6 +1223,16 @@ button:hover {
     top: -2.5rem;
     left: 2rem;
     height: 1rem;
+    background-color: rgba(0, 0, 0, 0)
+}
+
+.icf-ecf-smaller {
+    position: relative;
+    top: -9rem;
+    left: 5rem;
+    height: 1rem;
+    background-color: rgba(0, 0, 0, 0);
+    width: 10rem;
 }
 
 .close-modal-2-button {
@@ -1288,13 +1298,15 @@ button:hover {
 
 .compartments-title {
     position: relative;
+    text-align: center;
     top: -7rem;
     z-index: 5;
 }
 
+
 #compartment-model-1-div {
     width: 15rem;
-    height: 15rem;
+    height: 12rem;
     /* background-color: rgba(188, 154, 109, 0.5); */
     margin-left: 1rem;
     margin-top: 10rem;
@@ -1374,23 +1386,34 @@ button:hover {
 }
 
 
-
-
 #compartment-model-2-div {
+    position: relative;
+    top: 0.5rem;
     width: 15rem;
-    height: 15rem;
+    height: 11rem;
     /* background-color: rgba(188, 154, 109, 0.5); */
     margin-left: 1rem;
-    margin-top: 2rem;
+    margin-top: 7.5rem;
+}
+
+.push-right {
+    margin-left: 1rem;
+}
+
+.push-right-2 {
+    margin-left: 2rem;
 }
 
 #compartment-model-2-outside-box {
+    position: relative;
     width: 10rem;
     height: 6rem;
     /* background-color: rgba(13, 0, 255, 0.5); */
     position: relative;
     left: 3rem;
-    top: 2rem;
+    top: 0.5rem;
+    /* transform: translateY(-2rem); */
+    margin-top: -8rem;
     border: dotted var(--lightest-color) 0.18rem;
 }
 
@@ -1404,7 +1427,7 @@ button:hover {
     position: relative;
     left: 6rem;
         /* shift left 6rem by default */
-    top: -10.4rem;
+    top: -6rem;
 }
 
 #compartment-model-2-icf-box {
@@ -1415,17 +1438,14 @@ button:hover {
     opacity: 50%;
     position: relative;
     left: 0rem;
-    top: -4.4rem;
+    top: 0rem;
 }
 
 #compartment-model-2-grouping-container {
     visibility: hidden;
     position: relative;
-    left: 0rem;
-    right: 0rem;
-    margin-left: 0rem;
     height: 6rem;
-    top: -1rem;
+    top: 0rem;
     background-color: rgba(188, 154, 109, 0);
     /* invisible so does not block anything */
 }
@@ -1436,7 +1456,7 @@ button:hover {
     height: 5.75rem;
     width: 0rem;
     position: relative;
-    top: -11.4rem;
+    top: -18rem;
     left: 5.9rem;
     z-index: 11;
 }
@@ -1457,14 +1477,16 @@ button:hover {
 
 
 #compartment-model-3-div {
+    top: 1.5rem;
+    position: relative;
     width: 15rem;
     height: 10rem;
-    background-color: rgba(188, 154, 109, 0);
-    /* invisible so does not block anything */
+    /* background-color: red; */
     margin-left: 1rem;
-    margin-top: 4rem;
-    
+    /* background-color: rgba(188, 154, 109, 0); */
+    /* invisible so does not block anything */ 
 }
+
 
 #compartment-model-3-outside-box {
     width: 10rem;
@@ -1472,7 +1494,7 @@ button:hover {
     /* background-color: rgba(13, 0, 255, 0.5); */
     position: relative;
     left: 3rem;
-    margin-left: 1rem;
+    margin-left: 0rem;
     top: 1rem;
     border: dotted var(--lightest-color) 0.18rem;
 }
@@ -1505,13 +1527,14 @@ button:hover {
 #compartment-model-3-grouping-container {
     visibility: hidden;
     position: relative;
-    left: 0rem;
     right: 0rem;
-    margin-left: -1rem;
     height: 6rem;
-    top: -1rem;
+    top: 3rem;
+    /* top: -1rem; */
+    /* background-color: rgba(0, 0, 0, 0); */
     background-color: rgba(0, 0, 0, 0);
 }
+
 
 #compartment-model-3-midline-dotted {
     display: visible;
@@ -1519,9 +1542,9 @@ button:hover {
     height: 5.75rem;
     width: 0rem;
     position: relative;
-    top: -15.4rem;
-    left: 4.9rem;
-    /* shifted 1rem to left to align */
+    top: -11.4rem;
+    left: 5.9rem;
+    /* was initially shifted 1rem to left to align; now div fixed, 4.9 -> 5.9 */
     z-index: 11;
 }
 
@@ -1536,6 +1559,36 @@ button:hover {
     top: -12rem;
     left: 5.9rem;
     z-index: 12;
+}
+
+.icf-percent {
+    position: relative;
+    top: 1.5rem;
+    left: 3.6rem;
+    width: 5rem;
+    color: var(--lightest-color);
+    font-size: small;
+    /* background-color: red; */
+    text-align: center
+}
+
+.ecf-percent {
+    position: relative;
+    top: -1.35rem;
+    left: 9.1rem;
+    color: var(--lightest-color);
+    font-size: small;
+    /* background-color: red; */
+    width: 5rem;
+    text-align: center
+}
+
+.push-up {
+    margin-top: 0rem;
+}
+
+.push-up-2 {
+    margin-top: -0.7rem;
 }
 
 .increase-width-text {

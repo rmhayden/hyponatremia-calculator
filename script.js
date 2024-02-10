@@ -639,6 +639,10 @@ function redoIntervalFunction() {
   currentDay = cachePreIntervalDay
   currentHour = cachePreIntervalHour
 
+  // clear post interval percents:
+  document.getElementById("post-interval-ecf-percent").innerHTML = `&nbsp;` +  `<br>` + `&nbsp;`
+  document.getElementById("post-interval-icf-percent").innerHTML = `&nbsp;` +  `<br>` + `&nbsp;`
+
   setPreIntervalValues()
   clearAllPostIntervalValues()
 
@@ -839,6 +843,9 @@ function newInterval () {
   clearAllPreIntervalValues()
   clearAllPostIntervalValues()
 
+  // clear the percents:
+  resetCompartmentModelPercents()
+
   // below, also clear the input field values:
   mostRecentUrineOsmEl.value = null
   mostRecentUrineNaEl.value = null
@@ -926,12 +933,12 @@ function setVars () {
     biologicalSexVar = "male"
     idealTBW = 0.6 * (weightEl.value)
        // will use 60% for male
-    idealCommentsVar = "Comment: assuming ideal TBW is 60% of dry weight"
+    idealCommentsVar = "Assuming ideal TBW is 60% of dry weight"
   } else {
     biologicalSexVar = "female"
     idealTBW = 0.55 * (weightEl.value)
        // will use 55% for female
-    idealCommentsVar = "Comment: assuming ideal TBW is 55% of dry weight"
+    idealCommentsVar = "Assuming ideal TBW is 55% of dry weight"
   }
 
   idealECF = idealTBW * 0.4
@@ -1384,7 +1391,7 @@ if (returnVar === false) {
         preIntervalECOsm = preIntervalTBOsmolality * preIntervalECF
         preIntervalICOsm = preIntervalTBOsmolality * preIntervalICF
         
-        initialCommentsVar = "Comment: assumes solute loss has occured along with increased TBW, the increase of which is half of what it would be if gain in free water alone were the sole contributor"
+        initialCommentsVar = "Assumes solute loss has occured along with increased TBW, the increase of which is half of what it would be if gain in free water alone were the sole contributor"
 
   } else {
 
@@ -1632,74 +1639,134 @@ function renderInitialCompartmentModel () {
     let difInTBW = (preIntervalTBW - idealTBW)
       // negative number means it will be smaller
 
+    let percentChangeECF = ((difInECF +  idealECF) / idealECF)
+      // this will give us the percent change from ideal state
+    let percentChangeICF = ((difInICF +  idealICF) / idealICF)
 
-      // SHRINKING of ECF 
-          if (difInECF < -3.5) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "3rem"
-        } else if (difInECF < -2.5) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "3.3rem"
-        } else if (difInECF < -1.5) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "3.6rem"
-        } else if (difInECF < -0.5) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "4rem"
-        }
+    // console.log("percent change in ECF and ICF from baseline: ", percentChangeECF, percentChangeICF)
+    let percentChangeECFx100 = Number(percentChangeECF * 100).toFixed(0)
+    let percentChangeICFx100 = Number(percentChangeICF * 100).toFixed(0)
 
-      // EXPANDING of ECF 
-        else if (difInECF < 0.1) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "4rem"
-        } else if (difInECF < 0.5) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "4.15rem"
-        } else if (difInECF < 1.5) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "4.3rem"
-        }  else if (difInECF < 2.5) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "4.5rem"
-        }  else if (difInECF < 3.5) {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "4.8rem"
+    let ECFexpandedOrContracted = "&nbsp;"
+      if (percentChangeECF < 0.95) {
+        ECFexpandedOrContracted = "contracted"
+      } else if (percentChangeECF < 1.05) {
+        ECFexpandedOrContracted = "&nbsp;"
+      } else {
+        ECFexpandedOrContracted = "expanded"
+      }
+
+    let ICFexpandedOrContracted = "&nbsp;"
+      if (percentChangeICF < 0.95) {
+        ICFexpandedOrContracted = "contracted"
+      } else if (percentChangeICF < 1.05) {
+        ICFexpandedOrContracted = "&nbsp;"
+      } else {
+        ICFexpandedOrContracted = "expanded"
+      }
+
+    document.getElementById("initial-ecf-percent").innerHTML = `${percentChangeECFx100} %` +  `<br>` + `${ECFexpandedOrContracted}`
+    document.getElementById("initial-icf-percent").innerHTML = `${percentChangeICFx100} %` +  `<br>` + `${ICFexpandedOrContracted}`
+
+
+  // SHRINKING of ECF 
+
+        if (percentChangeECF < 0.5) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "2rem"
+          // ECF volume is half - so width is 2 instead of 4
+        } else   if (percentChangeECF < 0.6) {
+          ocument.getElementById("compartment-model-1-ecf-box").style.width = "2.4rem"
+        } else if (percentChangeECF < 0.7) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "2.8rem"
+        } else if (percentChangeECF < 0.8) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "3.2rem"
+        } else if (percentChangeECF < 0.9) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "3.6rem"
+        } else if (percentChangeECF < 0.95) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "3.8rem"
+        } else if (percentChangeECF < 1.05) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "4rem"
+          // range for above two show no change (if less than 5% either way)
+        } 
+        
+  // EXPANDING of ECF
+        else if (percentChangeECF < 1.1) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "4.4rem"
+        } else if (percentChangeECF < 1.2) {
+            document.getElementById("compartment-model-1-ecf-box").style.width = "4.8rem"
+        } else if (percentChangeECF < 1.3) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "5.2rem"
+        } else if (percentChangeECF < 1.4) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "5.6rem"
+        } else if (percentChangeECF < 1.5) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "6.0rem"
+        } else if (percentChangeECF < 1.6) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "6.4rem"
+        } else if (percentChangeECF < 1.7) {
+          document.getElementById("compartment-model-1-ecf-box").style.width = "6.8rem"
         } else {
-              document.getElementById("compartment-model-1-ecf-box").style.width = "5rem"
-        }
+          document.getElementById("compartment-model-1-ecf-box").style.width = "7.2rem"
+        } // this will be the max size ()
 
 
-        // SHRINKING of ICF
-         if (difInICF < -3.5) {
-          document.getElementById("compartment-model-1-icf-box").style.width = "4.5rem"
-          document.getElementById("compartment-model-1-icf-box").style.left = "1.5rem"
-      } else if (difInICF < -2.5) {
-        document.getElementById("compartment-model-1-icf-box").style.width = "5rem"
-        document.getElementById("compartment-model-1-icf-box").style.left = "1rem"
-      } else if (difInICF < -1.5) {
-        document.getElementById("compartment-model-1-icf-box").style.width = "5.5rem"
-        document.getElementById("compartment-model-1-icf-box").style.left = "0.5rem"
-      } else if (difInICF < -0.5) {
+    // SHRINKING of ICF
+
+        if (percentChangeICF < 0.5) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "3rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "3rem"
+          // ICF Volume is half
+        } else   if (percentChangeICF < 0.6) {
+          ocument.getElementById("compartment-model-1-icf-box").style.width = "3.6rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "2.4rem"
+        } else if (percentChangeICF < 0.7) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "4.2rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "1.8rem"
+        } else if (percentChangeICF < 0.8) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "4.8rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "1.2rem"
+        } else if (percentChangeICF < 0.9) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "5.4rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "0.6rem"
+        } else if (percentChangeICF < 0.95) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "5.7rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "0.3rem"
+        } else if (percentChangeICF < 1.05) {
           document.getElementById("compartment-model-1-icf-box").style.width = "6rem"
           document.getElementById("compartment-model-1-icf-box").style.left = "0rem"
-      }
-      // EXPANDING of ICF 
-      else if (difInICF < 0.1) {
-        document.getElementById("compartment-model-1-icf-box").style.width = "6rem"
-        document.getElementById("compartment-model-1-icf-box").style.left = "0rem"
-      } else if (difInICF < 0.5) {
-        document.getElementById("compartment-model-1-icf-box").style.width = "6.5rem"
-        document.getElementById("compartment-model-1-icf-box").style.left = "-0.5rem"
-      } else if (difInICF < 1.5) {
-        document.getElementById("compartment-model-1-icf-box").style.width = "7rem"
-        document.getElementById("compartment-model-1-icf-box").style.left = "-1rem"
-      }  else if (difInICF < 2.5) {
-        document.getElementById("compartment-model-1-icf-box").style.width = "7.5rem"
-        document.getElementById("compartment-model-1-icf-box").style.left = "-1.5rem"
-      }  else if (difInICF < 3.5) {
-        document.getElementById("compartment-model-1-icf-box").style.width = "8rem"
-        document.getElementById("compartment-model-1-icf-box").style.left = "-2rem"
-      } else {
-        document.getElementById("compartment-model-1-icf-box").style.width = "8.5rem"
-        document.getElementById("compartment-model-1-icf-box").style.left = "-2.5rem"
-      }
+          // range for above two show no change (if less than 5% either way)
+        } 
 
+    // EXPANDING of ICF
+
+        else if (percentChangeICF < 1.1) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "6.6rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "-0.6rem"
+        } else if (percentChangeICF < 1.2) {
+            document.getElementById("compartment-model-1-icf-box").style.width = "7.2rem"
+            document.getElementById("compartment-model-1-icf-box").style.left = "-1.2rem"
+        } else if (percentChangeICF < 1.3) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "7.8rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "-1.8rem"
+        } else if (percentChangeICF < 1.4) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "8.4rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "-2.4rem"
+        } else if (percentChangeICF < 1.5) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "9.0rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "-3rem"
+        } else if (percentChangeICF < 1.6) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "9.6rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "-3.6rem"
+        } else if (percentChangeICF < 1.7) {
+          document.getElementById("compartment-model-1-icf-box").style.width = "10.2rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "-4.2rem"
+        } else {
+          document.getElementById("compartment-model-1-icf-box").style.width = "10.8rem"
+          document.getElementById("compartment-model-1-icf-box").style.left = "-4.8rem"
+        } // this will be the max size; otherwise, will go off the page
+        
       // DELETED shifting of baseline (1/31/24)
 
 }
-
-
 
 
 function renderPreIntervalCompartmentModel () {
@@ -1713,74 +1780,134 @@ function renderPreIntervalCompartmentModel () {
   let difInTBW = (preIntervalTBW - idealTBW)
     // negative number means it will be smaller
 
+    let percentChangeECF = ((difInECF +  idealECF) / idealECF)
+      // this will give us the percent change from ideal state
+    let percentChangeICF = ((difInICF +  idealICF) / idealICF)
 
-    // SHRINKING of ECF 
-        if (difInECF < -3.5) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "3rem"
-      } else if (difInECF < -2.5) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "3.3rem"
-      } else if (difInECF < -1.5) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "3.6rem"
-      } else if (difInECF < -0.5) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "4rem"
-      }
+  //  console.log("percent change in ECF and ICF from ideal: ", percentChangeECF, percentChangeICF)
 
-    // EXPANDING of ECF 
-      else if (difInECF < 0.1) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "4rem"
-      } else if (difInECF < 0.5) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "4.15rem"
-      } else if (difInECF < 1.5) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "4.3rem"
-      }  else if (difInECF < 2.5) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "4.5rem"
-      }  else if (difInECF < 3.5) {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "4.8rem"
+   let percentChangeECFx100 = Number(percentChangeECF * 100).toFixed(0)
+    let percentChangeICFx100 = Number(percentChangeICF * 100).toFixed(0)
+
+    let ECFexpandedOrContracted = "&nbsp;"
+      if (percentChangeECF < 0.95) {
+        ECFexpandedOrContracted = "contracted"
+      } else if (percentChangeECF < 1.05) {
+        ECFexpandedOrContracted = "&nbsp;"
       } else {
-            document.getElementById("compartment-model-2-ecf-box").style.width = "5rem"
+        ECFexpandedOrContracted = "expanded"
       }
 
+    let ICFexpandedOrContracted = "&nbsp;"
+      if (percentChangeICF < 0.95) {
+        ICFexpandedOrContracted = "contracted"
+      } else if (percentChangeICF < 1.05) {
+        ICFexpandedOrContracted = "&nbsp;"
+      } else {
+        ICFexpandedOrContracted = "expanded"
+      }
 
-      // SHRINKING of ICF
-       if (difInICF < -3.5) {
-        document.getElementById("compartment-model-2-icf-box").style.width = "4.5rem"
-        document.getElementById("compartment-model-2-icf-box").style.left = "1.5rem"
-    } else if (difInICF < -2.5) {
-      document.getElementById("compartment-model-2-icf-box").style.width = "5rem"
-      document.getElementById("compartment-model-2-icf-box").style.left = "1rem"
-    } else if (difInICF < -1.5) {
-      document.getElementById("compartment-model-2-icf-box").style.width = "5.5rem"
-      document.getElementById("compartment-model-2-icf-box").style.left = "0.5rem"
-    } else if (difInICF < -0.5) {
-        document.getElementById("compartment-model-2-icf-box").style.width = "6rem"
-        document.getElementById("compartment-model-2-icf-box").style.left = "0rem"
-    }
-    // EXPANDING of ICF 
-    else if (difInICF < 0.1) {
-      document.getElementById("compartment-model-2-icf-box").style.width = "6rem"
-      document.getElementById("compartment-model-2-icf-box").style.left = "0rem"
-    } else if (difInICF < 0.5) {
-      document.getElementById("compartment-model-2-icf-box").style.width = "6.5rem"
-      document.getElementById("compartment-model-2-icf-box").style.left = "-0.5rem"
-    } else if (difInICF < 1.5) {
-      document.getElementById("compartment-model-2-icf-box").style.width = "7rem"
-      document.getElementById("compartment-model-2-icf-box").style.left = "-1rem"
-    }  else if (difInICF < 2.5) {
-      document.getElementById("compartment-model-2-icf-box").style.width = "7.5rem"
-      document.getElementById("compartment-model-2-icf-box").style.left = "-1.5rem"
-    }  else if (difInICF < 3.5) {
-      document.getElementById("compartment-model-2-icf-box").style.width = "8rem"
-      document.getElementById("compartment-model-2-icf-box").style.left = "-2rem"
-    } else {
-      document.getElementById("compartment-model-2-icf-box").style.width = "8.5rem"
-      document.getElementById("compartment-model-2-icf-box").style.left = "-2.5rem"
-    }
+    document.getElementById("pre-interval-ecf-percent").innerHTML = `${percentChangeECFx100} %` +  `<br>` + `${ECFexpandedOrContracted}`
+    document.getElementById("pre-interval-icf-percent").innerHTML = `${percentChangeICFx100} %` +  `<br>` + `${ICFexpandedOrContracted}`
 
-         // DELETED shifting of baseline (1/31/24)
+
+  // SHRINKING of ECF 
+
+  if (percentChangeECF < 0.5) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "2rem"
+    // ECF volume is half - so width is 2 instead of 4
+  } else   if (percentChangeECF < 0.6) {
+    ocument.getElementById("compartment-model-2-ecf-box").style.width = "2.4rem"
+  } else if (percentChangeECF < 0.7) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "2.8rem"
+  } else if (percentChangeECF < 0.8) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "3.2rem"
+  } else if (percentChangeECF < 0.9) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "3.6rem"
+  } else if (percentChangeECF < 0.95) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "3.8rem"
+  } else if (percentChangeECF < 1.05) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "4rem"
+    // range for above two show no change (if less than 5% either way)
+  } 
+  
+// EXPANDING of ECF
+  else if (percentChangeECF < 1.1) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "4.4rem"
+  } else if (percentChangeECF < 1.2) {
+      document.getElementById("compartment-model-2-ecf-box").style.width = "4.8rem"
+  } else if (percentChangeECF < 1.3) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "5.2rem"
+  } else if (percentChangeECF < 1.4) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "5.6rem"
+  } else if (percentChangeECF < 1.5) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "6.0rem"
+  } else if (percentChangeECF < 1.6) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "6.4rem"
+  } else if (percentChangeECF < 1.7) {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "6.8rem"
+  } else {
+    document.getElementById("compartment-model-2-ecf-box").style.width = "7.2rem"
+  } // this will be the max size ()
+
+// SHRINKING of ICF
+
+  if (percentChangeICF < 0.5) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "3rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "3rem"
+    // ICF Volume is half
+  } else   if (percentChangeICF < 0.6) {
+    ocument.getElementById("compartment-model-2-icf-box").style.width = "3.6rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "2.4rem"
+  } else if (percentChangeICF < 0.7) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "4.2rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "1.8rem"
+  } else if (percentChangeICF < 0.8) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "4.8rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "1.2rem"
+  } else if (percentChangeICF < 0.9) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "5.4rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "0.6rem"
+  } else if (percentChangeICF < 0.95) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "5.7rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "0.3rem"
+  } else if (percentChangeICF < 1.05) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "6rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "0rem"
+    // range for above two show no change (if less than 5% either way)
+  } 
+
+// EXPANDING of ICF
+
+  else if (percentChangeICF < 1.1) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "6.6rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "-0.6rem"
+  } else if (percentChangeICF < 1.2) {
+      document.getElementById("compartment-model-2-icf-box").style.width = "7.2rem"
+      document.getElementById("compartment-model-2-icf-box").style.left = "-1.2rem"
+  } else if (percentChangeICF < 1.3) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "7.8rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "-1.8rem"
+  } else if (percentChangeICF < 1.4) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "8.4rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "-2.4rem"
+  } else if (percentChangeICF < 1.5) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "9.0rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "-3rem"
+  } else if (percentChangeICF < 1.6) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "9.6rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "-3.6rem"
+  } else if (percentChangeICF < 1.7) {
+    document.getElementById("compartment-model-2-icf-box").style.width = "10.2rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "-4.2rem"
+  } else {
+    document.getElementById("compartment-model-2-icf-box").style.width = "10.8rem"
+    document.getElementById("compartment-model-2-icf-box").style.left = "-4.8rem"
+  } // this will be the max size; otherwise, will go off the page
+  
+// DELETED shifting of baseline (1/31/24)
 
 }
-
-
 
 function renderPostIntervalCompartmentModel () {
 
@@ -1793,71 +1920,144 @@ function renderPostIntervalCompartmentModel () {
   let difInTBW = (postIntervalTBW - idealTBW)
     // negative number means it will be smaller
 
+    let percentChangeECF = ((difInECF +  idealECF) / idealECF)
+    // this will give us the percent change from ideal state
+    let percentChangeICF = ((difInICF +  idealICF) / idealICF)
+
+    let percentChangeECFx100 = Number(percentChangeECF * 100).toFixed(0)
+    let percentChangeICFx100 = Number(percentChangeICF * 100).toFixed(0)
+
+    let ECFexpandedOrContracted = "&nbsp;"
+      if (percentChangeECF < 0.95) {
+        ECFexpandedOrContracted = "contracted"
+      } else if (percentChangeECF < 1.05) {
+        ECFexpandedOrContracted = "&nbsp;"
+      } else {
+        ECFexpandedOrContracted = "expanded"
+      }
+
+    let ICFexpandedOrContracted = "&nbsp;"
+      if (percentChangeICF < 0.95) {
+        ICFexpandedOrContracted = "contracted"
+      } else if (percentChangeICF < 1.05) {
+        ICFexpandedOrContracted = "&nbsp;"
+      } else {
+        ICFexpandedOrContracted = "expanded"
+      }
+
+    document.getElementById("post-interval-ecf-percent").innerHTML = `${percentChangeECFx100} %` +  `<br>` + `${ECFexpandedOrContracted}`
+    document.getElementById("post-interval-icf-percent").innerHTML = `${percentChangeICFx100} %` +  `<br>` + `${ICFexpandedOrContracted}`
 
     // SHRINKING of ECF 
-        if (difInECF < -3.5) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "3rem"
-      } else if (difInECF < -2.5) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "3.3rem"
-      } else if (difInECF < -1.5) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "3.6rem"
-      } else if (difInECF < -0.5) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "4rem"
-      }
 
-    // EXPANDING of ECF 
-      else if (difInECF < 0.1) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "4rem"
-      } else if (difInECF < 0.5) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "4.15rem"
-      } else if (difInECF < 1.5) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "4.3rem"
-      }  else if (difInECF < 2.5) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "4.5rem"
-      }  else if (difInECF < 3.5) {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "4.8rem"
-      } else {
-            document.getElementById("compartment-model-3-ecf-box").style.width = "5rem"
-      }
+    if (percentChangeECF < 0.5) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "2rem"
+      // ECF volume is half - so width is 2 instead of 4
+    } else   if (percentChangeECF < 0.6) {
+      ocument.getElementById("compartment-model-3-ecf-box").style.width = "2.4rem"
+    } else if (percentChangeECF < 0.7) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "2.8rem"
+    } else if (percentChangeECF < 0.8) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "3.2rem"
+    } else if (percentChangeECF < 0.9) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "3.6rem"
+    } else if (percentChangeECF < 0.95) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "3.8rem"
+    } else if (percentChangeECF < 1.05) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "4rem"
+      // range for above two show no change (if less than 5% either way)
+    } 
 
+    // EXPANDING of ECF
+    else if (percentChangeECF < 1.1) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "4.4rem"
+    } else if (percentChangeECF < 1.2) {
+        document.getElementById("compartment-model-3-ecf-box").style.width = "4.8rem"
+    } else if (percentChangeECF < 1.3) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "5.2rem"
+    } else if (percentChangeECF < 1.4) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "5.6rem"
+    } else if (percentChangeECF < 1.5) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "6.0rem"
+    } else if (percentChangeECF < 1.6) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "6.4rem"
+    } else if (percentChangeECF < 1.7) {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "6.8rem"
+    } else {
+      document.getElementById("compartment-model-3-ecf-box").style.width = "7.2rem"
+    } // this will be the max size ()
 
-      // SHRINKING of ICF
-       if (difInICF < -3.5) {
-        document.getElementById("compartment-model-3-icf-box").style.width = "4.5rem"
-        document.getElementById("compartment-model-3-icf-box").style.left = "1.5rem"
-    } else if (difInICF < -2.5) {
-      document.getElementById("compartment-model-3-icf-box").style.width = "5rem"
-      document.getElementById("compartment-model-3-icf-box").style.left = "1rem"
-    } else if (difInICF < -1.5) {
-      document.getElementById("compartment-model-3-icf-box").style.width = "5.5rem"
-      document.getElementById("compartment-model-3-icf-box").style.left = "0.5rem"
-    } else if (difInICF < -0.5) {
-        document.getElementById("compartment-model-3-icf-box").style.width = "6rem"
-        document.getElementById("compartment-model-3-icf-box").style.left = "0rem"
-    }
-    // EXPANDING of ICF 
-    else if (difInICF < 0.1) {
+    // SHRINKING of ICF
+
+    if (percentChangeICF < 0.5) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "3rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "3rem"
+      // ICF Volume is half
+    } else   if (percentChangeICF < 0.6) {
+      ocument.getElementById("compartment-model-3-icf-box").style.width = "3.6rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "2.4rem"
+    } else if (percentChangeICF < 0.7) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "4.2rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "1.8rem"
+    } else if (percentChangeICF < 0.8) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "4.8rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "1.2rem"
+    } else if (percentChangeICF < 0.9) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "5.4rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "0.6rem"
+    } else if (percentChangeICF < 0.95) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "5.7rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "0.3rem"
+    } else if (percentChangeICF < 1.05) {
       document.getElementById("compartment-model-3-icf-box").style.width = "6rem"
       document.getElementById("compartment-model-3-icf-box").style.left = "0rem"
-    } else if (difInICF < 0.5) {
-      document.getElementById("compartment-model-3-icf-box").style.width = "6.5rem"
-      document.getElementById("compartment-model-3-icf-box").style.left = "-0.5rem"
-    } else if (difInICF < 1.5) {
-      document.getElementById("compartment-model-3-icf-box").style.width = "7rem"
-      document.getElementById("compartment-model-3-icf-box").style.left = "-1rem"
-    }  else if (difInICF < 2.5) {
-      document.getElementById("compartment-model-3-icf-box").style.width = "7.5rem"
-      document.getElementById("compartment-model-3-icf-box").style.left = "-1.5rem"
-    }  else if (difInICF < 3.5) {
-      document.getElementById("compartment-model-3-icf-box").style.width = "8rem"
-      document.getElementById("compartment-model-3-icf-box").style.left = "-2rem"
-    } else {
-      document.getElementById("compartment-model-3-icf-box").style.width = "8.5rem"
-      document.getElementById("compartment-model-3-icf-box").style.left = "-2.5rem"
-    }
-      // DELETED shifting of baseline (1/31/24)
+      // range for above two show no change (if less than 5% either way)
+    } 
 
+    // EXPANDING of ICF
+
+    else if (percentChangeICF < 1.1) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "6.6rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "-0.6rem"
+    } else if (percentChangeICF < 1.2) {
+        document.getElementById("compartment-model-3-icf-box").style.width = "7.2rem"
+        document.getElementById("compartment-model-3-icf-box").style.left = "-1.2rem"
+    } else if (percentChangeICF < 1.3) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "7.8rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "-1.8rem"
+    } else if (percentChangeICF < 1.4) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "8.4rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "-2.4rem"
+    } else if (percentChangeICF < 1.5) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "9.0rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "-3rem"
+    } else if (percentChangeICF < 1.6) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "9.6rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "-3.6rem"
+    } else if (percentChangeICF < 1.7) {
+      document.getElementById("compartment-model-3-icf-box").style.width = "10.2rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "-4.2rem"
+    } else {
+      document.getElementById("compartment-model-3-icf-box").style.width = "10.8rem"
+      document.getElementById("compartment-model-3-icf-box").style.left = "-4.8rem"
+    } // this will be the max size; otherwise, will go off the page
+
+    // DELETED shifting of baseline (1/31/24)
 }
+
+
+
+function resetCompartmentModelPercents () {
+  document.getElementById("pre-interval-ecf-percent").innerHTML = `&nbsp;` +  `<br>` + `&nbsp;`
+  document.getElementById("pre-interval-icf-percent").innerHTML = `&nbsp;` +  `<br>` + `&nbsp;`
+  document.getElementById("post-interval-ecf-percent").innerHTML = `&nbsp;` +  `<br>` + `&nbsp;`
+  document.getElementById("post-interval-icf-percent").innerHTML = `&nbsp;` +  `<br>` + `&nbsp;`
+}
+
+
+
+
+
 
 // Convert JSON to CSV
 function convertJSONToCSV(data) {
